@@ -7,11 +7,20 @@
 //
 
 import UIKit
+import QDNavigationBar
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.qd_defaultConfig = QDNavigationBarConfig()
+        self.navigationController?.qd_defaultConfig?.bgColor = UIColor.red
+        let config = self.navigationController?.qd_defaultConfig
+        DispatchQueue.main.asyncAfter(deadline: .now()+2, execute:
+        {
+            self.qd_navConfig?.bgColor = UIColor.yellow
+        })
         // Do any additional setup after loading the view, typically from a nib.
     }
 
