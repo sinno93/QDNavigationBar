@@ -1,0 +1,16 @@
+PODS:
+  - QDNavigationBar (0.1.0)
+
+DEPENDENCIES:
+  - QDNavigationBar (from `../`)
+
+EXTERNAL SOURCES:
+  QDNavigationBar:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  QDNavigationBar: 849d8208bdbd3a0b74470721d67d3cc0c27665d6
+
+PODFILE CHECKSUM: 3206aa773f1e3120d62b7c3ebaa0adf1e73aa980
+
+COCOAPODS: 1.9.1

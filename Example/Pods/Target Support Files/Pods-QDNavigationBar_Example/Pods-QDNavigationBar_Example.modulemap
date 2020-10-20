@@ -1,0 +1,6 @@
+framework module Pods_QDNavigationBar_Example {
+  umbrella header "Pods-QDNavigationBar_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

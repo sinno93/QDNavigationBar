@@ -1,0 +1,6 @@
+framework module QDNavigationBar {
+  umbrella header "QDNavigationBar-umbrella.h"
+
+  export *
+  module * { export * }
+}
