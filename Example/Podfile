@@ -2,7 +2,7 @@ use_frameworks!
 
 target 'QDNavigationBar_Example' do
   pod 'QDNavigationBar', :path => '../'
-
+  pod 'Masonry'
   target 'QDNavigationBar_Tests' do
     inherit! :search_paths
 

@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4172B03D2541F2AE00B3A260 /* DarkModeTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */; };
+		4172B03F2541F2AE00B3A260 /* TempConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0262541F2AE00B3A260 /* TempConfig.swift */; };
+		4172B0402541F2AE00B3A260 /* LargeTitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */; };
+		4172B0412541F2AE00B3A260 /* QDConfigSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0292541F2AE00B3A260 /* QDConfigSwitchView.m */; };
+		4172B0422541F2AE00B3A260 /* QDColorSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172B02A2541F2AE00B3A260 /* QDColorSliderView.m */; };
+		4172B0432541F2AE00B3A260 /* QDColorfulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172B02B2541F2AE00B3A260 /* QDColorfulView.m */; };
+		4172B0442541F2AE00B3A260 /* QDConfigColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172B02C2541F2AE00B3A260 /* QDConfigColorView.m */; };
+		4172B0452541F2AE00B3A260 /* QDConfigEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172B02E2541F2AE00B3A260 /* QDConfigEditorView.m */; };
+		4172B0462541F2AE00B3A260 /* QDColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0302541F2AE00B3A260 /* QDColorPickerController.m */; };
+		4172B0492541F2AE00B3A260 /* SampleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */; };
+		4172B04A2541F2AE00B3A260 /* SearchBarTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */; };
+		4172B04B2541F2AE00B3A260 /* CustomNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B03C2541F2AE00B3A260 /* CustomNavViewController.swift */; };
 		5213B21FE07317858916618B /* Pods_QDNavigationBar_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC5C0562C9E2271BC78B09A /* Pods_QDNavigationBar_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -29,10 +41,29 @@
 
 /* Begin PBXFileReference section */
 		1893C30FEA05EC5AE8D6590D /* Pods-QDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDNavigationBar_Tests.release.xcconfig"; path = "Target Support Files/Pods-QDNavigationBar_Tests/Pods-QDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		1F594A8943B8C7BAA14189CF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		2BED695127CF4FF0B8009443 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		1F594A8943B8C7BAA14189CF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		2BED695127CF4FF0B8009443 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkModeTestViewController.swift; sourceTree = "<group>"; };
+		4172B0242541F2AE00B3A260 /* OC2SwiftBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OC2SwiftBridge.h; sourceTree = "<group>"; };
+		4172B0262541F2AE00B3A260 /* TempConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempConfig.swift; sourceTree = "<group>"; };
+		4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeTitleViewController.swift; sourceTree = "<group>"; };
+		4172B0292541F2AE00B3A260 /* QDConfigSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDConfigSwitchView.m; sourceTree = "<group>"; };
+		4172B02A2541F2AE00B3A260 /* QDColorSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDColorSliderView.m; sourceTree = "<group>"; };
+		4172B02B2541F2AE00B3A260 /* QDColorfulView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDColorfulView.m; sourceTree = "<group>"; };
+		4172B02C2541F2AE00B3A260 /* QDConfigColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDConfigColorView.m; sourceTree = "<group>"; };
+		4172B02D2541F2AE00B3A260 /* QDColorPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDColorPickerController.h; sourceTree = "<group>"; };
+		4172B02E2541F2AE00B3A260 /* QDConfigEditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDConfigEditorView.m; sourceTree = "<group>"; };
+		4172B02F2541F2AE00B3A260 /* QDConfigSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDConfigSwitchView.h; sourceTree = "<group>"; };
+		4172B0302541F2AE00B3A260 /* QDColorPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDColorPickerController.m; sourceTree = "<group>"; };
+		4172B0312541F2AE00B3A260 /* QDColorfulView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDColorfulView.h; sourceTree = "<group>"; };
+		4172B0322541F2AE00B3A260 /* QDConfigColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDConfigColorView.h; sourceTree = "<group>"; };
+		4172B0332541F2AE00B3A260 /* QDColorSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDColorSliderView.h; sourceTree = "<group>"; };
+		4172B0342541F2AE00B3A260 /* QDConfigEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDConfigEditorView.h; sourceTree = "<group>"; };
+		4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleListViewController.swift; sourceTree = "<group>"; };
+		4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarTestViewController.swift; sourceTree = "<group>"; };
+		4172B03C2541F2AE00B3A260 /* CustomNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavViewController.swift; sourceTree = "<group>"; };
 		43FB43C606A49821E09CC0C2 /* Pods-QDNavigationBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDNavigationBar_Example.debug.xcconfig"; path = "Target Support Files/Pods-QDNavigationBar_Example/Pods-QDNavigationBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		4DCBFC0490E5DB963F00976F /* QDNavigationBar.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = QDNavigationBar.podspec; path = ../QDNavigationBar.podspec; sourceTree = "<group>"; };
+		4DCBFC0490E5DB963F00976F /* QDNavigationBar.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QDNavigationBar.podspec; path = ../QDNavigationBar.podspec; sourceTree = "<group>"; };
 		5043ACB47AEA98062B8100D9 /* Pods-QDNavigationBar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDNavigationBar_Tests.debug.xcconfig"; path = "Target Support Files/Pods-QDNavigationBar_Tests/Pods-QDNavigationBar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* QDNavigationBar_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QDNavigationBar_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,6 +100,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4172B0282541F2AE00B3A260 /* QDConfigEditor */ = {
+			isa = PBXGroup;
+			children = (
+				4172B0292541F2AE00B3A260 /* QDConfigSwitchView.m */,
+				4172B02A2541F2AE00B3A260 /* QDColorSliderView.m */,
+				4172B02B2541F2AE00B3A260 /* QDColorfulView.m */,
+				4172B02C2541F2AE00B3A260 /* QDConfigColorView.m */,
+				4172B02D2541F2AE00B3A260 /* QDColorPickerController.h */,
+				4172B02E2541F2AE00B3A260 /* QDConfigEditorView.m */,
+				4172B02F2541F2AE00B3A260 /* QDConfigSwitchView.h */,
+				4172B0302541F2AE00B3A260 /* QDColorPickerController.m */,
+				4172B0312541F2AE00B3A260 /* QDColorfulView.h */,
+				4172B0322541F2AE00B3A260 /* QDConfigColorView.h */,
+				4172B0332541F2AE00B3A260 /* QDColorSliderView.h */,
+				4172B0342541F2AE00B3A260 /* QDConfigEditorView.h */,
+			);
+			path = QDConfigEditor;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +143,14 @@
 		607FACD21AFB9204008FA782 /* Example for QDNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				4172B03C2541F2AE00B3A260 /* CustomNavViewController.swift */,
+				4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */,
+				4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */,
+				4172B0242541F2AE00B3A260 /* OC2SwiftBridge.h */,
+				4172B0282541F2AE00B3A260 /* QDConfigEditor */,
+				4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */,
+				4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */,
+				4172B0262541F2AE00B3A260 /* TempConfig.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -147,7 +205,6 @@
 				5043ACB47AEA98062B8100D9 /* Pods-QDNavigationBar_Tests.debug.xcconfig */,
 				1893C30FEA05EC5AE8D6590D /* Pods-QDNavigationBar_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -227,6 +284,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -269,10 +327,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-QDNavigationBar_Example/Pods-QDNavigationBar_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/QDNavigationBar/QDNavigationBar.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QDNavigationBar.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -331,8 +391,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4172B03D2541F2AE00B3A260 /* DarkModeTestViewController.swift in Sources */,
+				4172B04B2541F2AE00B3A260 /* CustomNavViewController.swift in Sources */,
+				4172B0432541F2AE00B3A260 /* QDColorfulView.m in Sources */,
+				4172B0462541F2AE00B3A260 /* QDColorPickerController.m in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				4172B0402541F2AE00B3A260 /* LargeTitleViewController.swift in Sources */,
+				4172B0492541F2AE00B3A260 /* SampleListViewController.swift in Sources */,
+				4172B04A2541F2AE00B3A260 /* SearchBarTestViewController.swift in Sources */,
+				4172B03F2541F2AE00B3A260 /* TempConfig.swift in Sources */,
+				4172B0412541F2AE00B3A260 /* QDConfigSwitchView.m in Sources */,
+				4172B0442541F2AE00B3A260 /* QDConfigColorView.m in Sources */,
+				4172B0452541F2AE00B3A260 /* QDConfigEditorView.m in Sources */,
+				4172B0422541F2AE00B3A260 /* QDColorSliderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,8 +555,10 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = QDNavigationBar/OC2SwiftBridge.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -498,8 +572,10 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = QDNavigationBar/OC2SwiftBridge.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

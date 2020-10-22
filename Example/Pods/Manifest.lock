@@ -1,16 +1,23 @@
 PODS:
+  - Masonry (1.1.0)
   - QDNavigationBar (0.1.0)
 
 DEPENDENCIES:
+  - Masonry
   - QDNavigationBar (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Masonry
 
 EXTERNAL SOURCES:
   QDNavigationBar:
     :path: "../"
 
 SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   QDNavigationBar: 73e302cf6e6e9f98c12207b7b3c44ed8cf449e33
 
-PODFILE CHECKSUM: 3206aa773f1e3120d62b7c3ebaa0adf1e73aa980
+PODFILE CHECKSUM: e7221991d19db526ccb5e97a06b1c80b96afb6c5
 
 COCOAPODS: 1.9.1

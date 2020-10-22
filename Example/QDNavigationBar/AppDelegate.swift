@@ -1,12 +1,13 @@
 //
 //  AppDelegate.swift
-//  QDNavigationBar
+//  QDCustomNavigationSwift
 //
-//  Created by sinno93 on 10/20/2020.
-//  Copyright (c) 2020 sinno93. All rights reserved.
+//  Created by sinno on 2020/10/19.
+//  Copyright © 2020 CocoaPods. All rights reserved.
 //
 
 import UIKit
+import QDNavigationBar
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+//        let a = QDCustom()
+//        let config = QDNavigationBarConfig()
+//        config.bgColor = UIColor.blue
+//        UINavigationController.qd_globalDefaultConfig = config
         return true
     }
 
