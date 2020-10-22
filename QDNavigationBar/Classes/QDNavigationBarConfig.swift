@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol QDNavigationBarConfigDelegate: class {
-    func qdNavigationBarConfigChanged(config: QDNavigationBarConfig);
-}
-
 /// 配置类
 final public class QDNavigationBarConfig: NSObject {
     
@@ -56,7 +52,6 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     weak var viewController: UIViewController?
-    weak var delegate: QDNavigationBarConfigDelegate?
     
     func refreshIfNeed() {
         if viewController?.qd_navConfig == self {

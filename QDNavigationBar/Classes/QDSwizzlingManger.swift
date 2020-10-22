@@ -8,12 +8,12 @@
 import UIKit
 
 protocol QDSwizzlingProtocol where Self: NSObject {
-    static func Swizzling()
-    static func exchangeMethod(_ selector1: Selector, selector2: Selector);
+    static func qdSwizzling()
+    static func qdExchangeMethod(_ selector1: Selector, selector2: Selector);
 }
 
 extension QDSwizzlingProtocol {
-    static func exchangeMethod(_ selector1:Selector, selector2:Selector) {
+    static func qdExchangeMethod(_ selector1:Selector, selector2:Selector) {
         guard let method1 = class_getInstanceMethod(self, selector1) else {return}
         guard let method2 = class_getInstanceMethod(self, selector2) else {return}
         if (class_addMethod(self, selector1, method_getImplementation(method2), method_getTypeEncoding(method2))) {
@@ -24,15 +24,17 @@ extension QDSwizzlingProtocol {
     }
 }
 
-class QDSwizzlingManger {
+public class QDSwizzlingManger {
     //只会调用一次的方法,实现了交换的类需要在这里执行一下
     private static let doOnce: Any? = {
-        UIViewController.Swizzling()
-        UINavigationController.Swizzling()
+        UIViewController.qdSwizzling()
+        UINavigationController.qdSwizzling()
+        UINavigationBar.qdSwizzling()
         return nil
     }()
     
-    public static func justOne() {
+    public static func runOnce() {
         _ = QDSwizzlingManger.doOnce
     }
 }
+

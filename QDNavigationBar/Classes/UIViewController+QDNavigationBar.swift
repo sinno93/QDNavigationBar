@@ -9,12 +9,11 @@ import Foundation
 
 
 extension UIViewController {
-    static var qd_vdaKey = "qd_viewDidApperaFlag_key"
-    var qd_viewDidApperaFlag: Bool {
+    static var qd_vdaKey = "qd_viewDidAppearFlag_key"
+    var qd_viewDidAppearFlag: Bool {
         get {
-           objc_getAssociatedObject(self, &UIViewController.qd_vdaKey) as? Bool ?? false
+            objc_getAssociatedObject(self, &UIViewController.qd_vdaKey) as? Bool ?? false
         }
-        
         set {
             objc_setAssociatedObject(self, &UIViewController.qd_vdaKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -51,31 +50,29 @@ extension UIViewController {
         if config.viewController != self {
             return
         }
+        // vc didAppera后才刷新，避免重复刷新
+        // 比如在push过程中，viewDidLoad方法里，修改了navConfig的hidden属性，如果不加此判断直接刷新的话导航栏会直接消失；修改其他属性也是同理。
+        if !self.qd_viewDidAppearFlag {
+            return
+        }
         self.navigationController?.qd_navConfigChanged(vc: self)
     }
 }
 
 extension UIViewController: QDSwizzlingProtocol {
-    @objc class func Swizzling() {
-        exchangeMethod(#selector(viewDidLoad), selector2: #selector(hzj_viewDidLoad))
-        exchangeMethod(#selector(viewDidAppear(_:)), selector2: #selector(qd_viewDidAppear(animated:)))
-        exchangeMethod(#selector(viewDidDisappear(_:)), selector2: #selector(qd_viewDidDisappear(animated:)))
-    }
-    
-    @objc func hzj_viewDidLoad() {
-        print("viewdidload1:\(self)")
-        hzj_viewDidLoad()
+    @objc class func qdSwizzling() {
+        qdExchangeMethod(#selector(viewDidAppear(_:)), selector2: #selector(qd_viewDidAppear(animated:)))
+        qdExchangeMethod(#selector(viewDidDisappear(_:)), selector2: #selector(qd_viewDidDisappear(animated:)))
     }
     
     
     @objc func qd_viewDidAppear(animated: Bool) {
-        qd_viewDidApperaFlag = true
+        qd_viewDidAppearFlag = true
         qd_viewDidAppear(animated: animated)
     }
     
     @objc func qd_viewDidDisappear(animated: Bool) {
-        qd_viewDidApperaFlag = false
+        qd_viewDidAppearFlag = false
         qd_viewDidDisappear(animated: animated)
     }
 }
-
