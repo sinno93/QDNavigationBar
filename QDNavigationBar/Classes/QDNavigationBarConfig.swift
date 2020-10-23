@@ -11,7 +11,7 @@ import UIKit
 final public class QDNavigationBarConfig: NSObject {
     
     /// 导航栏是否显示
-    @objc public var barHidden: Bool = false {
+    public var barHidden: Bool = false {
         didSet {
             if barHidden != oldValue {
                 refreshIfNeed()
@@ -19,7 +19,7 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 导航栏背景颜色
-    @objc public var bgColor: UIColor = UIColor.white {
+    public var bgColor: UIColor = UIColor.white {
         didSet {
             if !bgColor.isEqual(oldValue) {
                 refreshIfNeed()
@@ -27,7 +27,7 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 是否有半透明效果
-    @objc public var translucent: Bool = true {
+    public var translucent: Bool = false {
         didSet {
             if translucent != oldValue {
                 refreshIfNeed()
@@ -35,7 +35,7 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 线条
-    @objc public var shadowLineColor: UIColor = UIColor.black {
+    public var shadowLineColor: UIColor = UIColor.black {
         didSet {
             if !shadowLineColor.isEqual(oldValue) {
                 refreshIfNeed()
@@ -44,7 +44,7 @@ final public class QDNavigationBarConfig: NSObject {
     }
     /// 否开启导航栏事件穿透，为YES时，点击导航栏的事件会透到下层视图 默认为NO
     /// 注意，如果导航栏上有标题、返回按钮等时，点击这些控件的事件不会被穿透
-    @objc public var eventThrough: Bool = false {
+    public var eventThrough: Bool = false {
         didSet {
             if eventThrough != oldValue {
                 refreshIfNeed()
