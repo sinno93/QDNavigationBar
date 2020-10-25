@@ -32,6 +32,13 @@ final public class QDNavigationBarConfig: NSObject {
             }
         }
     }
+    public var bgImage: UIImage? = nil {
+        didSet {
+            if bgImage != oldValue{
+                refreshIfNeed()
+            }
+        }
+    }
     /// 是否有半透明效果
     public var translucent: Bool = false {
         didSet {
@@ -100,6 +107,16 @@ extension QDNavigationBarConfig {
         }
         if translucent != config.translucent {
             return false
+        }
+        
+        if (bgImage != nil && config.bgImage == nil) || (bgImage == nil && config.bgImage != nil) {
+            return false
+        }
+        
+        if let bgImage = bgImage, let image = config.bgImage {
+            if !bgImage.isEqual(image) {
+                return false
+            }
         }
         return bgColor.isSimilar(color: config.bgColor, tolerance: 0.1);
     }

@@ -19,7 +19,13 @@ class QDCustomNavFakeView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+    lazy var imageView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
+        return view
+    }()
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.configSubviews()
@@ -27,23 +33,23 @@ class QDCustomNavFakeView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.configSubviews()
     }
     
     public func configSubviews() {
         
         self.addSubview(self.bottomLineView)
+        self.addSubview(self.imageView)
         self.addSubview(self.effectView)
-        
-        self.bottomLineView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.bottomLineView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
         let onePixel = 1.0/UIScreen.main.scale
-        self.bottomLineView.heightAnchor.constraint(equalToConstant: onePixel).isActive = true
-        self.bottomLineView.topAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
-        self.effectView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.effectView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        self.effectView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.effectView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            self.bottomLineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.bottomLineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.bottomLineView.heightAnchor.constraint(equalToConstant: onePixel),
+            self.bottomLineView.topAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
+        self.imageView.qd_fullWithView(view: self)
+        self.effectView.qd_fullWithView(view: self)
     }
 }

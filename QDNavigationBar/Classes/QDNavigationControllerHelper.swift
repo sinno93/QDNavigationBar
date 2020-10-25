@@ -310,9 +310,10 @@ extension UIView {
 
 extension QDCustomNavFakeView {
     func configView(_ config: QDNavigationBarConfig) {
-        self.backgroundColor = config.bgColor
+        self.imageView.backgroundColor = config.bgColor
         self.bottomLineView.backgroundColor = config.shadowLineColor
         self.effectView.alpha = config.translucent ? 1 : 0
+        self.imageView.image = config.bgImage
     }
 }
 
