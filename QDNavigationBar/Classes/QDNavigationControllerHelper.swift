@@ -31,7 +31,6 @@ class QDNavigationControllerHelper: NSObject {
         super.init()
     }
     override func responds(to aSelector: Selector!) -> Bool {
-        print("respondsTO:\(aSelector!)")
         if type(of: self).instancesRespond(to: aSelector) {
             return true
         }
@@ -93,11 +92,20 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
                 return
             }
             // 判断是否需要动画
-            if (self.shouldAnimate(fromConfig: fromConfig, fromVC: fromVC, toConfig: toConfig, toVC: toVC)) {
-                // 动画
-                self.divisionAnimate(from: fromView, fromConfig: fromConfig, to: toView, toConfig: toConfig, toRemoveViews: &toRemoveViews)
+            var operation: UINavigationController.Operation!
+            if toView.isViewHigherThan(view: fromView) {
+                operation = .push
             } else {
+                operation = .pop
+            }
+            let style = self.trisationStyle(fromConfig: fromConfig, fromVC: fromVC, toConfig: toConfig, toVC: toVC, operation: operation)
+            switch style {
+            case .none:
                 self.bgView.configView(toConfig)
+            case .separate:
+                self.separateAnimate(from: fromView, fromConfig: fromConfig, to: toView, toConfig: toConfig, toRemoveViews: &toRemoveViews)
+            case .fade:
+                self.fadeAnimate(from: fromView, fromConfig: fromConfig, to: toView, toConfig: toConfig, toRemoveViews: &toRemoveViews)
             }
         }, completion: { (context) in
             self.isTransitioning = false
@@ -116,39 +124,34 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             
         })
     }
-
+    
     
     func configWith(vc: UIViewController) -> QDNavigationBarConfig {
         return vc.qd_navConfig ?? self.nav.qd_defaultConfig!
     }
     
-    func shouldAnimate(fromConfig: QDNavigationBarConfig, fromVC: UIViewController, toConfig: QDNavigationBarConfig, toVC: UIViewController) -> Bool {
-        // 配置不相似， 则需要动画
-        if !fromConfig.isSimilar(config: toConfig) {
-            return true
-        }
-        // 配置相似,则默认不需要动画，但是则还有以下情况需要处理:
-        // 1. 大标题模式下 除fromVC和toVC都是never模式外，需要动画
-        // 2. fromVC或者toVC导航栏有搜索框，需要动画
-        
+    func trisationStyle(fromConfig: QDNavigationBarConfig, fromVC: UIViewController, toConfig: QDNavigationBarConfig, toVC: UIViewController, operation: UINavigationController.Operation) -> QDNavigationBarConfig.TransitionStyle {
         if #available(iOS 11.0, *) {
             if self.nav.navigationBar.prefersLargeTitles {
-                let isFromVCNever = fromVC.navigationItem.largeTitleDisplayMode == .never
-                let isToVCNever = toVC.navigationItem.largeTitleDisplayMode == .never
-                if !(isFromVCNever && isToVCNever) {
-                    return true
+                if fromVC.navigationItem.largeTitleDisplayMode != .never || toVC.navigationItem.largeTitleDisplayMode !=  .never {
+                    return .separate
                 }
             }
-            if toVC.navigationItem.searchController != nil || fromVC.navigationItem.searchController != nil {
-                return true
+            if fromVC.navigationItem.searchController != nil || toVC.navigationItem.searchController != nil {
+                return .separate
             }
-        } else {
-            
-            // Fallback on earlier versions
         }
-        return false
+        // 配置相似，则不需要动画
+        if fromConfig.isSimilar(config: toConfig) {
+            return .none
+        }
+        // 配置不相似
+        if operation == .push {
+            return toConfig.transitionStyle
+        } else {
+            return fromConfig.transitionStyle
+        }
     }
-    
     
     func configBgViewIfNeed() {
         
@@ -171,7 +174,48 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         }
     }
     
-    func divisionAnimate(from fromView: UIView, fromConfig: QDNavigationBarConfig, to toView:UIView, toConfig: QDNavigationBarConfig, toRemoveViews: inout [UIView]) {
+    func fadeAnimate(from fromView: UIView, fromConfig: QDNavigationBarConfig, to toView:UIView, toConfig: QDNavigationBarConfig, toRemoveViews: inout [UIView]) {
+        // 隐藏bgView
+        self.bgView.isHidden = true
+        let fromBgView = QDCustomNavFakeView()
+        let toBgView = QDCustomNavFakeView()
+        fromBgView.translatesAutoresizingMaskIntoConstraints = false
+        toBgView.translatesAutoresizingMaskIntoConstraints = false
+        if toView.isViewHigherThan(view: fromView) {
+            self.customNavContainerView.addSubview(fromBgView)
+            self.customNavContainerView.addSubview(toBgView)
+            
+        } else {
+            self.customNavContainerView.addSubview(toBgView)
+            self.customNavContainerView.addSubview(fromBgView)
+        }
+        UIView.performWithoutAnimation {
+            fromBgView.leadingAnchor.constraint(equalTo: self.customNavContainerView.leadingAnchor).isActive = true
+            fromBgView.trailingAnchor.constraint(equalTo: self.customNavContainerView.trailingAnchor).isActive = true
+            fromBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor).isActive = true
+            fromBgView.heightAnchor.constraint(equalToConstant: customNavContainerView.frame.size.height).isActive = true
+            fromBgView.configView(fromConfig)
+            
+            toBgView.leadingAnchor.constraint(equalTo: customNavContainerView.leadingAnchor).isActive = true
+            toBgView.trailingAnchor.constraint(equalTo: customNavContainerView.trailingAnchor).isActive = true
+            toBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor).isActive = true
+            toBgView.bottomAnchor.constraint(equalTo: customNavContainerView.bottomAnchor).isActive = true
+            toBgView.configView(toConfig)
+            customNavContainerView.layoutIfNeeded()
+        }
+        UIView.performWithoutAnimation {
+            toBgView.alpha = 0
+            fromBgView.alpha = 1
+        }
+        toBgView.alpha = 1
+        fromBgView.alpha = 0
+        fromBgView.backgroundColor = UIColor.white
+        
+        toRemoveViews.append(toBgView)
+        toRemoveViews.append(fromBgView)
+    }
+    
+    func separateAnimate(from fromView: UIView, fromConfig: QDNavigationBarConfig, to toView:UIView, toConfig: QDNavigationBarConfig, toRemoveViews: inout [UIView]) {
         // 隐藏bgView
         self.bgView.isHidden = true
         let fromBgView = QDCustomNavFakeView()
@@ -202,9 +246,6 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             toBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor).isActive = true
             toBgView.bottomAnchor.constraint(equalTo: customNavContainerView.bottomAnchor).isActive = true
             toBgView.configView(toConfig)
-            toView.layoutIfNeeded()
-            print("\(toView)")
-            print("\(toBgView)")
         }
         toRemoveViews.append(toBgView)
         toRemoveViews.append(fromBgView)
@@ -230,6 +271,40 @@ extension UIView {
         self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true;
         self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    // 获取最近公共父视图
+    func closetCommonSuperView(view: UIView) -> UIView? {
+        if self.isDescendant(of: view) {
+            return view
+        }
+        if view.isDescendant(of: self) {
+            return self
+        }
+//        var view:UIView? = nil
+        var selfSuperView = self.superview
+        while selfSuperView != nil {
+            if view.isDescendant(of: selfSuperView!) {
+                return selfSuperView
+            } else {
+                selfSuperView = selfSuperView?.superview
+            }
+        }
+        return nil
+    }
+    // self是否在view上层
+    func isViewHigherThan(view: UIView) -> Bool {
+        guard let commonview = self.closetCommonSuperView(view: view) else {
+            return false
+        }
+//        var subviews = commonview.subviews
+        for view in commonview.subviews.reversed() {
+            if self.isDescendant(of: view) {
+                return true
+            } else if view.isDescendant(of: view) {
+                return false
+            }
+        }
+        return false
     }
 }
 

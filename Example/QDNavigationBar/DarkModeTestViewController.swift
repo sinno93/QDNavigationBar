@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DarkModeTestViewController: UIViewController {
+class DarkModeTestViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

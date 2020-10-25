@@ -270,10 +270,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = SF92GY4C42;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = SF92GY4C42;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -550,6 +552,7 @@
 			baseConfigurationReference = 43FB43C606A49821E09CC0C2 /* Pods-QDNavigationBar_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SF92GY4C42;
 				INFOPLIST_FILE = QDNavigationBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -567,6 +570,7 @@
 			baseConfigurationReference = C9C9FCEDE917EF0E9AE96964 /* Pods-QDNavigationBar_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SF92GY4C42;
 				INFOPLIST_FILE = QDNavigationBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -583,6 +587,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5043ACB47AEA98062B8100D9 /* Pods-QDNavigationBar_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = SF92GY4C42;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -605,6 +610,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1893C30FEA05EC5AE8D6590D /* Pods-QDNavigationBar_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = SF92GY4C42;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",

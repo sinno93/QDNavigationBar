@@ -10,6 +10,12 @@ import UIKit
 /// 配置类
 final public class QDNavigationBarConfig: NSObject {
     
+    /// 导航栏切换动画样式
+    public enum TransitionStyle {
+        case none // 没有动画
+        case separate // 分离
+        case fade // 淡入淡出
+    }
     /// 导航栏是否显示
     public var barHidden: Bool = false {
         didSet {
@@ -51,6 +57,14 @@ final public class QDNavigationBarConfig: NSObject {
             }
         }
     }
+    
+    /// 两个视图控制器切换(push/pop)时的样式
+    /// 具体切换样式遵循以下规则:
+    /// 1.当前后两个VC的barConfig配置相同(相同的定义见isSimilar(config:))时，不会有切换动画
+    /// 2.当前后两个VC的barConfig配置不同时，切换样式属性在Push时取toVC的transitionStyle,在Pop时取fromVC的transitionStyle
+    /// 3.当前后两个VC任意一个为large title模式，或者任意一个的navigationItem.searchController有值，则一定有动画且为.separate
+    public var transitionStyle: TransitionStyle = .separate
+    
     weak var viewController: UIViewController?
     
     func refreshIfNeed() {
