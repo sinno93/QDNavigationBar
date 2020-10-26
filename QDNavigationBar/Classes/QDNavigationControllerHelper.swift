@@ -314,6 +314,7 @@ extension QDCustomNavFakeView {
         self.bottomLineView.backgroundColor = config.shadowLineColor
         self.effectView.alpha = config.translucent ? 1 : 0
         self.imageView.image = config.bgImage
+        self.alpha = config.alpha
     }
 }
 

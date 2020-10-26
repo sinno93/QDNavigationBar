@@ -46,6 +46,7 @@ class ViewController: UIViewController {
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.alwaysBounceVertical = true
+        view.delegate = self
         return view
     }()
     lazy var nextConfig: QDNavigationBarConfig = {
@@ -156,5 +157,24 @@ class ViewController: UIViewController {
             make?.bottom.equalTo()(containerView)?.offset()(-800)
         }
         
+    }
+}
+
+extension ViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        var alpha:CGFloat = 0
+        switch offsetY {
+        case  _ where offsetY < -88:
+            alpha = 0
+        case -88...100:
+            alpha = (88 + offsetY)/188.0
+        case _ where offsetY > 100:
+            alpha = 1
+        default:
+            alpha = 1
+        }
+        self.qd_navConfig?.alpha = alpha
+        print(offsetY)
     }
 }

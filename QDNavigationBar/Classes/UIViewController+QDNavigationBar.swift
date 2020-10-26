@@ -69,6 +69,7 @@ extension UIViewController: QDSwizzlingProtocol {
     @objc func qd_viewDidAppear(animated: Bool) {
         qd_viewDidAppearFlag = true
         qd_viewDidAppear(animated: animated)
+        self.qd_updateNavIfNeed()
     }
     
     @objc func qd_viewDidDisappear(animated: Bool) {

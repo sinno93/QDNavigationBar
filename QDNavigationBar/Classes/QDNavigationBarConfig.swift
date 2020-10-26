@@ -39,6 +39,19 @@ final public class QDNavigationBarConfig: NSObject {
             }
         }
     }
+    public var alpha: CGFloat = 1.0 {
+        didSet {
+            assert(alpha>=0 && alpha<=1, "alpha必须在[0,1]区间")
+            var targetAlpha: CGFloat = CGFloat.maximum(0, alpha)
+            targetAlpha = CGFloat.minimum(1, alpha)
+            if targetAlpha != alpha {
+                alpha = targetAlpha
+            }
+            if oldValue != alpha {
+                refreshIfNeed()
+            }
+        }
+    }
     /// 是否有半透明效果
     public var translucent: Bool = false {
         didSet {
@@ -108,7 +121,9 @@ extension QDNavigationBarConfig {
         if translucent != config.translucent {
             return false
         }
-        
+        if abs(alpha - config.alpha) > 0.01 {
+            return false
+        }
         if (bgImage != nil && config.bgImage == nil) || (bgImage == nil && config.bgImage != nil) {
             return false
         }
