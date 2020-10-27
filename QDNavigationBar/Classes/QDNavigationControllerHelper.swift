@@ -8,7 +8,7 @@
 import UIKit
 
 class QDNavigationControllerHelper: NSObject {
-    var nav: UINavigationController
+    weak var nav: UINavigationController?
     weak var navRealDelegate: UINavigationControllerDelegate?
     var isTransitioning = false
     lazy var customNavContainerView: UIView = {
@@ -50,8 +50,8 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             return
         }
         self.configBgViewIfNeed()
-        if self.nav.isNavigationBarHidden != config.barHidden {
-            self.nav.setNavigationBarHidden(config.barHidden, animated: animated)
+        if navigationController.isNavigationBarHidden != config.barHidden {
+            navigationController.setNavigationBarHidden(config.barHidden, animated: animated)
         }
         self.bgView.isHidden = false
         if navigationController.transitionCoordinator == nil {
@@ -122,13 +122,13 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             }
             // 处理present一个导航控制器+VC时，targetVC=UINavigationController的情况
             var targetConfig: QDNavigationBarConfig? = targetVC.qd_navConfig
-            if !self.nav.viewControllers.contains(targetVC) {
-                targetConfig = self.nav.topViewController?.qd_navConfig
+            if !navigationController.viewControllers.contains(targetVC) {
+                targetConfig = navigationController.topViewController?.qd_navConfig
             }
             if let targetConfig = targetConfig {
                 self.navBarConfigView(targetConfig)
-                if self.nav.isNavigationBarHidden != targetConfig.barHidden {
-                    self.nav.setNavigationBarHidden(targetConfig.barHidden, animated: false)
+                if navigationController.isNavigationBarHidden != targetConfig.barHidden {
+                    navigationController.setNavigationBarHidden(targetConfig.barHidden, animated: false)
                 }
             }
         })
@@ -136,8 +136,11 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
 
     
     func trisationStyle(fromConfig: QDNavigationBarConfig, fromVC: UIViewController, toConfig: QDNavigationBarConfig, toVC: UIViewController, operation: UINavigationController.Operation) -> QDNavigationBarConfig.TransitionStyle {
+        guard let nav = self.nav else {
+            return .none
+        }
         if #available(iOS 11.0, *) {
-            if self.nav.navigationBar.prefersLargeTitles {
+            if nav.navigationBar.prefersLargeTitles {
                 if fromVC.navigationItem.largeTitleDisplayMode != .never || toVC.navigationItem.largeTitleDisplayMode !=  .never {
                     return .separate
                 }
@@ -162,7 +165,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         
         if self.customNavContainerView.superview == nil {
             let containView = self.customNavContainerView
-            guard let containSuperView = self.nav.navigationBar.subviews.first else {
+            guard let containSuperView = self.nav?.navigationBar.subviews.first else {
                 return
             }
             containSuperView.addSubview(containView)
@@ -170,12 +173,12 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
                     containView.leadingAnchor.constraint(equalTo: containSuperView.leadingAnchor),
                     containView.trailingAnchor.constraint(equalTo: containSuperView.trailingAnchor),
                     containView.topAnchor.constraint(equalTo: containSuperView.topAnchor),
-                    containView.bottomAnchor.constraint(equalTo: self.nav.navigationBar.bottomAnchor),
+                    containView.bottomAnchor.constraint(equalTo: self.nav!.navigationBar.bottomAnchor),
             ])
             
-            self.nav.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.nav.navigationBar.shadowImage = UIImage()
-            self.nav.navigationBar.isTranslucent = true
+            self.nav?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            self.nav?.navigationBar.shadowImage = UIImage()
+            self.nav?.navigationBar.isTranslucent = true
         }
     }
     
@@ -256,13 +259,13 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         toRemoveViews.append(fromBgView)
     }
     func navConfigChanged(vc: UIViewController) {
-        guard let config = vc.qd_navConfig else {
+        guard let config = vc.qd_navConfig, let nav = self.nav else {
             return
         }
-        if vc == self.nav.topViewController && !self.isTransitioning {
+        if vc == nav.topViewController && !self.isTransitioning {
             self.navBarConfigView(config)
-            if self.nav.isNavigationBarHidden != config.barHidden {
-                self.nav.setNavigationBarHidden(config.barHidden, animated: false)
+            if nav.isNavigationBarHidden != config.barHidden {
+                nav.setNavigationBarHidden(config.barHidden, animated: false)
             }
         }
     }
@@ -315,7 +318,7 @@ extension UIView {
 extension QDNavigationControllerHelper {
     func navBarConfigView(_ config: QDNavigationBarConfig) {
         self.bgView.configView(config)
-        self.nav.navigationBar.qd_eventThrough = config.eventThrough
+        self.nav?.navigationBar.qd_eventThrough = config.eventThrough
     }
 }
 
