@@ -44,7 +44,7 @@ extension UIViewController {
     }
     // 更新配置
     func qd_updateNavIfNeed() {
-        guard let config = self.qd_navConfig else {
+        guard let config = self.qd_navConfig, let _ = self.navigationController else {
             return
         }
         if config.viewController != self {

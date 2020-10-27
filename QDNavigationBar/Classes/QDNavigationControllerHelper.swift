@@ -46,27 +46,31 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         // 传递事件给真实代理
         self.navRealDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
+        guard let config = viewController.qd_navConfig else {
+            return
+        }
         self.configBgViewIfNeed()
-        let config = self.configWith(vc: viewController)
         if self.nav.isNavigationBarHidden != config.barHidden {
             self.nav.setNavigationBarHidden(config.barHidden, animated: animated)
         }
         self.bgView.isHidden = false
         if navigationController.transitionCoordinator == nil {
             // 配置
-            navigationController.navigationBar.qd_eventThrough = config.eventThrough
-            self.bgView.configView(config)
+            self.navBarConfigView(config)
             return
+        } else {
+            if !config.barHidden {
+                self.navBarConfigView(config)
+            }
         }
-        self.bgView.configView(config)
         self.isTransitioning = true
         var toRemoveViews:[UIView] = []
         navigationController.transitionCoordinator?.animate(alongsideTransition: { (context) in
-            guard let fromVC = context.viewController(forKey: .from), let toVC = context.viewController(forKey: .to) else {
+            // present一个导航控制器+VC时，toVC!=viewController
+            guard let fromVC = context.viewController(forKey: .from), let toVC = context.viewController(forKey: .to), toVC == viewController else {
                 return
             }
-            let fromConfig = self.configWith(vc: fromVC)
-            let toConfig = self.configWith(vc: toVC)
+            guard let fromConfig = fromVC.qd_navConfig, let toConfig = toVC.qd_navConfig else {return}
             // 将要跳转的页面隐藏导航栏， 则不需要过渡处理
             if toConfig.barHidden {
                 return
@@ -74,7 +78,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             // 当前页面隐藏导航栏，则直接切换 不需要过渡
             if fromConfig.barHidden {
                 UIView.performWithoutAnimation {
-                    self.bgView.configView(toConfig)
+                    self.navBarConfigView(toConfig)
                 }
                 return;
             }
@@ -87,7 +91,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
                 // 在iOS11上 第一次push时toView不在containerView上
                 // 这里为避免问题(添加约束闪退)，在这种情况下直接不需要动画
                 UIView.performWithoutAnimation {
-                    self.bgView.configView(toConfig)
+                    self.navBarConfigView(toConfig)
                 }
                 return
             }
@@ -101,7 +105,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             let style = self.trisationStyle(fromConfig: fromConfig, fromVC: fromVC, toConfig: toConfig, toVC: toVC, operation: operation)
             switch style {
             case .none:
-                self.bgView.configView(toConfig)
+                self.navBarConfigView(toConfig)
             case .separate:
                 self.separateAnimate(from: fromView, fromConfig: fromConfig, to: toView, toConfig: toConfig, toRemoveViews: &toRemoveViews)
             case .fade:
@@ -113,22 +117,23 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
                 view.removeFromSuperview()
             }
             self.bgView.isHidden = false
-            if let targetVC = context.viewController(forKey: context.isCancelled ? .from : .to) {
-                let targetConfig = self.configWith(vc: targetVC)
-                navigationController.navigationBar.qd_eventThrough = targetConfig.eventThrough
-                self.bgView.configView(targetConfig)
+            guard let targetVC = context.viewController(forKey: context.isCancelled ? .from : .to) else {
+                return
+            }
+            // 处理present一个导航控制器+VC时，targetVC=UINavigationController的情况
+            var targetConfig: QDNavigationBarConfig? = targetVC.qd_navConfig
+            if !self.nav.viewControllers.contains(targetVC) {
+                targetConfig = self.nav.topViewController?.qd_navConfig
+            }
+            if let targetConfig = targetConfig {
+                self.navBarConfigView(targetConfig)
                 if self.nav.isNavigationBarHidden != targetConfig.barHidden {
                     self.nav.setNavigationBarHidden(targetConfig.barHidden, animated: false)
                 }
             }
-            
         })
     }
-    
-    
-    func configWith(vc: UIViewController) -> QDNavigationBarConfig {
-        return vc.qd_navConfig ?? self.nav.qd_defaultConfig!
-    }
+
     
     func trisationStyle(fromConfig: QDNavigationBarConfig, fromVC: UIViewController, toConfig: QDNavigationBarConfig, toVC: UIViewController, operation: UINavigationController.Operation) -> QDNavigationBarConfig.TransitionStyle {
         if #available(iOS 11.0, *) {
@@ -255,8 +260,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             return
         }
         if vc == self.nav.topViewController && !self.isTransitioning {
-            self.nav.navigationBar.qd_eventThrough = config.eventThrough
-            self.bgView.configView(config)
+            self.navBarConfigView(config)
             if self.nav.isNavigationBarHidden != config.barHidden {
                 self.nav.setNavigationBarHidden(config.barHidden, animated: false)
             }
@@ -305,6 +309,13 @@ extension UIView {
             }
         }
         return false
+    }
+}
+
+extension QDNavigationControllerHelper {
+    func navBarConfigView(_ config: QDNavigationBarConfig) {
+        self.bgView.configView(config)
+        self.nav.navigationBar.qd_eventThrough = config.eventThrough
     }
 }
 

@@ -78,16 +78,16 @@ class ViewController: UIViewController {
     
     ///
     @objc func pushButtonClick(button:UIButton) {
-        let vc = ViewController()
-        vc.qd_navConfig = self.nextConfig
-        navigationController?.pushViewController(vc, animated: true)
-        vc.hidesBottomBarWhenPushed = true
-        return;
+//        let vc = ViewController()
+//        vc.qd_navConfig = self.nextConfig
+//        vc.hidesBottomBarWhenPushed = true
+//        navigationController?.pushViewController(vc, animated: true)
+//        return;
         let nav = UINavigationController(rootViewController: LargeTitleViewController())
 //        nav.modalPresentationStyle = .fullScreen
         nav.qd_defaultConfig = QDNavigationBarConfig()
         nav.qd_defaultConfig?.bgColor = UIColor.yellow
-        self.present(nav, animated: true, completion: nil)
+        self.present(nav, animated: false, completion: nil)
     }
     
     func configSubviews() {
@@ -174,7 +174,8 @@ extension ViewController: UIScrollViewDelegate {
         default:
             alpha = 1
         }
-        self.qd_navConfig?.alpha = alpha
+//        self.qd_navConfig?.alpha = alpha
+
         print(offsetY)
     }
 }
