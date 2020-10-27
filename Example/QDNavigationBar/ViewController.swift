@@ -54,8 +54,7 @@ class ViewController: UIViewController {
             let nextConfig = config.copy() as! QDNavigationBarConfig
             nextConfig.bgColor = UIColor.red
             nextConfig.eventThrough = true
-//            nextConfig.transitionStyle = .fade
-            nextConfig.bgImage = UIImage(named: "navbar-bg-1")
+            nextConfig.transitionStyle = .fade
             return nextConfig
         } else {
             return QDNavigationBarConfig()
@@ -78,16 +77,16 @@ class ViewController: UIViewController {
     
     ///
     @objc func pushButtonClick(button:UIButton) {
-//        let vc = ViewController()
-//        vc.qd_navConfig = self.nextConfig
-//        vc.hidesBottomBarWhenPushed = true
-//        navigationController?.pushViewController(vc, animated: true)
-//        return;
-        let nav = UINavigationController(rootViewController: LargeTitleViewController())
+        let vc = ViewController()
+        vc.qd_navConfig = self.nextConfig
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+        return;
+        let nav = UINavigationController(rootViewController: ViewController())
 //        nav.modalPresentationStyle = .fullScreen
         nav.qd_defaultConfig = QDNavigationBarConfig()
         nav.qd_defaultConfig?.bgColor = UIColor.yellow
-        self.present(nav, animated: false, completion: nil)
+        self.present(nav, animated: true, completion: nil)
     }
     
     func configSubviews() {

@@ -85,10 +85,10 @@
 		071EEE0A3CE36E163E09EA7F7915F1DE /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MASDebugAdditions.m"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
 		0B3ACE74B6A1913A4FE705012D5A1FE7 /* UIViewController+QDNavigationBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewController+QDNavigationBar.swift"; path = "QDNavigationBar/Classes/UIViewController+QDNavigationBar.swift"; sourceTree = "<group>"; };
 		0BC2ADF64CC288B5F847D5E26DCCECB4 /* Pods-QDNavigationBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-QDNavigationBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		17A6B4D642A238136D4D57F70706D997 /* QDNavigationBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = QDNavigationBar.framework; path = QDNavigationBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17A6B4D642A238136D4D57F70706D997 /* QDNavigationBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QDNavigationBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AC15BFD95DD9B915DB6D871019DAC03 /* QDNavigationBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QDNavigationBar.release.xcconfig; sourceTree = "<group>"; };
-		1D08580706A978455737A3DA8D865EB1 /* QDNavigationBar.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = QDNavigationBar.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		1FFED36A657123030ABB700256D73F15 /* Masonry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Masonry.framework; path = Masonry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D08580706A978455737A3DA8D865EB1 /* QDNavigationBar.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = QDNavigationBar.podspec; sourceTree = "<group>"; tabWidth = 2; };
+		1FFED36A657123030ABB700256D73F15 /* Masonry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Masonry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B3E4053A8761DD843E44C7C8273A84 /* QDNavigationBar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QDNavigationBar-prefix.pch"; sourceTree = "<group>"; };
 		27E12E3D2779B5C7A8301A94F715DB4C /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		295FB8292A7229AB1CC2C931ED6F18B3 /* QDNavigationBar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QDNavigationBar-dummy.m"; sourceTree = "<group>"; };
@@ -105,13 +105,13 @@
 		48DCA9657FB3CBD7B2E98E5C06D9BFAF /* Pods-QDNavigationBar_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-QDNavigationBar_Example-frameworks.sh"; sourceTree = "<group>"; };
 		4AD89987EC7EAE20D7034EEF9935E7CC /* MASCompositeConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASCompositeConstraint.h; path = Masonry/MASCompositeConstraint.h; sourceTree = "<group>"; };
 		55960467D1B758EC688A18A171012E78 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ViewController+MASAdditions.h"; path = "Masonry/ViewController+MASAdditions.h"; sourceTree = "<group>"; };
-		59C50E259FE14DB3639D713E23E78C39 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		59C50E259FE14DB3639D713E23E78C39 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5C69FAE297AEEFA62ED5F9587553EE0A /* Pods-QDNavigationBar_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-QDNavigationBar_Example.modulemap"; sourceTree = "<group>"; };
 		5F8B9E545A0A0F4BD92A3545D593DBFE /* Pods-QDNavigationBar_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-QDNavigationBar_Tests-Info.plist"; sourceTree = "<group>"; };
 		607937A372913475EE7EAE532760ACD4 /* MASUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Masonry/MASUtilities.h; sourceTree = "<group>"; };
 		664003B46CB0DC2D9EB9C460BEE84868 /* Pods-QDNavigationBar_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-QDNavigationBar_Example-umbrella.h"; sourceTree = "<group>"; };
 		68B0C66BEAA4E85598936FBFE6436F4E /* QDNavigationBar-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "QDNavigationBar-Info.plist"; sourceTree = "<group>"; };
-		6A6C0918FA68CD4980296876DB99E234 /* Pods_QDNavigationBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_QDNavigationBar_Example.framework; path = "Pods-QDNavigationBar_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A6C0918FA68CD4980296876DB99E234 /* Pods_QDNavigationBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QDNavigationBar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF8069504999FB8BF5FA1529175AA74 /* Masonry-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-umbrella.h"; sourceTree = "<group>"; };
 		6E17443EA85E103F4DD0553AB6BB942A /* MASLayoutConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASLayoutConstraint.m; path = Masonry/MASLayoutConstraint.m; sourceTree = "<group>"; };
 		6FF052FB15D6F0B8512ADEC7993E75CB /* Pods-QDNavigationBar_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-QDNavigationBar_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -126,10 +126,10 @@
 		8AEEBD88282BA13360CAA867D8465C75 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Masonry/NSArray+MASAdditions.m"; sourceTree = "<group>"; };
 		9073C3B74BC30C55B4EB5B2A596EAD72 /* MASConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraint.m; path = Masonry/MASConstraint.m; sourceTree = "<group>"; };
 		9286C51A2F3A73FA4F74E2209293A4D8 /* UINavigationBar+QDCustom.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UINavigationBar+QDCustom.swift"; path = "QDNavigationBar/Classes/UINavigationBar+QDCustom.swift"; sourceTree = "<group>"; };
-		9333A06074219E9C3FB1CDB6C9E04DE7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		9333A06074219E9C3FB1CDB6C9E04DE7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		975BC2EC9107895E04064B222C4FA1F4 /* Pods-QDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-QDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		986681471D23BAEF7C232F2720882D8E /* Pods-QDNavigationBar_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-QDNavigationBar_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A78D3443F105E00FC21FE5A357C8F716 /* MASViewAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
 		A85AE9E36F67A1B513CB8DA940771B4F /* Masonry-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Masonry-dummy.m"; sourceTree = "<group>"; };
 		A8BCCE8C6C17F326AFEDF4357C62ADAF /* MASViewAttribute.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewAttribute.m; path = Masonry/MASViewAttribute.m; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 		C6A2DFA795EB486F136132AD65E1A012 /* UINavigationController+QDNavigationBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UINavigationController+QDNavigationBar.swift"; path = "QDNavigationBar/Classes/UINavigationController+QDNavigationBar.swift"; sourceTree = "<group>"; };
 		CB7319C166E98FB5CEF4806A0D39F8DB /* QDCustomNavFakeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QDCustomNavFakeView.swift; path = QDNavigationBar/Classes/QDCustomNavFakeView.swift; sourceTree = "<group>"; };
 		D12E9F350C1C8076BE92719B89951AD8 /* MASViewConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewConstraint.h; path = Masonry/MASViewConstraint.h; sourceTree = "<group>"; };
-		D1D9B154766D3CA4F597E9E5EAD0B0C7 /* Pods_QDNavigationBar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_QDNavigationBar_Tests.framework; path = "Pods-QDNavigationBar_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1D9B154766D3CA4F597E9E5EAD0B0C7 /* Pods_QDNavigationBar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QDNavigationBar_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94D18B8E76B0FFF1F9C4CFAFCEC2E45 /* QDNavigationBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QDNavigationBar.debug.xcconfig; sourceTree = "<group>"; };
 		DFA1012B6A8BD076CD9F09831AE37A01 /* Masonry-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Masonry-Info.plist"; sourceTree = "<group>"; };
 		E59ADF0224069CB6EE7EA5E5326B18DC /* Pods-QDNavigationBar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-QDNavigationBar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -221,7 +221,6 @@
 				342C4D9B5E1E36390E7AF01E35444998 /* ViewController+MASAdditions.m */,
 				C84A449C2DE4F91F0620A5147DD42E0F /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -859,8 +858,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
