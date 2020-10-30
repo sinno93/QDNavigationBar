@@ -77,11 +77,11 @@ class ViewController: UIViewController {
     
     ///
     @objc func pushButtonClick(button:UIButton) {
-//        let vc = ViewController()
-//        vc.qd_navConfig = self.nextConfig
-//        vc.hidesBottomBarWhenPushed = true
-//        navigationController?.pushViewController(vc, animated: true)
-//        return;
+        let vc = ViewController()
+        vc.qd_navConfig = self.nextConfig
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
+        return;
         let nav = UINavigationController(rootViewController: ViewController())
 //        nav.modalPresentationStyle = .fullScreen
         nav.qd_defaultConfig = QDNavigationBarConfig()

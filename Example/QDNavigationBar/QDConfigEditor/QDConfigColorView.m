@@ -14,6 +14,7 @@
 @interface QDConfigColorView ()
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIView *colorView;
+@property (nonatomic, strong) UIImageView *bgImageView;
 @end
 
 @implementation QDConfigColorView
@@ -83,6 +84,7 @@
 // 私有的方法
 - (void)configSubviews {
     [self addSubview:self.titleLabel];
+    [self addSubview:self.bgImageView];
     [self addSubview:self.colorView];
 
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,6 +96,9 @@
         make.centerY.equalTo(self);
         make.trailing.equalTo(self).offset(-25);
         make.size.mas_equalTo(CGSizeMake(40, 40));
+    }];
+    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.colorView);
     }];
 }
 
@@ -137,5 +142,14 @@
         }];
     }
     return _colorView;
+}
+
+- (UIImageView *)bgImageView {
+    if (!_bgImageView) {
+        UIImageView *imgView = [[UIImageView alloc] init];
+        imgView.image = [UIImage imageNamed:@"alphaImage"];
+        _bgImageView = imgView;
+    }
+    return _bgImageView;
 }
 @end
