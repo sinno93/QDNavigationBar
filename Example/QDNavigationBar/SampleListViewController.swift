@@ -24,7 +24,7 @@ class SampleListViewController: UIViewController{
     lazy var dataList:[(String,String)] = {[("Large title", str), ("Search Bar",search), ("Dark Mode",dark)]}()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Sample List"
+        self.title = "Special Case"
         let config = QDNavigationBarConfig()
         config.bgColor = UIColor.systemPink
         self.navigationController?.qd_defaultConfig = config

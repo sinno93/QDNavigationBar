@@ -27,11 +27,11 @@
             </objects>
             <point key="canvasLocation" x="2081" y="-145"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Demo-->
         <scene sceneID="xXY-dL-CnX">
             <objects>
                 <navigationController id="NKi-qE-Q36" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="topRated" id="xyW-cO-3Fy"/>
+                    <tabBarItem key="tabBarItem" title="Demo" image="star" id="xyW-cO-3Fy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bgg-R4-TvI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -62,11 +62,11 @@
             </objects>
             <point key="canvasLocation" x="298" y="22"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Special Case-->
         <scene sceneID="YzD-Xu-Tlt">
             <objects>
                 <navigationController id="Wyd-3A-iEM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="Bgs-ta-0cV"/>
+                    <tabBarItem key="tabBarItem" title="Special Case" image="specialCase" id="Bgs-ta-0cV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aIw-FS-Uxb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -100,6 +100,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="specialCase" width="25" height="25"/>
+        <image name="star" width="27.5" height="25"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
