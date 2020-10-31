@@ -11,13 +11,13 @@ import UIKit
 final public class QDNavigationBarConfig: NSObject {
     
     /// 导航栏切换动画样式
-    public enum TransitionStyle {
+    @objc public enum TransitionStyle: Int {
         case none // 没有动画
         case separate // 分离
         case fade // 淡入淡出
     }
     /// 导航栏是否显示
-    public var barHidden: Bool = false {
+    @objc public var barHidden: Bool = false {
         didSet {
             if barHidden != oldValue {
                 refreshIfNeed()
@@ -25,21 +25,21 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 导航栏背景颜色
-    public var bgColor: UIColor = UIColor.white {
+    @objc public var bgColor: UIColor = UIColor.white {
         didSet {
             if !bgColor.isEqual(oldValue) {
                 refreshIfNeed()
             }
         }
     }
-    public var bgImage: UIImage? = nil {
+    @objc public var bgImage: UIImage? = nil {
         didSet {
             if bgImage != oldValue{
                 refreshIfNeed()
             }
         }
     }
-    public var alpha: CGFloat = 1.0 {
+    @objc public var alpha: CGFloat = 1.0 {
         didSet {
             assert(alpha>=0 && alpha<=1, "alpha必须在[0,1]区间")
             var targetAlpha: CGFloat = CGFloat.maximum(0, alpha)
@@ -53,7 +53,7 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 是否有半透明效果
-    public var translucent: Bool = false {
+    @objc public var translucent: Bool = false {
         didSet {
             if translucent != oldValue {
                 refreshIfNeed()
@@ -61,7 +61,7 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 线条
-    public var shadowLineColor: UIColor = UIColor.black {
+    @objc public var shadowLineColor: UIColor = UIColor.black {
         didSet {
             if !shadowLineColor.isEqual(oldValue) {
                 refreshIfNeed()
@@ -70,7 +70,7 @@ final public class QDNavigationBarConfig: NSObject {
     }
     /// 否开启导航栏事件穿透，为YES时，点击导航栏的事件会透到下层视图 默认为NO
     /// 注意，如果导航栏上有标题、返回按钮等时，点击这些控件的事件不会被穿透
-    public var eventThrough: Bool = false {
+    @objc public var eventThrough: Bool = false {
         didSet {
             if eventThrough != oldValue {
                 refreshIfNeed()
@@ -83,7 +83,7 @@ final public class QDNavigationBarConfig: NSObject {
     /// 1.当前后两个VC的barConfig配置相同(相同的定义见isSimilar(config:))时，不会有切换动画
     /// 2.当前后两个VC的barConfig配置不同时，切换样式属性在Push时取toVC的transitionStyle,在Pop时取fromVC的transitionStyle
     /// 3.当前后两个VC任意一个为large title模式，或者任意一个的navigationItem.searchController有值，则一定有动画且为.separate
-    public var transitionStyle: TransitionStyle = .separate
+    @objc public var transitionStyle: TransitionStyle = .separate
     
     weak var viewController: UIViewController?
     

@@ -11,7 +11,7 @@ extension UINavigationController {
     static var qd_configKey = "qd_configkey"
     static var qd_helperKey = "qd_helperKey"
     
-    public static var qd_globalDefaultConfig: QDNavigationBarConfig? {
+    @objc public static var qd_globalDefaultConfig: QDNavigationBarConfig? {
         willSet {
             QDSwizzlingManger.runOnce()
         }
@@ -25,7 +25,7 @@ extension UINavigationController {
             return result
         }
     }
-    public var qd_defaultConfig: QDNavigationBarConfig? {
+    @objc public var qd_defaultConfig: QDNavigationBarConfig? {
             set {
                 QDSwizzlingManger.runOnce()
                 objc_setAssociatedObject(self, &UINavigationController.qd_configKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)

@@ -21,7 +21,7 @@ extension UIViewController {
     }
     
     static var qd_navconfig_key = "qd_navconfig_key"
-    public var qd_navConfig: QDNavigationBarConfig? {
+    @objc public var qd_navConfig: QDNavigationBarConfig? {
         get {
             var config = objc_getAssociatedObject(self, &UIViewController.qd_navconfig_key) as? QDNavigationBarConfig
             if config == nil {
