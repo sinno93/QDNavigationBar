@@ -32,6 +32,7 @@ final public class QDNavigationBarConfig: NSObject {
             }
         }
     }
+    /// 导航栏背景图片
     @objc public var bgImage: UIImage? = nil {
         didSet {
             if bgImage != oldValue{
@@ -39,6 +40,9 @@ final public class QDNavigationBarConfig: NSObject {
             }
         }
     }
+    
+    /// 导航栏透明度
+    /// 注意此属性仅影响导航栏的透明度，不会影响导航栏上的控件
     @objc public var alpha: CGFloat = 1.0 {
         didSet {
             assert(alpha>=0 && alpha<=1, "alpha必须在[0,1]区间")

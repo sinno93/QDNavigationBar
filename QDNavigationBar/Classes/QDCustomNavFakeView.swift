@@ -19,6 +19,7 @@ class QDCustomNavFakeView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -26,6 +27,7 @@ class QDCustomNavFakeView: UIView {
         view.clipsToBounds = true
         return view
     }()
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.configSubviews()
@@ -37,7 +39,6 @@ class QDCustomNavFakeView: UIView {
     }
     
     public func configSubviews() {
-        
         self.addSubview(self.bottomLineView)
         self.addSubview(self.imageView)
         self.addSubview(self.effectView)

@@ -162,24 +162,24 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     }
     
     func configBgViewIfNeed() {
-        
-        if self.customNavContainerView.superview == nil {
-            let containView = self.customNavContainerView
-            guard let containSuperView = self.nav?.navigationBar.subviews.first else {
-                return
-            }
-            containSuperView.addSubview(containView)
-            NSLayoutConstraint.activate([
-                    containView.leadingAnchor.constraint(equalTo: containSuperView.leadingAnchor),
-                    containView.trailingAnchor.constraint(equalTo: containSuperView.trailingAnchor),
-                    containView.topAnchor.constraint(equalTo: containSuperView.topAnchor),
-                    containView.bottomAnchor.constraint(equalTo: self.nav!.navigationBar.bottomAnchor),
-            ])
-            
-            self.nav?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.nav?.navigationBar.shadowImage = UIImage()
-            self.nav?.navigationBar.isTranslucent = true
+        guard self.customNavContainerView.superview == nil else {
+            return
         }
+        let containView = self.customNavContainerView
+        guard let containSuperView = self.nav?.navigationBar.subviews.first else {
+            return
+        }
+        containSuperView.addSubview(containView)
+        NSLayoutConstraint.activate([
+            containView.leadingAnchor.constraint(equalTo: containSuperView.leadingAnchor),
+            containView.trailingAnchor.constraint(equalTo: containSuperView.trailingAnchor),
+            containView.topAnchor.constraint(equalTo: containSuperView.topAnchor),
+            containView.bottomAnchor.constraint(equalTo: self.nav!.navigationBar.bottomAnchor),
+        ])
+        
+        self.nav?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.nav?.navigationBar.shadowImage = UIImage()
+        self.nav?.navigationBar.isTranslucent = true
     }
     
     func fadeAnimate(from fromView: UIView, fromConfig: QDNavigationBarConfig, to toView:UIView, toConfig: QDNavigationBarConfig, toRemoveViews: inout [UIView]) {
@@ -198,16 +198,18 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             self.customNavContainerView.addSubview(fromBgView)
         }
         UIView.performWithoutAnimation {
-            fromBgView.leadingAnchor.constraint(equalTo: self.customNavContainerView.leadingAnchor).isActive = true
-            fromBgView.trailingAnchor.constraint(equalTo: self.customNavContainerView.trailingAnchor).isActive = true
-            fromBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor).isActive = true
-            fromBgView.heightAnchor.constraint(equalToConstant: customNavContainerView.frame.size.height).isActive = true
+            NSLayoutConstraint.activate([
+                fromBgView.leadingAnchor.constraint(equalTo: self.customNavContainerView.leadingAnchor),
+                fromBgView.trailingAnchor.constraint(equalTo: self.customNavContainerView.trailingAnchor),
+                fromBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor),
+                fromBgView.heightAnchor.constraint(equalToConstant: customNavContainerView.frame.size.height),
+                
+                toBgView.leadingAnchor.constraint(equalTo: customNavContainerView.leadingAnchor),
+                toBgView.trailingAnchor.constraint(equalTo: customNavContainerView.trailingAnchor),
+                toBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor),
+                toBgView.bottomAnchor.constraint(equalTo: customNavContainerView.bottomAnchor),
+            ])
             fromBgView.configView(fromConfig)
-            
-            toBgView.leadingAnchor.constraint(equalTo: customNavContainerView.leadingAnchor).isActive = true
-            toBgView.trailingAnchor.constraint(equalTo: customNavContainerView.trailingAnchor).isActive = true
-            toBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor).isActive = true
-            toBgView.bottomAnchor.constraint(equalTo: customNavContainerView.bottomAnchor).isActive = true
             toBgView.configView(toConfig)
             customNavContainerView.layoutIfNeeded()
         }
@@ -243,16 +245,18 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             fromConstrainsView = fromView.superview!
         }
         UIView.performWithoutAnimation {
-            fromBgView.leadingAnchor.constraint(equalTo: fromConstrainsView.leadingAnchor).isActive = true
-            fromBgView.trailingAnchor.constraint(equalTo: fromConstrainsView.trailingAnchor).isActive = true
-            fromBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor).isActive = true
-            fromBgView.heightAnchor.constraint(equalToConstant: customNavContainerView.frame.size.height).isActive = true
+            NSLayoutConstraint.activate([
+                fromBgView.leadingAnchor.constraint(equalTo: fromConstrainsView.leadingAnchor),
+                fromBgView.trailingAnchor.constraint(equalTo: fromConstrainsView.trailingAnchor),
+                fromBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor),
+                fromBgView.heightAnchor.constraint(equalToConstant: customNavContainerView.frame.size.height),
+                
+                toBgView.leadingAnchor.constraint(equalTo: toConstrainsView.leadingAnchor),
+                toBgView.trailingAnchor.constraint(equalTo: toConstrainsView.trailingAnchor),
+                toBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor),
+                toBgView.bottomAnchor.constraint(equalTo: customNavContainerView.bottomAnchor),
+            ])
             fromBgView.configView(fromConfig)
-            
-            toBgView.leadingAnchor.constraint(equalTo: toConstrainsView.leadingAnchor).isActive = true
-            toBgView.trailingAnchor.constraint(equalTo: toConstrainsView.trailingAnchor).isActive = true
-            toBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor).isActive = true
-            toBgView.bottomAnchor.constraint(equalTo: customNavContainerView.bottomAnchor).isActive = true
             toBgView.configView(toConfig)
         }
         toRemoveViews.append(toBgView)
@@ -274,10 +278,12 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
 
 extension UIView {
     func qd_fullWithView(view: UIView) {
-        self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true;
-        self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            self.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            self.topAnchor.constraint(equalTo: view.topAnchor),
+            self.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
     }
     // 获取最近公共父视图
     func closetCommonSuperView(view: UIView) -> UIView? {
