@@ -25,17 +25,17 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 导航栏背景颜色
-    @objc public var bgColor: UIColor = UIColor.white {
+    @objc public var backgroundColor: UIColor = UIColor.white {
         didSet {
-            if !bgColor.isEqual(oldValue) {
+            if !backgroundColor.isEqual(oldValue) {
                 refreshIfNeed()
             }
         }
     }
     /// 导航栏背景图片
-    @objc public var bgImage: UIImage? = nil {
+    @objc public var backgroundImage: UIImage? = nil {
         didSet {
-            if bgImage != oldValue{
+            if backgroundImage != oldValue{
                 refreshIfNeed()
             }
         }
@@ -108,7 +108,8 @@ extension QDNavigationBarConfig: NSCopying {
     convenience init(config: QDNavigationBarConfig) {
         self.init()
         barHidden = config.barHidden
-        bgColor = config.bgColor
+        backgroundColor = config.backgroundColor
+        backgroundImage = config.backgroundImage
         translucent = config.translucent
         shadowLineColor = config.shadowLineColor
         eventThrough = config.eventThrough
@@ -128,16 +129,16 @@ extension QDNavigationBarConfig {
         if abs(alpha - config.alpha) > 0.01 {
             return false
         }
-        if (bgImage != nil && config.bgImage == nil) || (bgImage == nil && config.bgImage != nil) {
+        if (backgroundImage != nil && config.backgroundImage == nil) || (backgroundImage == nil && config.backgroundImage != nil) {
             return false
         }
         
-        if let bgImage = bgImage, let image = config.bgImage {
+        if let bgImage = backgroundImage, let image = config.backgroundImage {
             if !bgImage.isEqual(image) {
                 return false
             }
         }
-        return bgColor.isSimilar(color: config.bgColor, tolerance: 0.1);
+        return backgroundColor.isSimilar(color: config.backgroundColor, tolerance: 0.1);
     }
     
 }

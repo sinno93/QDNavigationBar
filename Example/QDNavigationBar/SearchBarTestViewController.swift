@@ -22,7 +22,7 @@ class SearchBarTestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        self.qd_navConfig?.bgColor = UIColor.systemOrange
+        self.qd_navConfig?.backgroundColor = UIColor.systemOrange
         if #available(iOS 11.0, *) {
             self.navigationItem.searchController = UISearchController()
         } else {

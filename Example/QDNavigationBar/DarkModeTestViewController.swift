@@ -15,7 +15,7 @@ class DarkModeTestViewController: UITableViewController {
         self.title = "Dark Mode Test"
         self.view.backgroundColor = UIColor.lightGray
         if #available(iOS 13.0, *) {
-            self.qd_navConfig?.bgColor = UIColor (dynamicProvider: { (traitEnv) -> UIColor in
+            self.qd_navConfig?.backgroundColor = UIColor (dynamicProvider: { (traitEnv) -> UIColor in
                 if traitEnv.userInterfaceStyle == .dark {
                     return UIColor.black
                 }

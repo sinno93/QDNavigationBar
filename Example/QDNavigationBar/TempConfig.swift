@@ -20,7 +20,7 @@ final public class TempConfig: NSObject {
     /// 导航栏背景颜色
     @objc public var bgColor: UIColor = UIColor.white {
         didSet {
-            realConfig.bgColor = bgColor
+            realConfig.backgroundColor = bgColor
         }
     }
     /// 是否有半透明效果
@@ -45,7 +45,7 @@ final public class TempConfig: NSObject {
     init(config: QDNavigationBarConfig) {
         realConfig = config
         barHidden = config.barHidden
-        bgColor = config.bgColor
+        bgColor = config.backgroundColor
         translucent = config.translucent
         shadowLineColor = config.shadowLineColor
         eventThrough = config.eventThrough

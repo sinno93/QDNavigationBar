@@ -26,7 +26,7 @@ class SampleListViewController: UIViewController{
         super.viewDidLoad()
         self.title = "Special Case"
         let config = QDNavigationBarConfig()
-        config.bgColor = UIColor.systemPink
+        config.backgroundColor = UIColor.systemPink
         self.navigationController?.qd_defaultConfig = config
         
         if #available(iOS 11.0, *) {

@@ -330,10 +330,10 @@ extension QDNavigationControllerHelper {
 
 extension QDCustomNavFakeView {
     func configView(_ config: QDNavigationBarConfig) {
-        self.imageView.backgroundColor = config.bgColor
+        self.imageView.backgroundColor = config.backgroundColor
         self.bottomLineView.backgroundColor = config.shadowLineColor
         self.effectView.alpha = config.translucent ? 1 : 0
-        self.imageView.image = config.bgImage
+        self.imageView.image = config.backgroundImage
         self.alpha = config.alpha
     }
 }
