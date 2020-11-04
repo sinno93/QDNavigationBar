@@ -74,7 +74,10 @@ class ViewController: UIViewController {
         }
         self.nextEditorView.config = TempConfig(config: self.nextConfig)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.nextEditorView.config = TempConfig(config: self.nextConfig)
+    }
     ///
     @objc func pushButtonClick(button:UIButton) {
         let vc = ViewController()
@@ -109,7 +112,7 @@ class ViewController: UIViewController {
             maker?.edges.equalTo()(scrollView)
             maker?.width.equalTo()(scrollView)
         }
-        let viewList = [colorfulView,
+        let viewList = [
                         editorView,
                         currentTipLabel,
                         nextEditorView,
@@ -118,15 +121,14 @@ class ViewController: UIViewController {
         for view in viewList {
             containerView.addSubview(view)
         }
-        colorfulView.mas_makeConstraints { (make) in
-            make?.leading.equalTo()(containerView)?.offset()(10)
-            make?.trailing.equalTo()(containerView)?.offset()(-10)
-            make?.top.equalTo()(containerView)?.offset()(10)
-//            make?.height.equalTo()(40)
-        }
+//        colorfulView.mas_makeConstraints { (make) in
+//            make?.leading.equalTo()(containerView)?.offset()(10)
+//            make?.trailing.equalTo()(containerView)?.offset()(-10)
+//            make?.top.equalTo()(containerView)?.offset()(10)
+//        }
         
         editorView.mas_makeConstraints { (make) in
-            make?.top.equalTo()(colorfulView.mas_bottom)?.offset()(25)
+            make?.top.equalTo()(containerView)?.offset()(25)
             make?.leading.equalTo()(containerView)?.offset()(10)
             make?.trailing.equalTo()(containerView)?.offset()(-10)
             
