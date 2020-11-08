@@ -81,7 +81,7 @@
 - (QDConfigColorView *)bgColorView {
     if (!_bgColorView) {
         QDConfigColorView *view = [[QDConfigColorView alloc] init];
-        view.title = @"bgColor";
+        view.title = @"backgroundColor";
         view.color = UIColor.whiteColor;
         __weak __typeof(self)weakSelf = self;
         view.colorChanged = ^(UIColor * _Nonnull color) {

@@ -73,7 +73,11 @@ class ViewController: UIViewController {
             self.editorView.config = TempConfig(config: config)
         }
         self.nextEditorView.config = TempConfig(config: self.nextConfig)
+        if self.navigationController?.viewControllers.count == 1 {
+            self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
+        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.nextEditorView.config = TempConfig(config: self.nextConfig)
@@ -158,6 +162,12 @@ class ViewController: UIViewController {
             make?.bottom.equalTo()(containerView)?.offset()(-800)
         }
         
+    }
+}
+
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return self.navigationController?.viewControllers.count ?? 0 > 1;
     }
 }
 
