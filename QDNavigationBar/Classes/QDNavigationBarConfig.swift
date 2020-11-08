@@ -19,25 +19,25 @@ final public class QDNavigationBarConfig: NSObject {
     /// 导航栏是否显示
     @objc public var barHidden: Bool = false {
         didSet {
-            if barHidden != oldValue {
-                refreshIfNeed()
-            }
+            guard barHidden != oldValue else {return}
+            self.refreshIfNeed()
         }
     }
     /// 导航栏背景颜色
     @objc public var backgroundColor: UIColor = UIColor.white {
         didSet {
-            if !backgroundColor.isEqual(oldValue) {
-                refreshIfNeed()
-            }
+            guard !backgroundColor.isEqual(oldValue) else {return}
+            refreshIfNeed()
         }
     }
     /// 导航栏背景图片
     @objc public var backgroundImage: UIImage? = nil {
         didSet {
-            if backgroundImage != oldValue{
-                refreshIfNeed()
+            if backgroundImage == oldValue {
+                return
             }
+            guard let bgImage = backgroundImage,let preBgImage = oldValue,preBgImage.isEqual(bgImage) else {return}
+            refreshIfNeed()
         }
     }
     
@@ -51,34 +51,30 @@ final public class QDNavigationBarConfig: NSObject {
             if targetAlpha != alpha {
                 alpha = targetAlpha
             }
-            if oldValue != alpha {
-                refreshIfNeed()
-            }
+            guard oldValue != alpha else {return}
+            refreshIfNeed()
         }
     }
     /// 是否有半透明效果
     @objc public var translucent: Bool = false {
         didSet {
-            if translucent != oldValue {
-                refreshIfNeed()
-            }
+            guard translucent != oldValue  else {return}
+            refreshIfNeed()
         }
     }
     /// 线条
     @objc public var shadowLineColor: UIColor = UIColor.black {
         didSet {
-            if !shadowLineColor.isEqual(oldValue) {
-                refreshIfNeed()
-            }
+            guard !shadowLineColor.isEqual(oldValue) else {return}
+            refreshIfNeed()
         }
     }
     /// 否开启导航栏事件穿透，为YES时，点击导航栏的事件会透到下层视图 默认为NO
     /// 注意，如果导航栏上有标题、返回按钮等时，点击这些控件的事件不会被穿透
     @objc public var eventThrough: Bool = false {
         didSet {
-            if eventThrough != oldValue {
-                refreshIfNeed()
-            }
+            guard eventThrough != oldValue else {return}
+            refreshIfNeed()
         }
     }
     
@@ -87,7 +83,12 @@ final public class QDNavigationBarConfig: NSObject {
     /// 1.当前后两个VC的barConfig配置相同(相同的定义见isSimilar(config:))时，不会有切换动画
     /// 2.当前后两个VC的barConfig配置不同时，切换样式属性在Push时取toVC的transitionStyle,在Pop时取fromVC的transitionStyle
     /// 3.当前后两个VC任意一个为large title模式，或者任意一个的navigationItem.searchController有值，则一定有动画且为.separate
-    @objc public var transitionStyle: TransitionStyle = .separate
+    @objc public var transitionStyle: TransitionStyle = .separate {
+        didSet {
+            guard transitionStyle != oldValue else {return}
+            
+        }
+    }
     
     weak var viewController: UIViewController?
     

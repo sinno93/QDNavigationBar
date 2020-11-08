@@ -269,7 +269,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         if vc == nav.topViewController && !self.isTransitioning {
             self.navBarConfigView(config)
             if nav.isNavigationBarHidden != config.barHidden {
-                nav.setNavigationBarHidden(config.barHidden, animated: false)
+                nav.setNavigationBarHidden(config.barHidden, animated: UIView.areAnimationsEnabled)
             }
         }
     }
