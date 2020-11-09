@@ -23,13 +23,7 @@ extension UIViewController {
     static var qd_navconfig_key = "qd_navconfig_key"
     @objc public var qd_navConfig: QDNavigationBarConfig? {
         get {
-            var config = objc_getAssociatedObject(self, &UIViewController.qd_navconfig_key) as? QDNavigationBarConfig
-            if config == nil {
-                config = self.navigationController?.qd_defaultConfig?.copy() as? QDNavigationBarConfig
-                if config != nil {
-                    self.qd_navConfig = config
-                }
-            }
+            let config = objc_getAssociatedObject(self, &UIViewController.qd_navconfig_key) as? QDNavigationBarConfig
             return config
         }
         
@@ -42,8 +36,15 @@ extension UIViewController {
             }
         }
     }
+    
+    var resolvedBarConfig: QDNavigationBarConfig? {
+        if self.qd_navConfig != nil {
+            return self.qd_navConfig
+        }
+        return self.navigationController?.qd_navConfig
+    }
     // 更新配置
-    func qd_updateNavIfNeed() {
+    @objc func qd_updateNavIfNeed() {
         guard let config = self.qd_navConfig, let _ = self.navigationController else {
             return
         }

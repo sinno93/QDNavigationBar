@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         return view
     }()
     lazy var nextConfig: QDNavigationBarConfig = {
-        if let config = self.navigationController?.qd_defaultConfig {
+        if let config = self.navigationController?.qd_navConfig {
             let nextConfig = config.copy() as! QDNavigationBarConfig
             nextConfig.backgroundColor = UIColor.red
             nextConfig.eventThrough = true
@@ -62,10 +62,11 @@ class ViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.navigationController?.qd_defaultConfig == nil {
+        if self.navigationController?.qd_navConfig == nil {
             let config = QDNavigationBarConfig()
             config.backgroundColor = UIColor.green
-            self.navigationController?.qd_defaultConfig = config
+            config.shadowLineColor = UIColor.red
+            self.navigationController?.qd_navConfig = config
         }
         self.title = "Demo"
         self.configSubviews()
@@ -91,8 +92,8 @@ class ViewController: UIViewController {
         return;
         let nav = UINavigationController(rootViewController: ViewController())
 //        nav.modalPresentationStyle = .fullScreen
-        nav.qd_defaultConfig = QDNavigationBarConfig()
-        nav.qd_defaultConfig?.backgroundColor = UIColor.yellow
+        nav.qd_navConfig = QDNavigationBarConfig()
+        nav.qd_navConfig?.backgroundColor = UIColor.yellow
         self.present(nav, animated: true, completion: nil)
     }
     

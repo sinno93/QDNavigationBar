@@ -25,29 +25,29 @@ extension UINavigationController {
             return result
         }
     }
-    @objc public var qd_defaultConfig: QDNavigationBarConfig? {
-            set {
-                QDSwizzlingManger.runOnce()
-                objc_setAssociatedObject(self, &UINavigationController.qd_configKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-                if qd_navhelper == nil {
-                    qd_navhelper = QDNavigationControllerHelper.init(nav: self)
-                }
-                if !(self.delegate is QDNavigationControllerHelper) {
-                    qd_navhelper?.navRealDelegate = delegate;
-                }
-                self.delegate = qd_navhelper
+    @objc public override var qd_navConfig: QDNavigationBarConfig? {
+        willSet {
+            guard newValue != nil else {return}
+            QDSwizzlingManger.runOnce()
+            if qd_navhelper == nil {
+                qd_navhelper = QDNavigationControllerHelper.init(nav: self)
             }
-            
-            get {
-                let result = objc_getAssociatedObject(self, &UINavigationController.qd_configKey) as? QDNavigationBarConfig
-                return result
+            if !(self.delegate is QDNavigationControllerHelper) {
+                qd_navhelper?.navRealDelegate = delegate;
             }
+            self.delegate = qd_navhelper
         }
+    }
 }
 
 extension UINavigationController {
     func qd_navConfigChanged(vc: UIViewController) {
         self.qd_navhelper?.navConfigChanged(vc: vc)
+    }
+    override func qd_updateNavIfNeed() {
+        guard let config = self.qd_navConfig else {return}
+        guard config.viewController == self else {return}
+        self.qd_navConfigChanged(vc: self.topViewController ?? self)
     }
 }
 
@@ -71,8 +71,8 @@ extension UINavigationController {
     }
     @objc func qd_viewDidLoad() {
         
-        if self.qd_defaultConfig == nil && UINavigationController.qd_globalDefaultConfig != nil {
-            self.qd_defaultConfig = UINavigationController.qd_globalDefaultConfig?.copy() as? QDNavigationBarConfig
+        if self.qd_navConfig == nil && UINavigationController.qd_globalDefaultConfig != nil {
+            self.qd_navConfig = UINavigationController.qd_globalDefaultConfig?.copy() as? QDNavigationBarConfig
         }
         qd_viewDidLoad()
     }

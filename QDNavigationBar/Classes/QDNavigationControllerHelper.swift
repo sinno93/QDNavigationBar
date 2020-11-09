@@ -46,7 +46,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         // 传递事件给真实代理
         self.navRealDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
-        guard let config = viewController.qd_navConfig else {
+        guard let config = viewController.resolvedBarConfig, let _ = navigationController.qd_navConfig else {
             return
         }
         self.configBgViewIfNeed()
@@ -70,7 +70,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             guard let fromVC = context.viewController(forKey: .from), let toVC = context.viewController(forKey: .to), toVC == viewController else {
                 return
             }
-            guard let fromConfig = fromVC.qd_navConfig, let toConfig = toVC.qd_navConfig else {return}
+            guard let fromConfig = fromVC.resolvedBarConfig, let toConfig = toVC.resolvedBarConfig else {return}
             // 将要跳转的页面隐藏导航栏， 则不需要过渡处理
             if toConfig.barHidden {
                 return
@@ -121,9 +121,9 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
                 return
             }
             // 处理present一个导航控制器+VC时，targetVC=UINavigationController的情况
-            var targetConfig: QDNavigationBarConfig? = targetVC.qd_navConfig
+            var targetConfig: QDNavigationBarConfig? = targetVC.resolvedBarConfig
             if !navigationController.viewControllers.contains(targetVC) {
-                targetConfig = navigationController.topViewController?.qd_navConfig
+                targetConfig = navigationController.topViewController?.resolvedBarConfig
             }
             if let targetConfig = targetConfig {
                 self.navBarConfigView(targetConfig)
@@ -263,10 +263,12 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         toRemoveViews.append(fromBgView)
     }
     func navConfigChanged(vc: UIViewController) {
-        guard let config = vc.qd_navConfig, let nav = self.nav else {
+        guard let config = vc.resolvedBarConfig, let nav = self.nav else {
             return
         }
-        if vc == nav.topViewController && !self.isTransitioning {
+        let isTopVC = vc == nav.topViewController
+        let isEmptyNav = nav.topViewController == nil && self.nav == vc
+        if (isTopVC || isEmptyNav) && !self.isTransitioning {
             self.navBarConfigView(config)
             if nav.isNavigationBarHidden != config.barHidden {
                 nav.setNavigationBarHidden(config.barHidden, animated: UIView.areAnimationsEnabled)
