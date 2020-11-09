@@ -68,6 +68,10 @@ class ViewController: UIViewController {
             config.shadowLineColor = UIColor.red
             self.navigationController?.qd_navConfig = config
         }
+        if self.qd_navConfig == nil {
+            self.qd_navConfig = self.navigationController?.qd_navConfig?.copy() as? QDNavigationBarConfig
+        }
+        
         self.title = "Demo"
         self.configSubviews()
         if let config = self.qd_navConfig {
