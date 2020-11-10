@@ -46,9 +46,10 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         // 传递事件给真实代理
         self.navRealDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
-        guard let config = viewController.resolvedBarConfig, let _ = navigationController.qd_navConfig else {
+        guard let _ = navigationController.qd_navConfig else {
             return
         }
+        let config = viewController.resolvedBarConfig ?? navigationController.qd_navConfig!
         self.configBgViewIfNeed()
         if navigationController.isNavigationBarHidden != config.barHidden {
             navigationController.setNavigationBarHidden(config.barHidden, animated: animated)

@@ -45,8 +45,7 @@ extension UINavigationController {
         self.qd_navhelper?.navConfigChanged(vc: vc)
     }
     override func qd_updateNavIfNeed() {
-        guard let config = self.qd_navConfig else {return}
-        guard config.viewController == self else {return}
+        guard let config = self.qd_navConfig, config.viewController == self else {return}
         self.qd_navConfigChanged(vc: self.topViewController ?? self)
     }
 }
