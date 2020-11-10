@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QDNavigationBar
 
 class DarkModeTestViewController: UITableViewController {
 
@@ -15,12 +16,14 @@ class DarkModeTestViewController: UITableViewController {
         self.title = "Dark Mode Test"
         self.view.backgroundColor = UIColor.lightGray
         if #available(iOS 13.0, *) {
-            self.qd_navConfig?.backgroundColor = UIColor (dynamicProvider: { (traitEnv) -> UIColor in
+            let config = self.navigationController?.qd_navConfig?.copy() as? QDNavigationBarConfig
+            config?.backgroundColor = UIColor(dynamicProvider: { (traitEnv) -> UIColor in
                 if traitEnv.userInterfaceStyle == .dark {
                     return UIColor.black
                 }
                 return UIColor.white
             })
+            self.qd_navConfig = config
         } else {
             // Fallback on earlier versions
         }

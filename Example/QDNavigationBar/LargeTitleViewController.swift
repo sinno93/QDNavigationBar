@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QDNavigationBar
 
 class LargeTitleViewController: UIViewController {
 
@@ -22,7 +23,9 @@ class LargeTitleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        self.qd_navConfig?.backgroundColor = UIColor.white
+        let config = self.navigationController?.qd_navConfig?.copy() as? QDNavigationBarConfig
+        config?.backgroundColor = UIColor.white
+        self.qd_navConfig = config
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
             self.navigationItem.largeTitleDisplayMode = .always

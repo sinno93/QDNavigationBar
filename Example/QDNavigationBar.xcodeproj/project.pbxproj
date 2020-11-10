@@ -18,7 +18,6 @@
 		4172B0462541F2AE00B3A260 /* QDColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0302541F2AE00B3A260 /* QDColorPickerController.m */; };
 		4172B0492541F2AE00B3A260 /* SampleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */; };
 		4172B04A2541F2AE00B3A260 /* SearchBarTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */; };
-		4172B04B2541F2AE00B3A260 /* CustomNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B03C2541F2AE00B3A260 /* CustomNavViewController.swift */; };
 		5213B21FE07317858916618B /* Pods_QDNavigationBar_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC5C0562C9E2271BC78B09A /* Pods_QDNavigationBar_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -61,7 +60,6 @@
 		4172B0342541F2AE00B3A260 /* QDConfigEditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDConfigEditorView.h; sourceTree = "<group>"; };
 		4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleListViewController.swift; sourceTree = "<group>"; };
 		4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarTestViewController.swift; sourceTree = "<group>"; };
-		4172B03C2541F2AE00B3A260 /* CustomNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavViewController.swift; sourceTree = "<group>"; };
 		43FB43C606A49821E09CC0C2 /* Pods-QDNavigationBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDNavigationBar_Example.debug.xcconfig"; path = "Target Support Files/Pods-QDNavigationBar_Example/Pods-QDNavigationBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		4DCBFC0490E5DB963F00976F /* QDNavigationBar.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QDNavigationBar.podspec; path = ../QDNavigationBar.podspec; sourceTree = "<group>"; };
 		5043ACB47AEA98062B8100D9 /* Pods-QDNavigationBar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDNavigationBar_Tests.debug.xcconfig"; path = "Target Support Files/Pods-QDNavigationBar_Tests/Pods-QDNavigationBar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -143,13 +141,12 @@
 		607FACD21AFB9204008FA782 /* Example for QDNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
-				4172B03C2541F2AE00B3A260 /* CustomNavViewController.swift */,
 				4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */,
 				4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */,
+				4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */,
 				4172B0242541F2AE00B3A260 /* OC2SwiftBridge.h */,
 				4172B0282541F2AE00B3A260 /* QDConfigEditor */,
 				4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */,
-				4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */,
 				4172B0262541F2AE00B3A260 /* TempConfig.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
@@ -394,7 +391,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4172B03D2541F2AE00B3A260 /* DarkModeTestViewController.swift in Sources */,
-				4172B04B2541F2AE00B3A260 /* CustomNavViewController.swift in Sources */,
 				4172B0432541F2AE00B3A260 /* QDColorfulView.m in Sources */,
 				4172B0462541F2AE00B3A260 /* QDColorPickerController.m in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,

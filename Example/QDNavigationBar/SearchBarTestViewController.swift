@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QDNavigationBar
 
 class SearchBarTestViewController: UIViewController {
 
@@ -22,7 +23,9 @@ class SearchBarTestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        self.qd_navConfig?.backgroundColor = UIColor.systemOrange
+        let config = self.navigationController?.qd_navConfig?.copy() as? QDNavigationBarConfig
+        config?.backgroundColor = UIColor.systemOrange
+        self.qd_navConfig = config
         if #available(iOS 11.0, *) {
             self.navigationItem.searchController = UISearchController()
         } else {
