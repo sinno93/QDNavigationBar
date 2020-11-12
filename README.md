@@ -5,12 +5,14 @@
 [![License](https://img.shields.io/cocoapods/l/QDNavigationBar.svg?style=flat)](https://cocoapods.org/pods/QDNavigationBar)
 [![Platform](https://img.shields.io/cocoapods/p/QDNavigationBar.svg?style=flat)](https://cocoapods.org/pods/QDNavigationBar)
 
-QDNavigationBar是一个轻量、易用导航栏样式管理库，它可以帮助你为每个控制器定义自己的导航栏样式，这一切只需要一行代码即可做到！
+QDNavigationBar是一个轻量、易用导航栏样式管理库，它可以帮助你为每个控制器定义自己的导航栏样式，这一切只需要几行代码即可做到！
+
+![页面切换](Assets/demo1.gif) ![样式修改](Assets/demo2.gif)
 
 ## 特性
 - [x] 让每一个控制器都能定制自己想要的导航栏样式
-- [x] 轻量、低耦合，一行代码即可集成
-- [x] 支持设置多种自定义的样式比如:背景颜色bgColor、背景图片bgImage、导航栏底部线条颜色、是否有半透明效果、透明度等
+- [x] 轻量、低耦合，数行代码即可集成
+- [x] 支持设置多种自定义的样式比如:背景颜色、背景图片、导航栏底部线条颜色、是否有半透明效果、透明度等
 - [x] 支持选择导航栏切换时的过渡效果
 - [x] 支持large title、带search bar等特殊的导航栏模式
 - [x] 支持dark mode
