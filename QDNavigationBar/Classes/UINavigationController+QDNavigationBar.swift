@@ -25,7 +25,7 @@ extension UINavigationController {
             return result
         }
     }
-    @objc public override var qd_navConfig: QDNavigationBarConfig? {
+    @objc public override var qd_navBarConfig: QDNavigationBarConfig? {
         willSet {
             guard newValue != nil else {return}
             QDSwizzlingManger.runOnce()
@@ -41,12 +41,12 @@ extension UINavigationController {
 }
 
 extension UINavigationController {
-    func qd_navConfigChanged(vc: UIViewController) {
+    func qd_navBarConfigChanged(vc: UIViewController) {
         self.qd_navhelper?.navConfigChanged(vc: vc)
     }
     override func qd_updateNavIfNeed() {
-        guard let config = self.qd_navConfig, config.viewController == self else {return}
-        self.qd_navConfigChanged(vc: self.topViewController ?? self)
+        guard let config = self.qd_navBarConfig, config.viewController == self else {return}
+        self.qd_navBarConfigChanged(vc: self.topViewController ?? self)
     }
 }
 
@@ -70,8 +70,8 @@ extension UINavigationController {
     }
     @objc func qd_viewDidLoad() {
         
-        if self.qd_navConfig == nil && UINavigationController.qd_globalDefaultConfig != nil {
-            self.qd_navConfig = UINavigationController.qd_globalDefaultConfig?.copy() as? QDNavigationBarConfig
+        if self.qd_navBarConfig == nil && UINavigationController.qd_globalDefaultConfig != nil {
+            self.qd_navBarConfig = UINavigationController.qd_globalDefaultConfig?.copy() as? QDNavigationBarConfig
         }
         qd_viewDidLoad()
     }

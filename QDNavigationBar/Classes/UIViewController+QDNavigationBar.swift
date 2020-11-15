@@ -20,15 +20,15 @@ extension UIViewController {
         
     }
     
-    static var qd_navconfig_key = "qd_navconfig_key"
-    @objc public var qd_navConfig: QDNavigationBarConfig? {
+    static var qd_navbarconfig_key = "qd_navbarconfig_key"
+    @objc public var qd_navBarConfig: QDNavigationBarConfig? {
         get {
-            let config = objc_getAssociatedObject(self, &UIViewController.qd_navconfig_key) as? QDNavigationBarConfig
+            let config = objc_getAssociatedObject(self, &UIViewController.qd_navbarconfig_key) as? QDNavigationBarConfig
             return config
         }
         
         set {
-            objc_setAssociatedObject(self, &UIViewController.qd_navconfig_key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &UIViewController.qd_navbarconfig_key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             // 在合适的时候要更新导航栏
             if newValue != nil {
                 newValue?.viewController = self
@@ -38,14 +38,14 @@ extension UIViewController {
     }
     
     var resolvedBarConfig: QDNavigationBarConfig? {
-        if self.qd_navConfig != nil {
-            return self.qd_navConfig
+        if self.qd_navBarConfig != nil {
+            return self.qd_navBarConfig
         }
-        return self.navigationController?.qd_navConfig
+        return self.navigationController?.qd_navBarConfig
     }
     // 更新配置
     @objc func qd_updateNavIfNeed() {
-        guard let config = self.qd_navConfig, config.viewController == self, let _ = self.navigationController else {
+        guard let config = self.qd_navBarConfig, config.viewController == self, let _ = self.navigationController else {
             return
         }
         // vc didAppera后才刷新，避免重复刷新
@@ -53,7 +53,7 @@ extension UIViewController {
         if !self.qd_viewDidAppearFlag {
             return
         }
-        self.navigationController?.qd_navConfigChanged(vc: self)
+        self.navigationController?.qd_navBarConfigChanged(vc: self)
     }
 }
 

@@ -94,7 +94,7 @@ final public class QDNavigationBarConfig: NSObject {
     weak var viewController: UIViewController?
     
     func refreshIfNeed() {
-        if viewController?.qd_navConfig == self {
+        if viewController?.qd_navBarConfig == self {
             viewController?.qd_updateNavIfNeed()
         }
     }

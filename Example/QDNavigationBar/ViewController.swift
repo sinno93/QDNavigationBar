@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         return view
     }()
     lazy var nextConfig: QDNavigationBarConfig = {
-        if let config = self.navigationController?.qd_navConfig {
+        if let config = self.navigationController?.qd_navBarConfig {
             let nextConfig = config.copy() as! QDNavigationBarConfig
             nextConfig.backgroundColor = UIColor.red
             nextConfig.eventThrough = true
@@ -62,19 +62,19 @@ class ViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.navigationController?.qd_navConfig == nil {
+        if self.navigationController?.qd_navBarConfig == nil {
             let config = QDNavigationBarConfig()
             config.backgroundColor = UIColor.green
             config.shadowLineColor = UIColor.red
-            self.navigationController?.qd_navConfig = config
+            self.navigationController?.qd_navBarConfig = config
         }
-        if self.qd_navConfig == nil {
-            self.qd_navConfig = self.navigationController?.qd_navConfig?.copy() as? QDNavigationBarConfig
+        if self.qd_navBarConfig == nil {
+            self.qd_navBarConfig = self.navigationController?.qd_navBarConfig?.copy() as? QDNavigationBarConfig
         }
         
         self.title = "Demo"
         self.configSubviews()
-        if let config = self.qd_navConfig {
+        if let config = self.qd_navBarConfig {
             self.editorView.config = TempConfig(config: config)
         }
         self.nextEditorView.config = TempConfig(config: self.nextConfig)
@@ -90,14 +90,14 @@ class ViewController: UIViewController {
     ///
     @objc func pushButtonClick(button:UIButton) {
         let vc = ViewController()
-        vc.qd_navConfig = self.nextConfig
+        vc.qd_navBarConfig = self.nextConfig
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
         return;
         let nav = UINavigationController(rootViewController: ViewController())
 //        nav.modalPresentationStyle = .fullScreen
-        nav.qd_navConfig = QDNavigationBarConfig()
-        nav.qd_navConfig?.backgroundColor = UIColor.yellow
+        nav.qd_navBarConfig = QDNavigationBarConfig()
+        nav.qd_navBarConfig?.backgroundColor = UIColor.yellow
         self.present(nav, animated: true, completion: nil)
     }
     
@@ -190,7 +190,7 @@ extension ViewController: UIScrollViewDelegate {
         default:
             alpha = 1
         }
-//        self.qd_navConfig?.alpha = alpha
+//        self.qd_navBarConfig?.alpha = alpha
 
         print(offsetY)
     }

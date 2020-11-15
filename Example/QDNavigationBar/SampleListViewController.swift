@@ -27,10 +27,10 @@ class SampleListViewController: UIViewController{
         self.title = "Special Case"
         let config = QDNavigationBarConfig()
         config.backgroundColor = UIColor.systemPink
-        self.navigationController?.qd_navConfig = config
+        self.navigationController?.qd_navBarConfig = config
         
         if #available(iOS 11.0, *) {
-            self.navigationItem.largeTitleDisplayMode = .never
+            self.navigationController?.navigationBar.prefersLargeTitles = true
         } else {
             // Fallback on earlier versions
         }
