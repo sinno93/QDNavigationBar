@@ -29,11 +29,8 @@ extension UIViewController {
         
         set {
             objc_setAssociatedObject(self, &UIViewController.qd_navbarconfig_key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            // 在合适的时候要更新导航栏
-            if newValue != nil {
-                newValue?.viewController = self
-                self.qd_updateNavIfNeed()
-            }
+            newValue?.viewController = self
+            self.qd_updateNavIfNeed()
         }
     }
     
@@ -45,12 +42,17 @@ extension UIViewController {
     }
     // 更新配置
     @objc func qd_updateNavIfNeed() {
-        guard let config = self.qd_navBarConfig, config.viewController == self, let _ = self.navigationController else {
-            return
-        }
         // vc didAppera后才刷新，避免重复刷新
         // 比如在push过程中，viewDidLoad方法里，修改了navConfig的hidden属性，如果不加此判断直接刷新的话导航栏会直接消失；修改其他属性也是同理。
         if !self.qd_viewDidAppearFlag {
+            return
+        }
+        if self.qd_navBarConfig == nil && self.navigationController != nil {
+            self.navigationController?.qd_navBarConfigChanged(vc: self)
+            return
+        }
+        
+        guard let config = self.qd_navBarConfig, config.viewController == self, let _ = self.navigationController else {
             return
         }
         self.navigationController?.qd_navBarConfigChanged(vc: self)

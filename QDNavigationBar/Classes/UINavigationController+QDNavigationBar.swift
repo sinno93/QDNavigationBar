@@ -11,11 +11,6 @@ extension UINavigationController {
     static var qd_configKey = "qd_configkey"
     static var qd_helperKey = "qd_helperKey"
     
-    @objc public static var qd_globalDefaultConfig: QDNavigationBarConfig? {
-        willSet {
-            QDSwizzlingManger.runOnce()
-        }
-    }
     var qd_navhelper: QDNavigationControllerHelper? {
         set {
             objc_setAssociatedObject(self, &UINavigationController.qd_helperKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -52,7 +47,6 @@ extension UINavigationController {
 
 extension UINavigationController {
     override class func qdSwizzling() {
-        qdExchangeMethod(#selector(viewDidLoad), selector2: #selector(qd_viewDidLoad))
         qdExchangeMethod(#selector(setter: delegate), selector2: #selector(qd_setDelegate(_:)))
     }
     @objc func qd_setDelegate(_ delegate: UINavigationControllerDelegate?) {
@@ -68,14 +62,4 @@ extension UINavigationController {
             qd_setDelegate(qd_navhelper)
         }
     }
-    @objc func qd_viewDidLoad() {
-        
-        if self.qd_navBarConfig == nil && UINavigationController.qd_globalDefaultConfig != nil {
-            self.qd_navBarConfig = UINavigationController.qd_globalDefaultConfig?.copy() as? QDNavigationBarConfig
-        }
-        qd_viewDidLoad()
-    }
-    
-    
-    
 }
