@@ -17,6 +17,7 @@ final public class QDNavigationBarConfig: NSObject {
         case fade // 淡入淡出
     }
     /// 导航栏背景颜色
+    /// 默认白色(UIColor.white)
     @objc public var backgroundColor: UIColor = UIColor.white {
         didSet {
             guard !backgroundColor.isEqual(oldValue) else {return}
@@ -24,6 +25,7 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 导航栏背景图片
+    /// 默认nil
     @objc public var backgroundImage: UIImage? = nil {
         didSet {
             if backgroundImage == oldValue {
@@ -35,6 +37,7 @@ final public class QDNavigationBarConfig: NSObject {
     }
     
     /// 导航栏透明度
+    /// 默认1.0
     /// 注意此属性仅影响导航栏的透明度，不会影响导航栏上的控件
     @objc public var alpha: CGFloat = 1.0 {
         didSet {
@@ -49,21 +52,24 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 是否有半透明效果
+    /// 默认false，即无半透明效果
     @objc public var translucent: Bool = false {
         didSet {
             guard translucent != oldValue  else {return}
             refreshIfNeed()
         }
     }
-    /// 线条
-    @objc public var shadowLineColor: UIColor = UIColor.black {
+    /// 导航栏底部线条颜色
+    /// 默认灰色(UIColor.gray)
+    @objc public var shadowLineColor: UIColor = UIColor.gray {
         didSet {
             guard !shadowLineColor.isEqual(oldValue) else {return}
             refreshIfNeed()
         }
     }
     
-    /// 导航栏是否显示
+    /// 导航栏是否隐藏
+    /// 默认false，即不隐藏
     @objc public var barHidden: Bool = false {
         didSet {
             guard barHidden != oldValue else {return}
@@ -71,7 +77,9 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     
-    /// 否开启导航栏事件穿透，为YES时，点击导航栏的事件会透到下层视图 默认为NO
+    /// 否开启导航栏事件穿透，
+    /// 默认为NO
+    /// 为YES时，点击导航栏的事件会透到下层视图
     /// 注意，如果导航栏上有标题、返回按钮等时，点击这些控件的事件不会被穿透
     @objc public var eventThrough: Bool = false {
         didSet {
@@ -81,6 +89,7 @@ final public class QDNavigationBarConfig: NSObject {
     }
     
     /// 两个视图控制器切换(push/pop)时的样式
+    /// 默认为.separate
     /// 具体切换样式遵循以下规则:
     /// 1.当前后两个VC的barConfig配置相同(相同的定义见isSimilar(config:))时，不会有切换动画
     /// 2.当前后两个VC的barConfig配置不同时，切换样式属性在Push时取toVC的transitionStyle,在Pop时取fromVC的transitionStyle
