@@ -69,6 +69,12 @@ extension UIViewController: QDSwizzlingProtocol {
     @objc func qd_viewDidAppear(animated: Bool) {
         qd_viewDidAppearFlag = true
         qd_viewDidAppear(animated: animated)
+        
+        guard let _ = self.navigationController else {
+            return
+        }
+        // 当viewDidAppear时，更新一下导航栏样式
+        // 解决nav的rootVC是一个vc，该vc有个scorllView,并且在scrollViewDidScroll中对配置进行了修改，由于调用时机问题(nav代理的willShow不会走动画里，而该时机又在willShow之后)，所以此处在页面显示完成后，手动调用一下
         self.qd_updateNavIfNeed()
     }
     
