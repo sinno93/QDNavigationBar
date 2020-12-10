@@ -15,7 +15,11 @@ class QDCustomNavFakeView: UIView {
     }()
     
     lazy var effectView: UIVisualEffectView = {
-        let view = UIVisualEffectView.init(effect: UIBlurEffect.init(style: .light))
+        var style: UIBlurEffect.Style = .light
+        if #available(iOS 10.0, *) {
+            style = .regular
+        }
+        let view = UIVisualEffectView.init(effect: UIBlurEffect.init(style: style))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

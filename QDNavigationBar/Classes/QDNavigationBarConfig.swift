@@ -124,6 +124,7 @@ extension QDNavigationBarConfig: NSCopying {
         translucent = config.translucent
         shadowLineColor = config.shadowLineColor
         eventThrough = config.eventThrough
+        alpha = config.alpha
     }
 }
 
