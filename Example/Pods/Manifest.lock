@@ -1,6 +1,6 @@
 PODS:
   - Masonry (1.1.0)
-  - QDNavigationBar (0.1.0)
+  - QDNavigationBar (0.3.0)
 
 DEPENDENCIES:
   - Masonry
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  QDNavigationBar: ae9bafc1ecac14992fc04b0975de074b035cc7e3
+  QDNavigationBar: 1cce8cc1d4c753055c801a4481b26f740f916c5b
 
 PODFILE CHECKSUM: 6d9529959a60951f9c8013af60bc1f755612ac2a
 

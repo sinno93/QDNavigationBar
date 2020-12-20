@@ -1,0 +1,26 @@
+{
+  "name": "QDStatusBarManager",
+  "version": "0.1.0",
+  "summary": "A short description of QDStatusBarManager.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/sinno93/QDStatusBarManager",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "sinno93": "sinno93@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/sinno93/QDStatusBarManager.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "QDStatusBarManager/Classes/**/*",
+  "swift_versions": [
+    "5.0"
+  ],
+  "swift_version": "5.0"
+}
