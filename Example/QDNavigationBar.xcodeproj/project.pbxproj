@@ -101,18 +101,18 @@
 		4172B0282541F2AE00B3A260 /* QDConfigEditor */ = {
 			isa = PBXGroup;
 			children = (
-				4172B0292541F2AE00B3A260 /* QDConfigSwitchView.m */,
-				4172B02A2541F2AE00B3A260 /* QDColorSliderView.m */,
+				4172B0312541F2AE00B3A260 /* QDColorfulView.h */,
 				4172B02B2541F2AE00B3A260 /* QDColorfulView.m */,
-				4172B02C2541F2AE00B3A260 /* QDConfigColorView.m */,
 				4172B02D2541F2AE00B3A260 /* QDColorPickerController.h */,
+				4172B0302541F2AE00B3A260 /* QDColorPickerController.m */,
+				4172B0332541F2AE00B3A260 /* QDColorSliderView.h */,
+				4172B02A2541F2AE00B3A260 /* QDColorSliderView.m */,
+				4172B0322541F2AE00B3A260 /* QDConfigColorView.h */,
+				4172B02C2541F2AE00B3A260 /* QDConfigColorView.m */,
+				4172B0342541F2AE00B3A260 /* QDConfigEditorView.h */,
 				4172B02E2541F2AE00B3A260 /* QDConfigEditorView.m */,
 				4172B02F2541F2AE00B3A260 /* QDConfigSwitchView.h */,
-				4172B0302541F2AE00B3A260 /* QDColorPickerController.m */,
-				4172B0312541F2AE00B3A260 /* QDColorfulView.h */,
-				4172B0322541F2AE00B3A260 /* QDConfigColorView.h */,
-				4172B0332541F2AE00B3A260 /* QDColorSliderView.h */,
-				4172B0342541F2AE00B3A260 /* QDConfigEditorView.h */,
+				4172B0292541F2AE00B3A260 /* QDConfigSwitchView.m */,
 			);
 			path = QDConfigEditor;
 			sourceTree = "<group>";

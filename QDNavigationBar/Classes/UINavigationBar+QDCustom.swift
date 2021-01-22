@@ -45,9 +45,28 @@ extension UINavigationBar: QDSwizzlingProtocol {
             return hitView
         }
         
+        if #available(iOS 11.0, *) {
+            // use iOS 11-only feature
+        } else {
+            // iOS10上，即使点击按钮，hitView也为UINavigationBar
+            // 此处判断点击处是否有元素
+            if hitView == self {
+                for item in self.subviews.reversed() {
+                    guard !item.isHidden, item.alpha > 0.01, item.frame.size.width < self.bounds.size.width * 0.85 else {
+                        continue
+                    }
+                    let itemP = self.convert(point, to: item)
+                    if item.point(inside: itemP, with: event) {
+                        return hitView
+                    }
+                }
+            }
+        }
+        
         if hitView.frame.size.width > self.bounds.size.width * 0.85 {
             return nil;
         }
+        
         return view
     }
 }

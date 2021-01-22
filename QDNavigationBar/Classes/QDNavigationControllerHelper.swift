@@ -105,12 +105,13 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             }
             let style = self.trisationStyle(fromConfig: fromConfig, fromVC: fromVC, toConfig: toConfig, toVC: toVC, operation: operation)
             switch style {
-            case .none:
-                self.navBarConfigView(toConfig)
-            case .separate:
-                self.separateAnimate(from: fromView, fromConfig: fromConfig, to: toView, toConfig: toConfig, toRemoveViews: &toRemoveViews)
-            case .fade:
-                self.fadeAnimate(from: fromView, fromConfig: fromConfig, to: toView, toConfig: toConfig, toRemoveViews: &toRemoveViews)
+                case .none:
+                    self.navBarConfigView(toConfig)
+                case .separate:
+                    self.separateAnimate(from: fromView, fromConfig: fromConfig, to: toView, toConfig: toConfig, toRemoveViews: &toRemoveViews)
+                case .fade:
+                    self.fadeAnimate(from: fromView, fromConfig: fromConfig, to: toView, toConfig: toConfig, toRemoveViews: &toRemoveViews)
+                case .automatic: break
             }
         }, completion: { (context) in
             self.isTransitioning = false
@@ -140,6 +141,11 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         guard let nav = self.nav else {
             return .none
         }
+        let targetConfig = operation == .push ? toConfig : fromConfig;
+        if targetConfig.transitionStyle != .automatic {
+            return targetConfig.transitionStyle;
+        }
+        // automatic
         if #available(iOS 11.0, *) {
             if nav.navigationBar.prefersLargeTitles {
                 if fromVC.navigationItem.largeTitleDisplayMode != .never || toVC.navigationItem.largeTitleDisplayMode !=  .never {
@@ -151,15 +157,10 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             }
         }
         // 配置相似，则不需要动画
-        if fromConfig.isSimilar(config: toConfig) {
+        if fromConfig.isSimilarStyle(config: toConfig) {
             return .none
         }
-        // 配置不相似
-        if operation == .push {
-            return toConfig.transitionStyle
-        } else {
-            return fromConfig.transitionStyle
-        }
+        return .separate
     }
     
     func configBgViewIfNeed() {

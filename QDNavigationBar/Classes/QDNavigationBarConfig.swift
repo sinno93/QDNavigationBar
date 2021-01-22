@@ -10,11 +10,20 @@ import UIKit
 /// 配置类
 final public class QDNavigationBarConfig: NSObject {
     
-    /// 导航栏切换动画样式
+    /// 在页面切换(Push或Pop)时，导航栏切换的动画样式
+    /// .none: 样式直接变化，没有动画
+    /// .separate:随着页面分离
+    /// .fade: 渐变效果
+    /// .automatic: 会根据情况选择上面合适的切换样式:
+    ///     1.前后两个VC任意一个为largetitle模式，则取`.separate`
+    ///     2.前后两个VC任意一个导航栏上有搜索框(navigationItem.searchController != nil),则取`.separate`
+    ///     3.前后两个VC的barConfig相同，则取`.none`
+    ///     4.前后两个VC的barConfig不同，则取`.separate`
     @objc public enum TransitionStyle: Int {
-        case none // 没有动画
-        case separate // 分离
-        case fade // 淡入淡出
+        case none
+        case separate
+        case fade
+        case automatic
     }
     /// 导航栏背景颜色
     /// 默认白色(UIColor.white)
@@ -89,12 +98,10 @@ final public class QDNavigationBarConfig: NSObject {
     }
     
     /// 两个视图控制器切换(push/pop)时的样式
-    /// 默认为.separate
-    /// 具体切换样式遵循以下规则:
-    /// 1.当前后两个VC的barConfig配置相同(相同的定义见isSimilar(config:))时，不会有切换动画
-    /// 2.当前后两个VC的barConfig配置不同时，切换样式属性在Push时取toVC的transitionStyle,在Pop时取fromVC的transitionStyle
-    /// 3.当前后两个VC任意一个为large title模式，或者任意一个的navigationItem.searchController有值，则一定有动画且为.separate
-    @objc public var transitionStyle: TransitionStyle = .separate {
+    /// 默认为.automatic
+    /// push: 切换样式取toVC的transitionStyle，比如A push B，此时toVC为B,取B的切换样式
+    /// pop: 切换样式取fromVC的transitionStyle，比如A pop, 此时fromVC为A,取A的切换样式
+    @objc public var transitionStyle: TransitionStyle = .automatic {
         didSet {
             guard transitionStyle != oldValue else {return}
         }
@@ -118,20 +125,22 @@ extension QDNavigationBarConfig: NSCopying {
     
     convenience init(config: QDNavigationBarConfig) {
         self.init()
-        barHidden = config.barHidden
         backgroundColor = config.backgroundColor
         backgroundImage = config.backgroundImage
-        translucent = config.translucent
+        translucent     = config.translucent
+        alpha           = config.alpha
         shadowLineColor = config.shadowLineColor
-        eventThrough = config.eventThrough
-        alpha = config.alpha
+        barHidden       = config.barHidden
+        eventThrough    = config.eventThrough
+        transitionStyle = config.transitionStyle
     }
 }
 
 
 extension QDNavigationBarConfig {
-    /// 判断两个配置是否相似(注意这里没有比较shadowLineColor)
-    func isSimilar(config: QDNavigationBarConfig) -> Bool {
+    /// 判断两个配置的样式是否相似
+    /// transitionStyle、shadowLineColor、eventThrough被忽略，不做比较
+    func isSimilarStyle(config: QDNavigationBarConfig) -> Bool {
         if barHidden != config.barHidden {
             return false
         }

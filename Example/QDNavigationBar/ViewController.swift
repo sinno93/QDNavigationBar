@@ -54,7 +54,6 @@ class ViewController: UIViewController {
             let nextConfig = config.copy() as! QDNavigationBarConfig
             nextConfig.backgroundColor = UIColor.red
             nextConfig.eventThrough = true
-//            nextConfig.transitionStyle = .fade
             return nextConfig
         } else {
             return QDNavigationBarConfig()
