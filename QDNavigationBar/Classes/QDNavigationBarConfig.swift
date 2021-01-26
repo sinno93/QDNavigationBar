@@ -61,11 +61,21 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     
-    /// 是否有半透明效果
-    /// 默认false，即无半透明效果
-    @objc public var barBlurEffect: UIBlurEffect? {
+    /// 是否需要模糊效果
+    /// 默认false，即不需要
+    /// 设置为true后，可通过blurStyle控制模糊效果样式
+    @objc public var needBlurEffect: Bool = false {
         didSet {
-            guard barBlurEffect != oldValue  else {return}
+            guard needBlurEffect != oldValue  else {return}
+            refreshIfNeed()
+        }
+    }
+    /// 模糊效果样式
+    /// 在needBlurEffect为true时，此属性有效
+    /// iOS10以下默认为.light, iOS10及以上默认.regular
+    @objc public var blurStyle: UIBlurEffect.Style {
+        didSet {
+            guard blurStyle != oldValue  else {return}
             refreshIfNeed()
         }
     }
@@ -117,6 +127,13 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     
+    public override init() {
+        if #available(iOS 10.0, *) {
+            self.blurStyle = .regular
+        } else {
+            self.blurStyle = .light;
+        }
+    }
 }
 
 extension QDNavigationBarConfig: NSCopying {
@@ -129,7 +146,8 @@ extension QDNavigationBarConfig: NSCopying {
         self.init()
         backgroundColor = config.backgroundColor
         backgroundImage = config.backgroundImage
-        barBlurEffect   = config.barBlurEffect?.copy() as? UIBlurEffect
+        needBlurEffect  = config.needBlurEffect
+        blurStyle       = config.blurStyle
         alpha           = config.alpha
         shadowLineColor = config.shadowLineColor
         barHidden       = config.barHidden
@@ -146,11 +164,14 @@ extension QDNavigationBarConfig {
         if barHidden != config.barHidden {
             return false
         }
-        
-        if barBlurEffect != config.barBlurEffect {
+        if needBlurEffect != config.needBlurEffect {
             return false
         }
         
+        if blurStyle != config.blurStyle {
+            return false
+        }
+    
         if abs(alpha - config.alpha) > 0.01 {
             return false
         }

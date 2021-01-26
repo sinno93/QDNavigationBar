@@ -8,6 +8,12 @@
 import UIKit
 
 class QDCustomNavFakeView: UIView {
+    var blurEffectStyle: UIBlurEffect.Style = .light {
+        didSet {
+            guard blurEffectStyle != oldValue else {return}
+            self.effectView.effect = UIBlurEffect(style: blurEffectStyle)
+        }
+    }
     lazy var bottomLineView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -15,11 +21,7 @@ class QDCustomNavFakeView: UIView {
     }()
     
     lazy var effectView: UIVisualEffectView = {
-        var style: UIBlurEffect.Style = .light
-        if #available(iOS 10.0, *) {
-            style = .regular
-        }
-        let view = UIVisualEffectView.init(effect: UIBlurEffect.init(style: style))
+        let view = UIVisualEffectView.init(effect: UIBlurEffect.init(style: .light))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

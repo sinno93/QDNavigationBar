@@ -63,7 +63,7 @@
     self.bgColorView.color = self.config.backgroundColor;
     self.bottomLineColorView.color = self.config.shadowLineColor;
     self.barHiddenView.on = self.config.barHidden;
-    self.translucentView.on = self.config.barBlurEffect != nil;
+    self.translucentView.on = self.config.needBlurEffect;
 }
 
 #pragma mark - Getter && Setter
@@ -128,11 +128,7 @@
         view.on = YES;
         __weak __typeof(self)weakSelf = self;
         view.valueChanged = ^(BOOL on) {
-            UIBlurEffect *effect = nil;
-            if (on) {
-                effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-            }
-            weakSelf.config.barBlurEffect = effect;
+            weakSelf.config.needBlurEffect = on;
         };
         _translucentView = view;
     }
