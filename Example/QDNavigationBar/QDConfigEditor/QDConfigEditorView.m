@@ -34,7 +34,7 @@
 
 #pragma mark - Public Methods
 // 公开的方法
-- (void)setConfig:(TempConfig *)config {
+- (void)setConfig:(QDNavigationBarConfig *)config {
     _config = config;
     [self updateView];
 }
@@ -60,10 +60,10 @@
 }
 
 - (void)updateView {
-    self.bgColorView.color = self.config.bgColor;
+    self.bgColorView.color = self.config.backgroundColor;
     self.bottomLineColorView.color = self.config.shadowLineColor;
     self.barHiddenView.on = self.config.barHidden;
-    self.translucentView.on = self.config.translucent;
+    self.translucentView.on = self.config.barBlurEffect != nil;
 }
 
 #pragma mark - Getter && Setter
@@ -85,7 +85,7 @@
         view.color = UIColor.whiteColor;
         __weak __typeof(self)weakSelf = self;
         view.colorChanged = ^(UIColor * _Nonnull color) {
-            weakSelf.config.bgColor = color;
+            weakSelf.config.backgroundColor = color;
         };
         _bgColorView = view;
     }
@@ -124,11 +124,15 @@
 - (QDConfigSwitchView *)translucentView {
     if (!_translucentView) {
         QDConfigSwitchView *view = [[QDConfigSwitchView alloc] init];
-        view.title = @"translucent";
+        view.title = @"needBlur";
         view.on = YES;
         __weak __typeof(self)weakSelf = self;
         view.valueChanged = ^(BOOL on) {
-            weakSelf.config.translucent = on;
+            UIBlurEffect *effect = nil;
+            if (on) {
+                effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+            }
+            weakSelf.config.barBlurEffect = effect;
         };
         _translucentView = view;
     }

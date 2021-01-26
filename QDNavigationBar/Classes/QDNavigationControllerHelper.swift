@@ -336,7 +336,8 @@ extension QDCustomNavFakeView {
     func configView(_ config: QDNavigationBarConfig) {
         self.imageView.backgroundColor = config.backgroundColor
         self.bottomLineView.backgroundColor = config.shadowLineColor
-        self.effectView.alpha = config.translucent ? 1 : 0
+        self.effectView.effect = config.barBlurEffect;
+        self.effectView.isHidden = config.barBlurEffect == nil;
         self.imageView.image = config.backgroundImage
         self.alpha = config.alpha
     }

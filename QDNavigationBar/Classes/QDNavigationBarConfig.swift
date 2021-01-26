@@ -60,14 +60,16 @@ final public class QDNavigationBarConfig: NSObject {
             refreshIfNeed()
         }
     }
+    
     /// 是否有半透明效果
     /// 默认false，即无半透明效果
-    @objc public var translucent: Bool = false {
+    @objc public var barBlurEffect: UIBlurEffect? {
         didSet {
-            guard translucent != oldValue  else {return}
+            guard barBlurEffect != oldValue  else {return}
             refreshIfNeed()
         }
     }
+    
     /// 导航栏底部线条颜色
     /// 默认灰色(UIColor.gray)
     @objc public var shadowLineColor: UIColor = UIColor.gray {
@@ -127,7 +129,7 @@ extension QDNavigationBarConfig: NSCopying {
         self.init()
         backgroundColor = config.backgroundColor
         backgroundImage = config.backgroundImage
-        translucent     = config.translucent
+        barBlurEffect   = config.barBlurEffect?.copy() as? UIBlurEffect
         alpha           = config.alpha
         shadowLineColor = config.shadowLineColor
         barHidden       = config.barHidden
@@ -144,9 +146,11 @@ extension QDNavigationBarConfig {
         if barHidden != config.barHidden {
             return false
         }
-        if translucent != config.translucent {
+        
+        if barBlurEffect != config.barBlurEffect {
             return false
         }
+        
         if abs(alpha - config.alpha) > 0.01 {
             return false
         }

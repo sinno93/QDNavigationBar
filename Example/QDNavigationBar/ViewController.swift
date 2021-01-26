@@ -74,9 +74,9 @@ class ViewController: UIViewController {
         self.title = "Demo"
         self.configSubviews()
         if let config = self.qd_navBarConfig {
-            self.editorView.config = TempConfig(config: config)
+            self.editorView.config = config
         }
-        self.nextEditorView.config = TempConfig(config: self.nextConfig)
+        self.nextEditorView.config = self.nextConfig
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         }
@@ -84,7 +84,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.nextEditorView.config = TempConfig(config: self.nextConfig)
+        self.nextEditorView.config = self.nextConfig
     }
     ///
     @objc func pushButtonClick(button:UIButton) {

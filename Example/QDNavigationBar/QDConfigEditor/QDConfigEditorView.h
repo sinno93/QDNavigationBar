@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class TempConfig;
+@import QDNavigationBar;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface QDConfigEditorView : UIView
-@property (nonatomic, strong)  TempConfig*config;
+@property (nonatomic, strong)  QDNavigationBarConfig *config;
 @end
 
 NS_ASSUME_NONNULL_END
