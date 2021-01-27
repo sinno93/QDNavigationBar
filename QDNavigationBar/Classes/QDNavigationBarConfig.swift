@@ -29,7 +29,7 @@ final public class QDNavigationBarConfig: NSObject {
     /// 默认白色(UIColor.white)
     @objc public var backgroundColor: UIColor = UIColor.white {
         didSet {
-            guard !backgroundColor.isEqual(oldValue) else {return}
+            guard backgroundColor != oldValue else {return}
             refreshIfNeed()
         }
     }
@@ -37,10 +37,7 @@ final public class QDNavigationBarConfig: NSObject {
     /// 默认nil
     @objc public var backgroundImage: UIImage? = nil {
         didSet {
-            if backgroundImage == oldValue {
-                return
-            }
-            guard let bgImage = backgroundImage,let preBgImage = oldValue,preBgImage.isEqual(bgImage) else {return}
+            guard backgroundImage != oldValue else {return}
             refreshIfNeed()
         }
     }
@@ -50,13 +47,13 @@ final public class QDNavigationBarConfig: NSObject {
     /// 注意此属性仅影响导航栏的透明度，不会影响导航栏上的控件
     @objc public var alpha: CGFloat = 1.0 {
         didSet {
+            guard oldValue != alpha else {return}
             assert(alpha>=0 && alpha<=1, "alpha必须在[0,1]区间")
             var targetAlpha: CGFloat = CGFloat.maximum(0, alpha)
             targetAlpha = CGFloat.minimum(1, alpha)
             if targetAlpha != alpha {
                 alpha = targetAlpha
             }
-            guard oldValue != alpha else {return}
             refreshIfNeed()
         }
     }
@@ -72,8 +69,8 @@ final public class QDNavigationBarConfig: NSObject {
     }
     /// 模糊效果样式
     /// 在needBlurEffect为true时，此属性有效
-    /// iOS10以下默认为.light, iOS10及以上默认.regular
-    @objc public var blurStyle: UIBlurEffect.Style {
+    /// 默认.light
+    @objc public var blurStyle: UIBlurEffect.Style = .light {
         didSet {
             guard blurStyle != oldValue  else {return}
             refreshIfNeed()
@@ -81,10 +78,10 @@ final public class QDNavigationBarConfig: NSObject {
     }
     
     /// 导航栏底部线条颜色
-    /// 默认灰色(UIColor.gray)
-    @objc public var shadowLineColor: UIColor = UIColor.gray {
+    /// 默认透明(UIColor.clear)
+    @objc public var shadowLineColor: UIColor = UIColor.clear {
         didSet {
-            guard !shadowLineColor.isEqual(oldValue) else {return}
+            guard shadowLineColor != oldValue else {return}
             refreshIfNeed()
         }
     }
@@ -124,14 +121,6 @@ final public class QDNavigationBarConfig: NSObject {
     func refreshIfNeed() {
         if viewController?.qd_navBarConfig == self {
             viewController?.qd_updateNavIfNeed()
-        }
-    }
-    
-    public override init() {
-        if #available(iOS 10.0, *) {
-            self.blurStyle = .regular
-        } else {
-            self.blurStyle = .light;
         }
     }
 }
@@ -175,14 +164,8 @@ extension QDNavigationBarConfig {
         if abs(alpha - config.alpha) > 0.01 {
             return false
         }
-        if (backgroundImage != nil && config.backgroundImage == nil) || (backgroundImage == nil && config.backgroundImage != nil) {
+        if backgroundImage != config.backgroundImage {
             return false
-        }
-        
-        if let bgImage = backgroundImage, let image = config.backgroundImage {
-            if !bgImage.isEqual(image) {
-                return false
-            }
         }
         return backgroundColor.isSimilar(color: config.backgroundColor, tolerance: 0.1);
     }
