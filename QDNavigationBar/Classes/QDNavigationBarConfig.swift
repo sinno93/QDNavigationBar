@@ -11,14 +11,16 @@ import UIKit
 final public class QDNavigationBarConfig: NSObject {
     
     /// 在页面切换(Push或Pop)时，导航栏切换的动画样式
-    /// .none: 样式直接变化，没有动画
-    /// .separate:随着页面分离
-    /// .fade: 渐变效果
-    /// .automatic: 会根据情况选择上面合适的切换样式:
-    ///     1.前后两个VC任意一个为largetitle模式，则取`.separate`
-    ///     2.前后两个VC任意一个导航栏上有搜索框(navigationItem.searchController != nil),则取`.separate`
-    ///     3.前后两个VC的barConfig相同，则取`.none`
-    ///     4.前后两个VC的barConfig不同，则取`.separate`
+    ///
+    /// * .none: 样式直接变化，没有动画
+    ///
+    /// * .separate:随着页面分离
+    /// * .fade: 渐变效果
+    /// * .automatic: 会根据情况选择上面合适的切换样式:
+    ///    - 1.前后两个VC任意一个为largetitle模式，则取`.separate`
+    ///    - 2.前后两个VC任意一个导航栏上有搜索框(navigationItem.searchController != nil),则取`.separate`
+    ///    - 3.前后两个VC的barConfig相同，则取`.none`
+    ///    - 4.前后两个VC的barConfig不同，则取`.separate`
     @objc public enum TransitionStyle: Int {
         case none
         case separate
@@ -42,9 +44,10 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     
-    /// 导航栏透明度
+    /// 导航栏背景透明度
     /// 默认1.0
-    /// 注意此属性仅影响导航栏的透明度，不会影响导航栏上的控件
+    ///
+    /// 注意此属性仅影响导航栏背景的透明度，不会影响导航栏上的控件(比如标题、返回键...)
     @objc public var alpha: CGFloat = 1.0 {
         didSet {
             guard oldValue != alpha else {return}
@@ -60,6 +63,7 @@ final public class QDNavigationBarConfig: NSObject {
     
     /// 是否需要模糊效果
     /// 默认false，即不需要
+    ///
     /// 设置为true后，可通过blurStyle控制模糊效果样式
     @objc public var needBlurEffect: Bool = false {
         didSet {
@@ -68,8 +72,9 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     /// 模糊效果样式
-    /// 在needBlurEffect为true时，此属性有效
     /// 默认.light
+    ///
+    /// 在needBlurEffect为true时，此属性有效
     @objc public var blurStyle: UIBlurEffect.Style = .light {
         didSet {
             guard blurStyle != oldValue  else {return}
@@ -87,7 +92,7 @@ final public class QDNavigationBarConfig: NSObject {
     }
     
     /// 导航栏是否隐藏
-    /// 默认false，即不隐藏
+    /// 默认false,即不隐藏
     @objc public var barHidden: Bool = false {
         didSet {
             guard barHidden != oldValue else {return}
@@ -96,8 +101,8 @@ final public class QDNavigationBarConfig: NSObject {
     }
     
     /// 否开启导航栏事件穿透，
-    /// 默认为NO
-    /// 为YES时，点击导航栏的事件会透到下层视图
+    /// 默认为false, 为true时，点击导航栏的事件会透到下层视图
+    ///
     /// 注意，如果导航栏上有标题、返回按钮等时，点击这些控件的事件不会被穿透
     @objc public var eventThrough: Bool = false {
         didSet {
@@ -106,10 +111,13 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     
-    /// 两个视图控制器切换(push/pop)时的样式
-    /// 默认为.automatic
-    /// push: 切换样式取toVC的transitionStyle，比如A push B，此时toVC为B,取B的切换样式
-    /// pop: 切换样式取fromVC的transitionStyle，比如A pop, 此时fromVC为A,取A的切换样式
+    /// 两个视图控制器切换(push/pop)时,导航栏转场样式,默认为.automatic
+    ///
+    /// push时: 切换样式取toVC的transitionStyle，比如A push B，此时toVC为B,取B的切换样式
+    ///
+    /// pop时: 切换样式取fromVC的transitionStyle，比如A pop, 此时fromVC为A,取A的切换样式
+    ///
+    /// ## 具体切换样式表现，见TransitionStyle注释
     @objc public var transitionStyle: TransitionStyle = .automatic {
         didSet {
             guard transitionStyle != oldValue else {return}

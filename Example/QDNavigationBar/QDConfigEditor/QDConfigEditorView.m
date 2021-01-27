@@ -124,7 +124,7 @@
 - (QDConfigSwitchView *)translucentView {
     if (!_translucentView) {
         QDConfigSwitchView *view = [[QDConfigSwitchView alloc] init];
-        view.title = @"needBlur";
+        view.title = @"needBlurEffect";
         view.on = YES;
         __weak __typeof(self)weakSelf = self;
         view.valueChanged = ^(BOOL on) {

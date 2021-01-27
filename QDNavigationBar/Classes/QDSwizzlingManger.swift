@@ -24,7 +24,7 @@ extension QDSwizzlingProtocol {
     }
 }
 
-public class QDSwizzlingManger {
+class QDSwizzlingManger {
     //只会调用一次的方法,实现了交换的类需要在这里执行一下
     private static let doOnce: Any? = {
         UIViewController.qdSwizzling()
@@ -33,7 +33,7 @@ public class QDSwizzlingManger {
         return nil
     }()
     
-    public static func runOnce() {
+    static func runOnce() {
         _ = QDSwizzlingManger.doOnce
     }
 }

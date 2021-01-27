@@ -94,17 +94,23 @@ override func viewDidLoad() {
 /// 默认nil
 @objc public var backgroundImage: UIImage?
 
-/// 导航栏透明度
+/// 导航栏背景透明度
 /// 默认1.0
-/// 注意此属性仅影响导航栏的透明度，不会影响导航栏上的控件
+/// 注意此属性仅影响导航栏背景的透明度，不会影响导航栏上的控件(比如标题、返回键...)
 @objc public var alpha: CGFloat
 
-/// 是否有半透明效果
-/// 默认false，即无半透明效果
-@objc public var translucent: Bool
+/// 是否需要模糊效果
+/// 默认false，即不需要
+/// 设置为true后，可通过blurStyle控制模糊效果样式
+@objc public var needBlurEffect: Bool
+
+/// 模糊效果样式
+/// 默认.light
+/// 在needBlurEffect为true时，此属性有效
+@objc public var blurStyle: UIBlurEffect.Style
 
 /// 导航栏底部线条颜色
-/// 默认灰色(UIColor.gray)
+/// 默认透明(UIColor.clear)
 @objc public var shadowLineColor: UIColor
 
 /// 导航栏是否隐藏
@@ -112,18 +118,14 @@ override func viewDidLoad() {
 @objc public var barHidden: Bool
 
 /// 否开启导航栏事件穿透，
-/// 默认为NO
-/// 为YES时，点击导航栏的事件会透到下层视图
+/// 默认为false,即不会穿透; 当设置为为true时，点击导航栏背景的事件会透到下层视图
 /// 注意，如果导航栏上有标题、返回按钮等时，点击这些控件的事件不会被穿透
+/// 增加这个属性是考虑到一种情况：当你将导航栏设置为透明时，
 @objc public var eventThrough: Bool
 
 /// 两个视图控制器切换(push/pop)时的样式
-/// 默认为.separate
-/// 具体切换样式遵循以下规则:
-/// 1.当前后两个VC的barConfig配置相同(相同的定义见isSimilar(config:))时，不会有切换动画
-/// 2.当前后两个VC的barConfig配置不同时，切换样式属性在Push时取toVC的transitionStyle,在Pop时取fromVC的transitionStyle
-/// 3.当前后两个VC任意一个为large title模式，或者任意一个的navigationItem.searchController有值，则一定有动画且为.separate
-@objc public var transitionStyle: QDNavigationBar.QDNavigationBarConfig.TransitionStyle
+/// 默认.automatic
+@objc public var transitionStyle: TransitionStyle
 ```
 
 
