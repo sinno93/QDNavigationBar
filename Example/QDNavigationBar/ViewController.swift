@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         if self.navigationController?.qd_navBarConfig == nil {
             let config = QDNavigationBarConfig()
             config.backgroundColor = UIColor.green
-            config.shadowLineColor = UIColor.red
+            config.bottomLineColor = UIColor.red
             self.navigationController?.qd_navBarConfig = config
         }
         if self.qd_navBarConfig == nil {

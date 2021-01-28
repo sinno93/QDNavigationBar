@@ -61,7 +61,7 @@
 
 - (void)updateView {
     self.bgColorView.color = self.config.backgroundColor;
-    self.bottomLineColorView.color = self.config.shadowLineColor;
+    self.bottomLineColorView.color = self.config.bottomLineColor;
     self.barHiddenView.on = self.config.barHidden;
     self.translucentView.on = self.config.needBlurEffect;
 }
@@ -99,7 +99,7 @@
         view.color = UIColor.redColor;
         __weak __typeof(self)weakSelf = self;
         view.colorChanged = ^(UIColor * _Nonnull color) {
-            weakSelf.config.shadowLineColor = color;
+            weakSelf.config.bottomLineColor = color;
         };
         _bottomLineColorView = view;
     }

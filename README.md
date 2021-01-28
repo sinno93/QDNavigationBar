@@ -111,7 +111,7 @@ override func viewDidLoad() {
 
 /// 导航栏底部线条颜色
 /// 默认透明(UIColor.clear)
-@objc public var shadowLineColor: UIColor
+@objc public var bottomLineColor: UIColor
 
 /// 导航栏是否隐藏
 /// 默认false，即不隐藏

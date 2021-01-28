@@ -335,7 +335,7 @@ extension QDNavigationControllerHelper {
 extension QDCustomNavFakeView {
     func configView(_ config: QDNavigationBarConfig) {
         self.imageView.backgroundColor = config.backgroundColor
-        self.bottomLineView.backgroundColor = config.shadowLineColor
+        self.bottomLineView.backgroundColor = config.bottomLineColor
         self.blurEffectStyle = config.blurStyle
         self.effectView.isHidden = !config.needBlurEffect;
         self.imageView.image = config.backgroundImage

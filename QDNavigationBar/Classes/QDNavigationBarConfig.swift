@@ -84,9 +84,9 @@ final public class QDNavigationBarConfig: NSObject {
     
     /// 导航栏底部线条颜色
     /// 默认透明(UIColor.clear)
-    @objc public var shadowLineColor: UIColor = UIColor.clear {
+    @objc public var bottomLineColor: UIColor = UIColor.clear {
         didSet {
-            guard shadowLineColor != oldValue else {return}
+            guard bottomLineColor != oldValue else {return}
             refreshIfNeed()
         }
     }
@@ -146,7 +146,7 @@ extension QDNavigationBarConfig: NSCopying {
         needBlurEffect  = config.needBlurEffect
         blurStyle       = config.blurStyle
         alpha           = config.alpha
-        shadowLineColor = config.shadowLineColor
+        bottomLineColor = config.bottomLineColor
         barHidden       = config.barHidden
         eventThrough    = config.eventThrough
         transitionStyle = config.transitionStyle
@@ -156,7 +156,7 @@ extension QDNavigationBarConfig: NSCopying {
 
 extension QDNavigationBarConfig {
     /// 判断两个配置的样式是否相似
-    /// transitionStyle、shadowLineColor、eventThrough被忽略，不做比较
+    /// transitionStyle、bottomLineColor、eventThrough被忽略，不做比较
     func isSimilarStyle(config: QDNavigationBarConfig) -> Bool {
         if barHidden != config.barHidden {
             return false
