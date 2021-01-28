@@ -17,7 +17,6 @@ extension UIViewController {
         set {
             objc_setAssociatedObject(self, &UIViewController.qd_vdaKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
-        
     }
     
     static var qd_navbarconfig_key = "qd_navbarconfig_key"
@@ -26,7 +25,6 @@ extension UIViewController {
             let config = objc_getAssociatedObject(self, &UIViewController.qd_navbarconfig_key) as? QDNavigationBarConfig
             return config
         }
-        
         set {
             objc_setAssociatedObject(self, &UIViewController.qd_navbarconfig_key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             newValue?.viewController = self
@@ -44,18 +42,18 @@ extension UIViewController {
     @objc func qd_updateNavIfNeed() {
         // vc didAppera后才刷新，避免重复刷新
         // 比如在push过程中，viewDidLoad方法里，修改了navConfig的hidden属性，如果不加此判断直接刷新的话导航栏会直接消失；修改其他属性也是同理。
-        if !self.qd_viewDidAppearFlag {
+        guard self.qd_viewDidAppearFlag, self.navigationController != nil else {
             return
         }
-        if self.qd_navBarConfig == nil && self.navigationController != nil {
+        // 为nil时也可以刷新，此时取导航栏的config
+        if self.qd_navBarConfig == nil {
             self.navigationController?.qd_navBarConfigChanged(vc: self)
             return
         }
-        
-        guard let config = self.qd_navBarConfig, config.viewController == self, let _ = self.navigationController else {
-            return
+
+        if let config = self.qd_navBarConfig, config.viewController == self {
+            self.navigationController?.qd_navBarConfigChanged(vc: self)
         }
-        self.navigationController?.qd_navBarConfigChanged(vc: self)
     }
 }
 
