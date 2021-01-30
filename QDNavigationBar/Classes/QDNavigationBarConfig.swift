@@ -97,7 +97,7 @@ final public class QDNavigationBarConfig: NSObject {
             // 不同 则刷新
             if statusBarStyle != oldValue {
                 self.refreshIfNeed()
-            }            
+            }
         }
     }
     /// 状态栏是否隐藏
@@ -195,6 +195,8 @@ extension QDNavigationBarConfig: NSCopying {
         blurStyle       = config.blurStyle
         alpha           = config.alpha
         bottomLineColor = config.bottomLineColor
+        statusBarStyle  = config.statusBarStyle
+        statusBarHidden = config.statusBarHidden
         barHidden       = config.barHidden
         eventThrough    = config.eventThrough
         transitionStyle = config.transitionStyle

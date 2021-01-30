@@ -79,13 +79,38 @@ extension UINavigationController {
     }
     
     @objc override func qd_prefersStatusBarHidden() -> Bool {
-        guard let config = self.qd_navBarConfig else {
+        guard let config = self.qd_navBarConfig, let helper = self.qd_navhelper else {
             return qd_prefersStatusBarHidden()
         }
-        if let topVCConfig = self.topViewController?.resolvedBarConfig {
-            return topVCConfig.statusBarHidden
+        
+        guard let topVC = self.topViewController else {
+            return config.statusBarHidden
         }
-        return config.statusBarHidden
+        // 是否是刘海系屏幕手机，此处根据window的safeAreaInset.bottom来判断
+        let isNotchScreenPhone:Bool = {
+            guard let window = self.view.window else { return false}
+            if #available(iOS 11.0, *) {
+                return window.safeAreaInsets.bottom > 1
+            } else {
+                return false
+            }
+        }()
+        // 在非刘海系手机(如iPhone8)上，状态栏隐藏时整个导航栏的高度会变小(比如64变为44)，这导致在转场(push/pop)的时候,若两个VC的状态栏隐藏设置不一致，页面显示会有明显的瑕疵
+        // 此处的解决方案是:判断是非刘海屏手机时，在topVC未viewDidAppear时直接返回上次返回的结果,也就是说，只有在topVC viewDidAppear的时候，其配置才生效
+        if !isNotchScreenPhone {
+            if let lastHidden = helper.lastStatusBarHidden,  !topVC.qd_viewDidAppearFlag {
+                return lastHidden
+            }
+        }
+        
+        var hidden: Bool
+        if let topVCConfig = topVC.resolvedBarConfig {
+            hidden = topVCConfig.statusBarHidden
+        } else {
+            hidden = config.statusBarHidden
+        }
+        helper.lastStatusBarHidden = hidden
+        return hidden
     }
     
     @objc func qd_childForStatusBarStyle() -> UIViewController? {

@@ -10,6 +10,7 @@ import UIKit
 class QDNavigationControllerHelper: NSObject {
     weak var nav: UINavigationController?
     weak var navRealDelegate: UINavigationControllerDelegate?
+    var lastStatusBarHidden: Bool?
     var isTransitioning = false
     lazy var customNavContainerView: UIView = {
         let view = UIView()
@@ -129,6 +130,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             }
             if let targetConfig = targetConfig {
                 self.navBarConfigView(targetConfig)
+                self.nav?.setNeedsStatusBarAppearanceUpdate()
                 if navigationController.isNavigationBarHidden != targetConfig.barHidden {
                     navigationController.setNavigationBarHidden(targetConfig.barHidden, animated: false)
                 }
