@@ -26,8 +26,15 @@ extension UIViewController {
             return config
         }
         set {
+            if self.qd_navBarConfig == newValue {
+                return
+            }
+            if let preConfig = self.qd_navBarConfig {
+                // 从旧的配置的vcList里移除self
+                preConfig.remove(vc: self)
+            }
             objc_setAssociatedObject(self, &UIViewController.qd_navbarconfig_key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            newValue?.viewController = self
+            newValue?.add(vc: self)
             self.qd_updateNavIfNeed()
         }
     }
@@ -42,18 +49,13 @@ extension UIViewController {
     @objc func qd_updateNavIfNeed() {
         // vc didAppera后才刷新，避免重复刷新
         // 比如在push过程中，viewDidLoad方法里，修改了navConfig的hidden属性，如果不加此判断直接刷新的话导航栏会直接消失；修改其他属性也是同理。
-        guard self.qd_viewDidAppearFlag, self.navigationController != nil else {
+        guard self.qd_viewDidAppearFlag,let _ = self.navigationController?.qd_navBarConfig else {
             return
         }
-        // 为nil时也可以刷新，此时取导航栏的config
-        if self.qd_navBarConfig == nil {
-            self.navigationController?.qd_navBarConfigChanged(vc: self)
-            return
-        }
-
-        if let config = self.qd_navBarConfig, config.viewController == self {
-            self.navigationController?.qd_navBarConfigChanged(vc: self)
-        }
+        // 只要导航栏有设置config,不管当前self有无设置config 都应该刷新
+        self.navigationController?.qd_navBarConfigChanged(vc: self)
+        // 这种情况理论上不会出现
+        assert(self.qd_navBarConfig == nil || self.qd_navBarConfig!.contain(vc: self), "config不包含当前VC");
     }
 }
 

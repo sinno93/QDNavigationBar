@@ -9,22 +9,22 @@ QDNavigationBar是一个轻量、易用导航栏样式管理库，它可以帮�
 
 ![页面切换](Assets/demo1.gif) ![样式修改](Assets/demo2.gif)
 
-## 特性
+## 特性🌟
 - [x] 让每一个控制器都能定制自己想要的导航栏样式
 - [x] 轻量、低耦合，数行代码即可集成
-- [x] 支持设置多种自定义的样式比如:背景颜色、背景图片、导航栏底部线条颜色、是否有半透明效果、透明度等
+- [x] 支持设置多种自定义的样式比如:背景颜色、背景图片、底部线条颜色、是否有半透明效果、透明度等
 - [x] 支持选择导航栏切换时的过渡效果
 - [x] 支持large title、带search bar等特殊的导航栏模式
 - [x] 支持dark mode
 - [x] 支持横竖屏切换 
 
 
-## Requirements
+## Requirements💡
 - iOS 9.0+ 
 - Xcode 11.0+
 - Swift 4.0+
 
-## Installation
+## Installation👷‍♂️
 
 QDNavigationBar is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
@@ -33,38 +33,51 @@ it, simply add the following line to your Podfile:
 pod 'QDNavigationBar'
 ```
 
-## Usage
-
-#### Swift
+## Usage🧭
 
 ###### 1.导入QDNavigationBar
+
 ```swift
+/// Swift:
 import QDNavigationBar
 ```
 
-###### 2.为你的UINavigationController开启QDNavigationBar配置功能
-
-```swift
-let config = QDNavigationBarConfig()
-config.backgroundColor = UIColor.green
-navController.qd_navBarConfig = config
+```objective-c
+/// Objective-C
+@import QDNavigationBar;
 ```
 
-设置UINavigationController的qd_navBarConfig的有两个作用：
+###### 2.为UINavigationController开启QDNavigationBar支持
 
-1.启用QDNavigationBar管理(也就是说，不设置则不启用)
+QDNavigationBar通过Runtime为UINavigationController增加了一个实例属性qd_navBarConfig，只需要给该属性赋值即可开启QDNavigationBar支持。
 
-2.配置该导航控制器的默认导航栏样式配置，对于该导航控制器管理下的所有未设置自定义配置的控制器生效。
+```swift
+/// Swift
+let config = QDNavigationBarConfig()
+config.backgroundColor = UIColor.green
+navigationController.qd_navBarConfig = config
+```
+
+```objective-c
+/// Objective-C
+
+```
+
+>UINavigationController实例级别的控制，可以灵活控制QDNavigationBar的作用范围：你可以自由控制哪些导航控制器需要使用QDNavigationBar来管理导航栏样式，哪些不需要；
+>
+>一般来说，项目中都会有一个自定义的导航控制器，你可以在那个类中进行相关设置，这样你不需要为每个实例都进行设置。
+
+UINavigationController的qd_navBarConfig作为导航栏默认样式配置，如果topViewController没有自己的配置，该默认配置将生效。
 
 
 
-通常情况下，一个app内的大部分页面的导航栏配置都是一样的，可以将这些设置为导航控制器的qd_navBarConfig。
+##### 3. 为某些UIViewController设置独立的导航栏样式配置
 
-对于少数页面需要设置特殊的样式，可以为其单独设置qd_navBarConfig，如下：
+同样的，QDNavigationBar也为UIViewController增加了一个实例属性qd_navBarConfig。
 
-
-
-##### 3. 为某些UIViewController设置特殊配置
+> 默认情况下，UIViewController的qd_navBarConfig为nil, 此时该控制器的导航栏样式由其导航栏的qd_navBarConfig决定；
+>
+> 在实际项目中，一般只有少数页面需要设置特殊的样式，可以为其单独设置qd_navBarConfig来实现。
 
 ```swift
 override func viewDidLoad() {
@@ -76,12 +89,15 @@ override func viewDidLoad() {
     }
 ```
 
-默认情况下，UIViewController的qd_navBarConfig为nil, 此时该控制器的导航栏样式由其导航栏控制。
-
-1. 在你为控制器设置了qd_navBarConfig后，该控制器的导航栏样式将根据自己的配置显式。
-2. 你可以随时修改qd_navBarConfig设置的配置，这些配置会实时生效。
 
 
+总结一下:
+
+1.如果当前显示的控制器qd_navBarConfig为nil, 则导航栏样式则由导航控制器的qd_navBarConfig决定；
+
+2.如果当前显示的控制器的qd_navBarConfig不为nil, 则导航栏样式则由该配置决定。
+
+修改控制器或者导航控制器的qd_navBarConfig的任意属性，都将实时生效。
 
 ##### 4. QDNavigationBarConfig支持的配置
 
@@ -120,26 +136,40 @@ override func viewDidLoad() {
 /// 否开启导航栏事件穿透，
 /// 默认为false,即不会穿透; 当设置为为true时，点击导航栏背景的事件会透到下层视图
 /// 注意，如果导航栏上有标题、返回按钮等时，点击这些控件的事件不会被穿透
-/// 增加这个属性是考虑到一种情况：当你将导航栏设置为透明时，
 @objc public var eventThrough: Bool
 
-/// 两个视图控制器切换(push/pop)时的样式
+/// 两个视图控制器切换(push/pop)时导航栏样式切换动画
 /// 默认.automatic
 @objc public var transitionStyle: TransitionStyle
 ```
 
+>QDNavigationBar不会为你管理诸如返回按钮、标题颜色、顶部菜单等，有两个原因：
+>
+>1.这些都可以通过UIViewController的navigationItem进行设置
+>
+>2.作者希望QDNavigationBar能够专注于解决导航栏"公地悲剧"问题，尽量不添加非必要功能🧐
+
+## Notes⚠️
+
+注意事项：
+
+当为一个UINavigationController启用QDNavigationBar管理后：
+
+​	1.不要调用navigationBar的 setBackgroundImage、shadowImage方法
+
+​	2.不要调用UINavigationController的setNavigationBarHidden方法
+
+​	3.注意navigationBar的translucent将为true， 并且你不应该修改它
 
 
-## Notes
+## Author👨🏻‍💻
 
-当你为一个UINavigationController启用了QDNavigationBar管理后，不要再调用导航栏的setBackgroundImage等样式修改方法了，
+联系邮箱📮： sinno93@qq.com
 
-你应该使用qd_navBarConfig进行配置。
+🎉有任何问题和建议，欢迎提issues或 pull request！🎉
 
-## Author
+如果QDNavigationBar对你有帮助，请点亮一下Star，非常感谢🤩
 
-sinno93, sinno93@qq.com
-
-## License
+## License🧙‍♂️
 
 QDNavigationBar is available under the MIT license. See the LICENSE file for more info.

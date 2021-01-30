@@ -40,7 +40,8 @@ extension UINavigationController {
         self.qd_navhelper?.navConfigChanged(vc: vc)
     }
     override func qd_updateNavIfNeed() {
-        guard let config = self.qd_navBarConfig, config.viewController == self else {return}
+        guard let config = self.qd_navBarConfig else {return}
+        assert(config.contain(vc: self), "config不包含当前VC") // 理论上不会出现
         self.qd_navBarConfigChanged(vc: self.topViewController ?? self)
     }
 }

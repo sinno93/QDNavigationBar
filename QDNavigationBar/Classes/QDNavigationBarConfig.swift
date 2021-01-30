@@ -124,11 +124,40 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     
-    weak var viewController: UIViewController?
+    class WeakContainer<T>:Equatable where T:AnyObject, T:Equatable {
+        static func == (lhs: QDNavigationBarConfig.WeakContainer<T>, rhs: QDNavigationBarConfig.WeakContainer<T>) -> Bool {
+            return lhs.value == rhs.value
+        }
+        
+        private(set) weak var value:T?
+        init(value:T) {
+            self.value = value
+        }
+    }
+    // config可以被多个vc设置为qd_navbarConfig
+    // 此时当config被修改时，多个vc的样式都要同步进行修改
+    var vcList:[WeakContainer<UIViewController>] = []
+    func add(vc: UIViewController) {
+        self.remove(vc: nil)
+        let item = WeakContainer(value: vc)
+        if !vcList.contains(item) {
+            vcList.append(item)
+        }
+    }
+    func remove(vc: UIViewController?) {
+        vcList.removeAll { (item) -> Bool in
+            item.value == vc
+        }
+    }
+    func contain(vc: UIViewController) -> Bool {
+        vcList.contains(WeakContainer(value: vc))
+    }
     
-    func refreshIfNeed() {
-        if viewController?.qd_navBarConfig == self {
-            viewController?.qd_updateNavIfNeed()
+    private func refreshIfNeed() {
+        for item in vcList {
+            if let vc = item.value, vc.qd_navBarConfig == self {
+                vc.qd_updateNavIfNeed()
+            }
         }
     }
 }
