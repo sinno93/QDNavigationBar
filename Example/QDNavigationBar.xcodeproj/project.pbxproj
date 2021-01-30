@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4122AF4325C5B17700D50135 /* QDConfigSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4122AF4225C5B17700D50135 /* QDConfigSegmentView.m */; };
 		4172B03D2541F2AE00B3A260 /* DarkModeTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */; };
 		4172B0402541F2AE00B3A260 /* LargeTitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */; };
 		4172B0412541F2AE00B3A260 /* QDConfigSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4172B0292541F2AE00B3A260 /* QDConfigSwitchView.m */; };
@@ -41,6 +42,8 @@
 		1893C30FEA05EC5AE8D6590D /* Pods-QDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDNavigationBar_Tests.release.xcconfig"; path = "Target Support Files/Pods-QDNavigationBar_Tests/Pods-QDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		1F594A8943B8C7BAA14189CF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		2BED695127CF4FF0B8009443 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		4122AF4125C5B17700D50135 /* QDConfigSegmentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDConfigSegmentView.h; sourceTree = "<group>"; };
+		4122AF4225C5B17700D50135 /* QDConfigSegmentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDConfigSegmentView.m; sourceTree = "<group>"; };
 		4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkModeTestViewController.swift; sourceTree = "<group>"; };
 		4172B0242541F2AE00B3A260 /* OC2SwiftBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OC2SwiftBridge.h; sourceTree = "<group>"; };
 		4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeTitleViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				4172B02E2541F2AE00B3A260 /* QDConfigEditorView.m */,
 				4172B02F2541F2AE00B3A260 /* QDConfigSwitchView.h */,
 				4172B0292541F2AE00B3A260 /* QDConfigSwitchView.m */,
+				4122AF4125C5B17700D50135 /* QDConfigSegmentView.h */,
+				4122AF4225C5B17700D50135 /* QDConfigSegmentView.m */,
 			);
 			path = QDConfigEditor;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				4172B0402541F2AE00B3A260 /* LargeTitleViewController.swift in Sources */,
 				4172B0492541F2AE00B3A260 /* SampleListViewController.swift in Sources */,
+				4122AF4325C5B17700D50135 /* QDConfigSegmentView.m in Sources */,
 				4172B04A2541F2AE00B3A260 /* SearchBarTestViewController.swift in Sources */,
 				4172B0412541F2AE00B3A260 /* QDConfigSwitchView.m in Sources */,
 				4172B0442541F2AE00B3A260 /* QDConfigColorView.m in Sources */,
