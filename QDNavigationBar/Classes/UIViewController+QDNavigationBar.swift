@@ -63,6 +63,8 @@ extension UIViewController: QDSwizzlingProtocol {
     @objc class func qdSwizzling() {
         qdExchangeMethod(#selector(viewDidAppear(_:)), selector2: #selector(qd_viewDidAppear(animated:)))
         qdExchangeMethod(#selector(viewDidDisappear(_:)), selector2: #selector(qd_viewDidDisappear(animated:)))
+        qdExchangeMethod(#selector(getter: preferredStatusBarStyle), selector2: #selector(qd_preferredStatusBarStyle))
+        qdExchangeMethod(#selector(getter: prefersStatusBarHidden), selector2: #selector(qd_prefersStatusBarHidden))
     }
     
     
@@ -82,4 +84,19 @@ extension UIViewController: QDSwizzlingProtocol {
         qd_viewDidAppearFlag = false
         qd_viewDidDisappear(animated: animated)
     }
+    
+    @objc func qd_preferredStatusBarStyle() -> UIStatusBarStyle {
+        guard let config = self.qd_navBarConfig else {
+            return qd_preferredStatusBarStyle()
+        }
+        return config.statusBarStyle
+    }
+    
+    @objc func qd_prefersStatusBarHidden() -> Bool {
+        guard let config = self.qd_navBarConfig else {
+            return qd_prefersStatusBarHidden()
+        }
+        return config.statusBarHidden
+    }
+    
 }

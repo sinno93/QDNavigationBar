@@ -90,6 +90,25 @@ final public class QDNavigationBarConfig: NSObject {
             refreshIfNeed()
         }
     }
+    /// 状态栏样式
+    /// 默认.default
+    @objc public var statusBarStyle: UIStatusBarStyle = .default {
+        didSet {
+            // 不同 则刷新
+            if statusBarStyle != oldValue {
+                self.refreshIfNeed()
+            }            
+        }
+    }
+    /// 状态栏是否隐藏
+    /// 默认false,即不隐藏
+    @objc public var statusBarHidden: Bool = false {
+        didSet {
+            if statusBarHidden != oldValue {
+                self.refreshIfNeed()
+            }
+        }
+    }
     
     /// 导航栏是否隐藏
     /// 默认false,即不隐藏

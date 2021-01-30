@@ -272,6 +272,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         let isEmptyNav = nav.topViewController == nil && self.nav == vc
         if (isTopVC || isEmptyNav) && !self.isTransitioning {
             self.navBarConfigView(config)
+            nav.setNeedsStatusBarAppearanceUpdate()
             if nav.isNavigationBarHidden != config.barHidden {
                 nav.setNavigationBarHidden(config.barHidden, animated: UIView.areAnimationsEnabled)
             }
