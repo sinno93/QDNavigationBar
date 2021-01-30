@@ -26,8 +26,18 @@ class ViewController: UIViewController {
         button.setTitleColor(UIColor.white, for: .normal)
         button.backgroundColor = UIColor(red: 46/255.0, green: 204/255.0, blue: 113/255.0, alpha: 1)
         button.layer.cornerRadius = 8.0
+        button.layer.shadowOffset = CGSize(width: 3, height: 3);
+        button.layer.shadowOpacity = 0.3;
+        button.layer.shadowRadius = 8.0;
         return button
     }()
+    
+    lazy var pushButtonPlaceHolder: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     lazy var currentTipLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = UIColor.white
@@ -53,7 +63,6 @@ class ViewController: UIViewController {
         if let config = self.navigationController?.qd_navBarConfig {
             let nextConfig = config.copy() as! QDNavigationBarConfig
             nextConfig.backgroundColor = UIColor.red
-            nextConfig.eventThrough = true
             return nextConfig
         } else {
             return QDNavigationBarConfig()
@@ -125,6 +134,7 @@ class ViewController: UIViewController {
                         currentTipLabel,
                         nextEditorView,
                         nextTipLabel,
+                        pushButtonPlaceHolder,
                         pushButton]
         for view in viewList {
             containerView.addSubview(view)
@@ -158,14 +168,20 @@ class ViewController: UIViewController {
             make?.centerY.equalTo()(nextEditorView.mas_top)
         }
         
-        pushButton.mas_makeConstraints { (make) in
-            make?.leading.equalTo()(containerView)?.offset()(20)
-            make?.trailing.equalTo()(containerView)?.offset()(-20)
+        pushButtonPlaceHolder.mas_makeConstraints { (make) in
+            make?.leading.equalTo()(containerView)?.offset()(40)
+            make?.trailing.equalTo()(containerView)?.offset()(-40)
             make?.height.equalTo()(40)
             make?.top.equalTo()(self.nextEditorView.mas_bottom)?.offset()(15)
-            make?.bottom.equalTo()(containerView)?.offset()(-800)
+            make?.bottom.equalTo()(containerView)?.offset()(-400)
         }
-        
+        pushButton.mas_makeConstraints { (make) in
+            make?.leading.equalTo()(pushButtonPlaceHolder)
+            make?.trailing.equalTo()(pushButtonPlaceHolder)
+            make?.height.equalTo()(pushButtonPlaceHolder)
+            make?.bottom.lessThanOrEqualTo()(self.mas_bottomLayoutGuideTop)?.offset()(-15)
+            make?.top.equalTo()(pushButtonPlaceHolder.mas_top)?.priorityLow()()
+        }
     }
 }
 
@@ -191,6 +207,6 @@ extension ViewController: UIScrollViewDelegate {
         }
 //        self.qd_navBarConfig?.alpha = alpha
 
-        print(offsetY)
+//        print(offsetY)
     }
 }
