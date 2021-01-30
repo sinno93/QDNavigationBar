@@ -18,6 +18,7 @@
 @property (nonatomic, strong) QDConfigColorView *bottomLineColorView;
 @property (nonatomic, strong) QDConfigSwitchView *barHiddenView;
 @property (nonatomic, strong) QDConfigSwitchView *translucentView;
+@property (nonatomic, strong) QDConfigSwitchView *statusBarHiddenView;
 @end
 
 @implementation QDConfigEditorView
@@ -47,7 +48,7 @@
     [self.stackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).insets(UIEdgeInsetsMake(8, 0, 5, 0));
     }];
-    NSArray *array = @[self.bgColorView, self.bottomLineColorView, self.barHiddenView, self.translucentView];
+    NSArray *array = @[self.bgColorView, self.bottomLineColorView, self.barHiddenView, self.translucentView, self.statusBarHiddenView];
     for (UIView *view in array) {
         [self.stackView addArrangedSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,6 +65,7 @@
     self.bottomLineColorView.color = self.config.bottomLineColor;
     self.barHiddenView.on = self.config.barHidden;
     self.translucentView.on = self.config.needBlurEffect;
+    self.statusBarHiddenView.on = self.config.statusBarHidden;
 }
 
 #pragma mark - Getter && Setter
@@ -135,6 +137,19 @@
     return _translucentView;
 }
 
-
+- (QDConfigSwitchView *)statusBarHiddenView {
+    if (!_statusBarHiddenView) {
+        QDConfigSwitchView *view = [[QDConfigSwitchView alloc] init];
+        view.title = @"statusBarHidden";
+        view.on = YES;
+        __weak __typeof(self)weakSelf = self;
+        view.valueChanged = ^(BOOL on) {
+            weakSelf.config.statusBarHidden = on;
+            
+        };
+        _statusBarHiddenView = view;
+    }
+    return _statusBarHiddenView;
+}
 
 @end

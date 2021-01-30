@@ -51,6 +51,8 @@ extension UINavigationController {
         qdExchangeMethod(#selector(setter: delegate), selector2: #selector(qd_setDelegate(_:)))
         qdExchangeMethod(#selector(getter: preferredStatusBarStyle), selector2: #selector(qd_preferredStatusBarStyle))
         qdExchangeMethod(#selector(getter: prefersStatusBarHidden), selector2: #selector(qd_prefersStatusBarHidden))
+        qdExchangeMethod(#selector(getter:childForStatusBarHidden), selector2: #selector(qd_childForStatusBarHidden))
+        qdExchangeMethod(#selector(getter:childForStatusBarStyle), selector2: #selector(qd_childForStatusBarStyle))
     }
     @objc func qd_setDelegate(_ delegate: UINavigationControllerDelegate?) {
         if delegate is QDNavigationControllerHelper {
@@ -84,5 +86,22 @@ extension UINavigationController {
             return topVCConfig.statusBarHidden
         }
         return config.statusBarHidden
+    }
+    
+    @objc func qd_childForStatusBarStyle() -> UIViewController? {
+        guard let _ = self.qd_navBarConfig else {
+            return qd_childForStatusBarStyle()
+        }
+        return nil
+    }
+    // 交换了UIViewController的prefersStatusBarHidden后，即使UINavigationController的childForStatusBarHidden方法返回topViewController(当导航栏隐藏时，这是默认行为)，该topViewController的prefersStatusBarHidden也不会被调用，导致导航栏隐藏时，通过config设置状态栏隐藏无效；
+    //  奇怪的是，如果topViewController(UIViewController子类)实现了prefersStatusBarHidden，此时prefersStatusBarHidden又会被调用
+    // 猜测是iOS系统判断了真实的ViewController有没有实现prefersStatusBarHidden方法...
+    //  所以，此处直接让UINavigationController的childForStatusBarHidden返回nil, 避免这个问题
+    @objc func qd_childForStatusBarHidden() -> UIViewController? {
+        guard let _ = self.qd_navBarConfig else {
+            return qd_childForStatusBarHidden()
+        }
+        return nil
     }
 }
