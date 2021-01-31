@@ -131,7 +131,7 @@ extension ScrollChangeAlphaViewController:  UITableViewDelegate, UITableViewData
         }
         self.qd_navBarConfig?.alpha = alpha
         self.titleLabel.alpha = alpha
-        self.titleLabel.isHidden = alpha > 0
+        self.titleLabel.isHidden = alpha <= 0
         if alpha > 0.1 {
             self.qd_navBarConfig?.statusBarStyle = .default
             self.backButton.tintColor = .black
