@@ -12,7 +12,7 @@
 @interface QDConfigSegmentView ()
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
-@property (nonatomic, strong) NSArray <NSString *> *items;
+@property (nonatomic, strong) NSArray *items;
 @end
 
 @implementation QDConfigSegmentView
@@ -20,7 +20,7 @@
 #pragma mark - Initialization
 // 初始化方法
 
-- (instancetype)initWithItems:(NSArray <NSString *> *)items {
+- (instancetype)initWithItems:(NSArray *)items {
     if (self = [super initWithFrame:CGRectZero]) {
         self.items = items;
         [self configSubviews];
@@ -69,7 +69,7 @@
     
     [self.segmentControl mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
-        make.trailing.equalTo(self).offset(-25);
+        make.trailing.equalTo(self).offset(-15);
     }];
 }
 #pragma mark - Getter && Setter
@@ -79,6 +79,8 @@
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:20.0];
         label.textColor = UIColor.blackColor;
+        label.adjustsFontSizeToFitWidth = YES;
+        label.minimumScaleFactor = 0.8;
         _titleLabel = label;
     }
     return _titleLabel;

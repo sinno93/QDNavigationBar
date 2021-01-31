@@ -22,6 +22,9 @@
 @property (nonatomic, strong) QDConfigSwitchView *translucentView;
 @property (nonatomic, strong) QDConfigSwitchView *statusBarHiddenView;
 @property (nonatomic, strong) QDConfigSegmentView *statusBarStyleView;
+@property (nonatomic, strong) QDConfigSegmentView *bgImageView;
+@property (nonatomic, strong) UIImage *sunBgImage;
+@property (nonatomic, strong) UIImage *rainBgImage;
 @end
 
 @implementation QDConfigEditorView
@@ -29,6 +32,8 @@
 // 初始化方法
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        self.sunBgImage = [UIImage imageNamed:@"sun_nav"];
+        self.rainBgImage = [UIImage imageNamed:@"rain_nav"];
         [self configSubviews];
     }
     return self;
@@ -57,6 +62,7 @@
                        self.translucentView,
                        self.statusBarHiddenView,
                        self.statusBarStyleView,
+                       self.bgImageView,
                     ];
     for (UIView *view in array) {
         [self.stackView addArrangedSubview:view];
@@ -89,6 +95,17 @@
                 break;
             default:
                 break;
+        }
+        index;
+    });
+    self.bgImageView.selectedIndex = ({
+        NSInteger index = 0;
+        if (self.config.backgroundImage == nil) {
+            index = 0;
+        } else if (self.config.backgroundImage == self.sunBgImage) {
+            index = 1;
+        } else {
+            index = 2;
         }
         index;
     });
@@ -211,6 +228,37 @@
         _statusBarStyleView = view;
     }
     return _statusBarStyleView;
+}
+
+- (QDConfigSegmentView *)bgImageView {
+    if (!_bgImageView) {
+        UIImage *rainImage = [[UIImage imageNamed:@"rain_thumb"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *sunImage = [[UIImage imageNamed:@"sun_thumb"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        NSArray *items = @[@"none",sunImage, rainImage];
+        QDConfigSegmentView *view = [[QDConfigSegmentView alloc] initWithItems: items];
+        view.title = @"backgroundImage";
+        view.selectedIndex = 0;
+        __weak __typeof(self)weakSelf = self;
+        view.valueChanged = ^(NSInteger selectedIndex) {
+            UIImage *bgImage = nil;
+            switch (selectedIndex) {
+                case 0:
+                    bgImage = nil;
+                    break;
+                case 1:
+                    bgImage = self.sunBgImage;
+                    break;
+                case 2:
+                    bgImage = self.rainBgImage;
+                    break;
+                default:
+                    break;
+            }
+            weakSelf.config.backgroundImage = bgImage;
+        };
+        _bgImageView = view;
+    }
+    return _bgImageView;
 }
 
 @end

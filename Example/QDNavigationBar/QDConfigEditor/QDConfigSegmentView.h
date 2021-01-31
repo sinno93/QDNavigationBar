@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, copy, nullable) void (^valueChanged)(NSInteger selectedIndex);
-- (instancetype)initWithItems:(NSArray <NSString *> *)items;
+@property (nonatomic, strong, readonly) UISegmentedControl *segmentControl;
+- (instancetype)initWithItems:(NSArray *)items;
 @end
 
 NS_ASSUME_NONNULL_END
