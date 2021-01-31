@@ -56,6 +56,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             navigationController.setNavigationBarHidden(config.barHidden, animated: animated)
         }
         self.bgView.isHidden = false
+        self.nav?.setNeedsStatusBarAppearanceUpdate()
         if navigationController.transitionCoordinator == nil {
             // 配置
             self.navBarConfigView(config)
