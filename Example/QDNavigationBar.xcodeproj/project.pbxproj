@@ -99,6 +99,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4122AF5725C70ABA00D50135 /* specialCase */ = {
+			isa = PBXGroup;
+			children = (
+				4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */,
+				4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */,
+				4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */,
+			);
+			path = specialCase;
+			sourceTree = "<group>";
+		};
 		4172B0282541F2AE00B3A260 /* QDConfigEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,9 +154,7 @@
 		607FACD21AFB9204008FA782 /* Example for QDNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
-				4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */,
-				4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */,
-				4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */,
+				4122AF5725C70ABA00D50135 /* specialCase */,
 				4172B0242541F2AE00B3A260 /* OC2SwiftBridge.h */,
 				4172B0282541F2AE00B3A260 /* QDConfigEditor */,
 				4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */,
