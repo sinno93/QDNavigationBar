@@ -21,7 +21,8 @@ class SampleListViewController: UIViewController{
     let str = NSStringFromClass(LargeTitleViewController.self)
     let search = NSStringFromClass(SearchBarTestViewController.self)
     let dark = NSStringFromClass(DarkModeTestViewController.self)
-    lazy var dataList:[(String,String)] = {[("Large title", str), ("Search Bar",search), ("Dark Mode",dark)]}()
+    let alpha = NSStringFromClass(ScrollChangeAlphaViewController.self)
+    lazy var dataList:[(String,String)] = {[("Large title", str), ("Search Bar",search), ("Dark Mode",dark), ("Wechat效果", alpha)]}()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Special Case"
@@ -30,10 +31,11 @@ class SampleListViewController: UIViewController{
         self.navigationController?.qd_navBarConfig = config
         
         if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
+//            self.navigationController?.navigationBar.prefersLargeTitles = true
         } else {
             // Fallback on earlier versions
         }
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         configSubviews()
         // Do any additional setup after loading the view.
     }
@@ -75,3 +77,8 @@ extension SampleListViewController:  UITableViewDelegate, UITableViewDataSource 
     
 }
 
+extension SampleListViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return self.navigationController?.viewControllers.count ?? 0 > 1;
+    }
+}
