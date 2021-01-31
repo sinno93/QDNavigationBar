@@ -49,8 +49,8 @@ extension UINavigationController {
 extension UINavigationController {
     override class func qdSwizzling() {
         qdExchangeMethod(#selector(setter: delegate), selector2: #selector(qd_setDelegate(_:)))
-        qdExchangeMethod(#selector(getter: preferredStatusBarStyle), selector2: #selector(qd_preferredStatusBarStyle))
-        qdExchangeMethod(#selector(getter: prefersStatusBarHidden), selector2: #selector(qd_prefersStatusBarHidden))
+        qdExchangeMethod(#selector(getter: preferredStatusBarStyle), selector2: #selector(qdnav_preferredStatusBarStyle))
+        qdExchangeMethod(#selector(getter: prefersStatusBarHidden), selector2: #selector(qdnav_prefersStatusBarHidden))
         qdExchangeMethod(#selector(getter:childForStatusBarHidden), selector2: #selector(qd_childForStatusBarHidden))
         qdExchangeMethod(#selector(getter:childForStatusBarStyle), selector2: #selector(qd_childForStatusBarStyle))
     }
@@ -68,9 +68,9 @@ extension UINavigationController {
         }
     }
     
-    @objc override func qd_preferredStatusBarStyle() -> UIStatusBarStyle {
+    @objc func qdnav_preferredStatusBarStyle() -> UIStatusBarStyle {
         guard let config = self.qd_navBarConfig else {
-            return qd_preferredStatusBarStyle()
+            return qdnav_preferredStatusBarStyle()
         }
         if let topVCConfig = self.topViewController?.resolvedBarConfig {
             return topVCConfig.statusBarStyle
@@ -78,9 +78,9 @@ extension UINavigationController {
         return config.statusBarStyle
     }
     
-    @objc override func qd_prefersStatusBarHidden() -> Bool {
+     @objc  func qdnav_prefersStatusBarHidden() -> Bool {
         guard let config = self.qd_navBarConfig, let helper = self.qd_navhelper else {
-            return qd_prefersStatusBarHidden()
+            return qdnav_prefersStatusBarHidden()
         }
         
         guard let topVC = self.topViewController else {
