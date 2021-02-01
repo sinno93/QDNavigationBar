@@ -109,7 +109,11 @@ extension ScrollChangeAlphaViewController:  UITableViewDelegate, UITableViewData
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: "cellId")
         }
-        cell?.textLabel?.text = "\(indexPath.row)"
+        var str: String = "\(indexPath.row)"
+        if indexPath.row == 0 {
+            str = "↑↑↑ 上滑查看效果(类似微信朋友圈) ↑↑↑"
+        }
+        cell?.textLabel?.text = str
         return cell!
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

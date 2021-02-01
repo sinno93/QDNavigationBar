@@ -24,7 +24,7 @@ class LargeTitleViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         let config = self.navigationController?.qd_navBarConfig?.copy() as? QDNavigationBarConfig
-        config?.backgroundColor = UIColor.white
+        config?.backgroundColor = UIColor.green
         self.qd_navBarConfig = config
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
