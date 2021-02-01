@@ -49,13 +49,13 @@ import QDNavigationBar
 
 ###### 2.为UINavigationController开启QDNavigationBar支持
 
-QDNavigationBar通过Runtime为UINavigationController增加了一个实例属性qd_navBarConfig，只需要给该属性赋值即可开启QDNavigationBar支持。
+QDNavigationBar通过Runtime为UINavigationController增加了一个实例属性navBarConfig，只需要给该属性赋值即可开启QDNavigationBar支持。
 
 ```swift
 /// Swift
 let config = QDNavigationBarConfig()
 config.backgroundColor = UIColor.green
-navigationController.qd_navBarConfig = config
+navigationController.navBarConfig = config
 ```
 
 ```objective-c
@@ -67,17 +67,17 @@ navigationController.qd_navBarConfig = config
 >
 >一般来说，项目中都会有一个自定义的导航控制器，你可以在那个类中进行相关设置，这样你不需要为每个实例都进行设置。
 
-UINavigationController的qd_navBarConfig作为导航栏默认样式配置，如果topViewController没有自己的配置，该默认配置将生效。
+UINavigationController的navBarConfig作为导航栏默认样式配置，如果topViewController没有自己的配置，该默认配置将生效。
 
 
 
 ##### 3. 为某些UIViewController设置独立的导航栏样式配置
 
-同样的，QDNavigationBar也为UIViewController增加了一个实例属性qd_navBarConfig。
+同样的，QDNavigationBar也为UIViewController增加了一个实例属性navBarConfig。
 
-> 默认情况下，UIViewController的qd_navBarConfig为nil, 此时该控制器的导航栏样式由其导航栏的qd_navBarConfig决定；
+> 默认情况下，UIViewController的navBarConfig为nil, 此时该控制器的导航栏样式由其导航栏的navBarConfig决定；
 >
-> 在实际项目中，一般只有少数页面需要设置特殊的样式，可以为其单独设置qd_navBarConfig来实现。
+> 在实际项目中，一般只有少数页面需要设置特殊的样式，可以为其单独设置navBarConfig来实现。
 
 ```swift
 override func viewDidLoad() {
@@ -85,7 +85,7 @@ override func viewDidLoad() {
   			// 配置导航栏样式，仅针对当前控制器有效
         let config = QDNavigationBarConfig()
         config.backgroundColor = UIColor.blue
-        self.qd_navBarConfig = config
+        self.navBarConfig = config
     }
 ```
 
@@ -93,11 +93,11 @@ override func viewDidLoad() {
 
 总结一下:
 
-1.如果当前显示的控制器qd_navBarConfig为nil, 则导航栏样式则由导航控制器的qd_navBarConfig决定；
+1.如果当前显示的控制器navBarConfig为nil, 则导航栏样式则由导航控制器的navBarConfig决定；
 
-2.如果当前显示的控制器的qd_navBarConfig不为nil, 则导航栏样式则由该配置决定。
+2.如果当前显示的控制器的navBarConfig不为nil, 则导航栏样式则由该配置决定。
 
-修改控制器或者导航控制器的qd_navBarConfig的任意属性，都将实时生效。
+修改控制器或者导航控制器的navBarConfig的任意属性，都将实时生效。
 
 ##### 4. QDNavigationBarConfig支持的配置
 

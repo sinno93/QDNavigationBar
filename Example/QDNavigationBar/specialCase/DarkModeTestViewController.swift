@@ -16,14 +16,14 @@ class DarkModeTestViewController: UITableViewController {
         self.title = "Dark Mode Test"
         self.view.backgroundColor = UIColor.lightGray
         if #available(iOS 13.0, *) {
-            let config = self.navigationController?.qd_navBarConfig?.copy() as? QDNavigationBarConfig
+            let config = self.navigationController?.navBarConfig?.copy() as? QDNavigationBarConfig
             config?.backgroundColor = UIColor(dynamicProvider: { (traitEnv) -> UIColor in
                 if traitEnv.userInterfaceStyle == .dark {
                     return UIColor.black
                 }
                 return UIColor.white
             })
-            self.qd_navBarConfig = config
+            self.navBarConfig = config
         } else {
             // Fallback on earlier versions
         }

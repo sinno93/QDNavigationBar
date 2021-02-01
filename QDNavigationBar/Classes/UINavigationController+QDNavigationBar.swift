@@ -20,7 +20,7 @@ extension UINavigationController {
             return result
         }
     }
-    @objc public override var qd_navBarConfig: QDNavigationBarConfig? {
+    @objc public override var navBarConfig: QDNavigationBarConfig? {
         willSet {
             guard newValue != nil else {return}
             QDSwizzlingManger.runOnce()
@@ -36,13 +36,13 @@ extension UINavigationController {
 }
 
 extension UINavigationController {
-    func qd_navBarConfigChanged(vc: UIViewController) {
+    func navBarConfigChanged(vc: UIViewController) {
         self.qd_navhelper?.navConfigChanged(vc: vc)
     }
     override func qd_updateNavIfNeed() {
-        guard let config = self.qd_navBarConfig else {return}
+        guard let config = self.navBarConfig else {return}
         assert(config.contain(vc: self), "config不包含当前VC") // 理论上不会出现
-        self.qd_navBarConfigChanged(vc: self.topViewController ?? self)
+        self.navBarConfigChanged(vc: self.topViewController ?? self)
     }
 }
 
@@ -69,7 +69,7 @@ extension UINavigationController {
     }
     
     @objc func qdnav_preferredStatusBarStyle() -> UIStatusBarStyle {
-        guard let config = self.qd_navBarConfig else {
+        guard let config = self.navBarConfig else {
             return qdnav_preferredStatusBarStyle()
         }
         if let topVCConfig = self.topViewController?.resolvedBarConfig {
@@ -79,7 +79,7 @@ extension UINavigationController {
     }
     
      @objc  func qdnav_prefersStatusBarHidden() -> Bool {
-        guard let config = self.qd_navBarConfig, let helper = self.qd_navhelper else {
+        guard let config = self.navBarConfig, let helper = self.qd_navhelper else {
             return qdnav_prefersStatusBarHidden()
         }
         
@@ -114,7 +114,7 @@ extension UINavigationController {
     }
     
     @objc func qd_childForStatusBarStyle() -> UIViewController? {
-        guard let _ = self.qd_navBarConfig else {
+        guard let _ = self.navBarConfig else {
             return qd_childForStatusBarStyle()
         }
         return nil
@@ -124,7 +124,7 @@ extension UINavigationController {
     // 猜测是iOS系统判断了真实的ViewController有没有实现prefersStatusBarHidden方法...
     //  所以，此处直接让UINavigationController的childForStatusBarHidden返回nil, 避免这个问题
     @objc func qd_childForStatusBarHidden() -> UIViewController? {
-        guard let _ = self.qd_navBarConfig else {
+        guard let _ = self.navBarConfig else {
             return qd_childForStatusBarHidden()
         }
         return nil

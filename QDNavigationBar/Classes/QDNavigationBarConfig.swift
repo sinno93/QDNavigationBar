@@ -153,7 +153,7 @@ final public class QDNavigationBarConfig: NSObject {
             self.value = value
         }
     }
-    // config可以被多个vc设置为qd_navbarConfig
+    // config可以被多个vc设置为navBarConfig
     // 此时当config被修改时，多个vc的样式都要同步进行修改
     var vcList:[WeakContainer<UIViewController>] = []
     func add(vc: UIViewController) {
@@ -174,7 +174,7 @@ final public class QDNavigationBarConfig: NSObject {
     
     private func refreshIfNeed() {
         for item in vcList {
-            if let vc = item.value, vc.qd_navBarConfig == self {
+            if let vc = item.value, vc.navBarConfig == self {
                 vc.qd_updateNavIfNeed()
             }
         }

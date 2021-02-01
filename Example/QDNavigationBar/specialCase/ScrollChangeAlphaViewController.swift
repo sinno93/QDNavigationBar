@@ -66,12 +66,12 @@ class ScrollChangeAlphaViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.cameraButton)
         self.navigationItem.titleView = self.titleLabel;
         view.backgroundColor = .lightGray
-        let config = self.navigationController?.qd_navBarConfig?.copy() as? QDNavigationBarConfig
+        let config = self.navigationController?.navBarConfig?.copy() as? QDNavigationBarConfig
         config?.backgroundColor = UIColor.init(white: 1, alpha: 0.8)
         config?.needBlurEffect = true
         config?.statusBarStyle = .lightContent
         config?.alpha = 0
-        self.qd_navBarConfig = config
+        self.navBarConfig = config
         self.automaticallyAdjustsScrollViewInsets = false
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -133,15 +133,15 @@ extension ScrollChangeAlphaViewController:  UITableViewDelegate, UITableViewData
         default:
             alpha = 1
         }
-        self.qd_navBarConfig?.alpha = alpha
+        self.navBarConfig?.alpha = alpha
         self.titleLabel.alpha = alpha
         self.titleLabel.isHidden = alpha <= 0
         if alpha > 0.1 {
-            self.qd_navBarConfig?.statusBarStyle = .default
+            self.navBarConfig?.statusBarStyle = .default
             self.backButton.tintColor = .black
             self.cameraButton.tintColor = .black
         } else {
-            self.qd_navBarConfig?.statusBarStyle = .lightContent
+            self.navBarConfig?.statusBarStyle = .lightContent
             self.backButton.tintColor = .white
             self.cameraButton.tintColor = .white
         }

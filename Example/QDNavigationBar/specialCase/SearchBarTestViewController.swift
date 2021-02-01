@@ -23,9 +23,9 @@ class SearchBarTestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        let config = self.navigationController?.qd_navBarConfig?.copy() as? QDNavigationBarConfig
+        let config = self.navigationController?.navBarConfig?.copy() as? QDNavigationBarConfig
         config?.backgroundColor = UIColor.systemOrange
-        self.qd_navBarConfig = config
+        self.navBarConfig = config
         self.title = "Search bar"
         if #available(iOS 11.0, *) {
             self.navigationItem.searchController = UISearchController()

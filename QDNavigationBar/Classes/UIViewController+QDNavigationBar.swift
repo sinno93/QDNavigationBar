@@ -20,16 +20,16 @@ extension UIViewController {
     }
     
     static var qd_navbarconfig_key = "qd_navbarconfig_key"
-    @objc public var qd_navBarConfig: QDNavigationBarConfig? {
+    @objc public var navBarConfig: QDNavigationBarConfig? {
         get {
             let config = objc_getAssociatedObject(self, &UIViewController.qd_navbarconfig_key) as? QDNavigationBarConfig
             return config
         }
         set {
-            if self.qd_navBarConfig == newValue {
+            if self.navBarConfig == newValue {
                 return
             }
-            if let preConfig = self.qd_navBarConfig {
+            if let preConfig = self.navBarConfig {
                 // 从旧的配置的vcList里移除self
                 preConfig.remove(vc: self)
             }
@@ -40,22 +40,22 @@ extension UIViewController {
     }
     
     var resolvedBarConfig: QDNavigationBarConfig? {
-        if self.qd_navBarConfig != nil {
-            return self.qd_navBarConfig
+        if self.navBarConfig != nil {
+            return self.navBarConfig
         }
-        return self.navigationController?.qd_navBarConfig
+        return self.navigationController?.navBarConfig
     }
     // 更新配置
     @objc func qd_updateNavIfNeed() {
         // vc didAppera后才刷新，避免重复刷新
         // 比如在push过程中，viewDidLoad方法里，修改了navConfig的hidden属性，如果不加此判断直接刷新的话导航栏会直接消失；修改其他属性也是同理。
-        guard self.qd_viewDidAppearFlag,let _ = self.navigationController?.qd_navBarConfig else {
+        guard self.qd_viewDidAppearFlag,let _ = self.navigationController?.navBarConfig else {
             return
         }
         // 只要导航栏有设置config,不管当前self有无设置config 都应该刷新
-        self.navigationController?.qd_navBarConfigChanged(vc: self)
+        self.navigationController?.navBarConfigChanged(vc: self)
         // 这种情况理论上不会出现
-        assert(self.qd_navBarConfig == nil || self.qd_navBarConfig!.contain(vc: self), "config不包含当前VC");
+        assert(self.navBarConfig == nil || self.navBarConfig!.contain(vc: self), "config不包含当前VC");
     }
 }
 
@@ -86,14 +86,14 @@ extension UIViewController: QDSwizzlingProtocol {
     }
     
     @objc func qd_preferredStatusBarStyle() -> UIStatusBarStyle {
-        guard let config = self.qd_navBarConfig else {
+        guard let config = self.navBarConfig else {
             return qd_preferredStatusBarStyle()
         }
         return config.statusBarStyle
     }
     
     @objc func qd_prefersStatusBarHidden() -> Bool {
-        guard let config = self.qd_navBarConfig else {
+        guard let config = self.navBarConfig else {
             return qd_prefersStatusBarHidden()
         }
         return config.statusBarHidden
