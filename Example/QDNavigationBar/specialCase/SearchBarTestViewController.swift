@@ -22,7 +22,7 @@ class SearchBarTestViewController: UIViewController {
         self.navBarConfig = config
         
         if #available(iOS 11.0, *) {
-            self.navigationItem.searchController = UISearchController()
+            self.navigationItem.searchController = UISearchController(searchResultsController: nil)
             tipTitle = "↓↓↓ 下拉查看导航栏带search bar效果 ↓↓↓"
         } else {
             tipTitle = "iOS11.0以下系统不支持设置searchController~ "

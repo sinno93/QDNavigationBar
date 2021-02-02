@@ -54,27 +54,33 @@ class ScrollChangeAlphaViewController: UIViewController {
     // MARK: - Getter & Setter
     // 属性的Getter/Setter方法
     lazy var backButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        let button = UIButton(frame: frame)
         button.setImage(UIImage(named: "backicon")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: 40),
-            button.heightAnchor.constraint(equalToConstant: 40),
-        ])
+        if #available(iOS 11.0, *) {
+            button.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                button.widthAnchor.constraint(equalToConstant: frame.width),
+                button.heightAnchor.constraint(equalToConstant: frame.height),
+            ])
+        }
         button.addTarget(self, action: #selector(backClick), for: .touchUpInside)
         return button
     }()
     
     lazy var cameraButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let button = UIButton(frame: frame)
         button.setImage(UIImage(named: "cameraicon")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: 30),
-            button.heightAnchor.constraint(equalToConstant: 30),
-        ])
+        if #available(iOS 11.0, *) {
+            button.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                button.widthAnchor.constraint(equalToConstant: frame.width),
+                button.heightAnchor.constraint(equalToConstant: frame.height),
+            ])
+        }
         return button
     }()
     
