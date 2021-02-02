@@ -170,16 +170,27 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         guard self.customNavContainerView.superview == nil else {
             return
         }
-        let containView = self.customNavContainerView
-        guard let containSuperView = self.nav?.navigationBar.subviews.first else {
+        guard let navbar = self.nav?.navigationBar, let barBackgroundView = navbar.subviews.first else {
+            assert(false)
             return
         }
-        containSuperView.addSubview(containView)
+        
+        let containView = self.customNavContainerView
+        /// 解决iOS11-12上 large title时 背景不显示的问题
+        /// iOS11-12，large title时，barBackground的alpha会变化，所以不能加到这个上面
+        if #available(iOS 13.0, *) {
+            barBackgroundView.addSubview(containView)
+        } else {
+            guard let navsuper = navbar.superview else {
+                return
+            }
+            navsuper.insertSubview(containView, belowSubview: navbar)
+        }
         NSLayoutConstraint.activate([
-            containView.leadingAnchor.constraint(equalTo: containSuperView.leadingAnchor),
-            containView.trailingAnchor.constraint(equalTo: containSuperView.trailingAnchor),
-            containView.topAnchor.constraint(equalTo: containSuperView.topAnchor),
-            containView.bottomAnchor.constraint(equalTo: self.nav!.navigationBar.bottomAnchor),
+            containView.leadingAnchor.constraint(equalTo: navbar.leadingAnchor),
+            containView.trailingAnchor.constraint(equalTo: navbar.trailingAnchor),
+            containView.topAnchor.constraint(equalTo: barBackgroundView.topAnchor),
+            containView.bottomAnchor.constraint(equalTo: navbar.bottomAnchor),
         ])
         
         self.nav?.navigationBar.setBackgroundImage(UIImage(), for: .default)
