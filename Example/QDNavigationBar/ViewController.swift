@@ -10,64 +10,9 @@ import UIKit
 import QDNavigationBar
 
 class ViewController: UIViewController {
-    lazy var colorfulView: QDColorfulView = {
-        QDColorfulView()
-    }()
-    lazy var editorView: QDConfigEditorView = {
-        QDConfigEditorView()
-    }()
-    lazy var nextEditorView: QDConfigEditorView = {
-       QDConfigEditorView()
-    }()
-    lazy var pushButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("PUSH新页面", for: .normal)
-        button.addTarget(self, action: #selector(pushButtonClick(button:)), for: .touchUpInside)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = UIColor(red: 46/255.0, green: 204/255.0, blue: 113/255.0, alpha: 1)
-        button.layer.cornerRadius = 8.0
-        button.layer.shadowOffset = CGSize(width: 3, height: 3);
-        button.layer.shadowOpacity = 0.3;
-        button.layer.shadowRadius = 8.0;
-        return button
-    }()
+    // MARK: - Initialization
     
-    lazy var pushButtonPlaceHolder: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    lazy var currentTipLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = UIColor.white
-        label.textColor = UIColor.black
-        label.text = "当前页面设置"
-        return label
-    }()
-    
-    lazy var nextTipLabel : UILabel = {
-        let label = UILabel()
-        label.backgroundColor = UIColor.white
-        label.textColor = UIColor.black
-        label.text = "新页面设置"
-        return label
-    }()
-    lazy var scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.alwaysBounceVertical = true
-        view.delegate = self
-        return view
-    }()
-    lazy var nextConfig: QDNavigationBarConfig = {
-        if let config = self.navigationController?.navBarConfig {
-            let nextConfig = config.copy() as! QDNavigationBarConfig
-            nextConfig.backgroundColor = UIColor.red
-            return nextConfig
-        } else {
-            return QDNavigationBarConfig()
-        }
-    }()
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.navigationController?.navBarConfig == nil {
@@ -95,20 +40,18 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         self.nextEditorView.config = self.nextConfig
     }
-    ///
+    
+    // MARK: - Actions
+    // view的一些事件比如按钮点击、手势事件处理、通知处理
     @objc func pushButtonClick(button:UIButton) {
         let vc = ViewController()
         vc.navBarConfig = self.nextConfig
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
-        return;
-        let nav = UINavigationController(rootViewController: ViewController())
-//        nav.modalPresentationStyle = .fullScreen
-        nav.navBarConfig = QDNavigationBarConfig()
-        nav.navBarConfig?.backgroundColor = UIColor.yellow
-        self.present(nav, animated: true, completion: nil)
     }
     
+    // MARK: - Private method
+    // 控制器的一些私有的辅助方法
     func configSubviews() {
         self.view.backgroundColor = UIColor.white
         self.view.addSubview(scrollView)
@@ -129,8 +72,7 @@ class ViewController: UIViewController {
             maker?.edges.equalTo()(scrollView)
             maker?.width.equalTo()(scrollView)
         }
-        let viewList = [
-                        editorView,
+        let viewList = [editorView,
                         currentTipLabel,
                         nextEditorView,
                         nextTipLabel,
@@ -139,11 +81,6 @@ class ViewController: UIViewController {
         for view in viewList {
             containerView.addSubview(view)
         }
-//        colorfulView.mas_makeConstraints { (make) in
-//            make?.leading.equalTo()(containerView)?.offset()(10)
-//            make?.trailing.equalTo()(containerView)?.offset()(-10)
-//            make?.top.equalTo()(containerView)?.offset()(10)
-//        }
         
         editorView.mas_makeConstraints { (make) in
             make?.top.equalTo()(containerView)?.offset()(25)
@@ -183,30 +120,70 @@ class ViewController: UIViewController {
             make?.top.equalTo()(pushButtonPlaceHolder.mas_top)?.priorityLow()()
         }
     }
+    // MARK: - Getter & Setter
+    // 属性的Getter/Setter方法
+    
+    lazy var nextConfig: QDNavigationBarConfig = {
+        if let config = self.navigationController?.navBarConfig {
+            let nextConfig = config.copy() as! QDNavigationBarConfig
+            nextConfig.backgroundColor = UIColor.red
+            return nextConfig
+        } else {
+            return QDNavigationBarConfig()
+        }
+    }()
+    
+    lazy var editorView: QDConfigEditorView = QDConfigEditorView()
+    
+    lazy var nextEditorView: QDConfigEditorView = QDConfigEditorView()
+    
+    lazy var pushButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("PUSH新页面", for: .normal)
+        button.addTarget(self, action: #selector(pushButtonClick(button:)), for: .touchUpInside)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.backgroundColor = UIColor(red: 46/255.0, green: 204/255.0, blue: 113/255.0, alpha: 1)
+        button.layer.cornerRadius = 8.0
+        button.layer.shadowOffset = CGSize(width: 3, height: 3);
+        button.layer.shadowOpacity = 0.3;
+        button.layer.shadowRadius = 8.0;
+        return button
+    }()
+    
+    lazy var pushButtonPlaceHolder: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var currentTipLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = UIColor.white
+        label.textColor = UIColor.black
+        label.text = "当前页面设置"
+        return label
+    }()
+    
+    lazy var nextTipLabel : UILabel = {
+        let label = UILabel()
+        label.backgroundColor = UIColor.white
+        label.textColor = UIColor.black
+        label.text = "新页面设置"
+        return label
+    }()
+    
+    lazy var scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.alwaysBounceVertical = true
+        return view
+    }()
+
 }
 
+// MARK: - Delegates
+// 实现遵循的代理方法
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return self.navigationController?.viewControllers.count ?? 0 > 1;
-    }
-}
-
-extension ViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        var alpha:CGFloat = 0
-        switch offsetY {
-        case  _ where offsetY < -88:
-            alpha = 0
-        case -88...100:
-            alpha = (88 + offsetY)/188.0
-        case _ where offsetY > 100:
-            alpha = 1
-        default:
-            alpha = 1
-        }
-//        self.navBarConfig?.alpha = alpha
-
-//        print(offsetY)
     }
 }

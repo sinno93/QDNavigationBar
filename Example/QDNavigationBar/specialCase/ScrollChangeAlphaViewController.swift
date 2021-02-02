@@ -9,6 +9,50 @@
 import UIKit
 
 class ScrollChangeAlphaViewController: UIViewController {
+    // MARK: - Initialization
+    // MARK: - Life cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.cameraButton)
+        self.navigationItem.titleView = self.titleLabel;
+        
+        let config = self.navigationController?.navBarConfig?.copy() as? QDNavigationBarConfig
+        config?.backgroundColor = UIColor.init(white: 1, alpha: 0.8)
+        config?.needBlurEffect = true
+        config?.statusBarStyle = .lightContent
+        config?.alpha = 0
+        self.navBarConfig = config
+        configSubviews()
+    }
+    
+    // MARK: - Actions
+    // view的一些事件比如按钮点击、手势事件处理、通知处理
+    @objc func backClick() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    // MARK: - Private method
+    // 控制器的一些私有的辅助方法
+    func configSubviews() {
+        self.view.backgroundColor = .lightGray
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
+        if #available(iOS 11.0, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+            self.navigationItem.largeTitleDisplayMode = .never
+        }
+    }
+    // MARK: - Getter & Setter
+    // 属性的Getter/Setter方法
     lazy var backButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         button.setImage(UIImage(named: "backicon")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -21,6 +65,7 @@ class ScrollChangeAlphaViewController: UIViewController {
         button.addTarget(self, action: #selector(backClick), for: .touchUpInside)
         return button
     }()
+    
     lazy var cameraButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         button.setImage(UIImage(named: "cameraicon")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -32,6 +77,7 @@ class ScrollChangeAlphaViewController: UIViewController {
         ])
         return button
     }()
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 17.9)
@@ -45,8 +91,10 @@ class ScrollChangeAlphaViewController: UIViewController {
         let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 375, height: 400))
         view.image = UIImage(named: "alphaVC_bgimage")
         view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true;
         return view;
     }()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
@@ -57,47 +105,10 @@ class ScrollChangeAlphaViewController: UIViewController {
         tableView.backgroundColor = .black
         return tableView
     }()
-    @objc func backClick() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.cameraButton)
-        self.navigationItem.titleView = self.titleLabel;
-        view.backgroundColor = .lightGray
-        let config = self.navigationController?.navBarConfig?.copy() as? QDNavigationBarConfig
-        config?.backgroundColor = UIColor.init(white: 1, alpha: 0.8)
-        config?.needBlurEffect = true
-        config?.statusBarStyle = .lightContent
-        config?.alpha = 0
-        self.navBarConfig = config
-        self.automaticallyAdjustsScrollViewInsets = false
-        if #available(iOS 11.0, *) {
-            self.tableView.contentInsetAdjustmentBehavior = .never
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.view.safeAreaInsets.bottom, 0)
-            self.navigationItem.largeTitleDisplayMode = .never
-        }
-        
-        configSubviews()
-    }
-    func configSubviews() {
-        self.view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-    }
-    override func viewSafeAreaInsetsDidChange() {
-        if #available(iOS 11.0, *) {
-            super.viewSafeAreaInsetsDidChange()
-            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.view.safeAreaInsets.bottom, right: 0)
-        }
-    }
 }
 
+// MARK: - Delegates
+// 实现遵循的代理方法
 extension ScrollChangeAlphaViewController:  UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

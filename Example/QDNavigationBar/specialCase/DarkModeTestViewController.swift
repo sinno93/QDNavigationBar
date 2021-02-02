@@ -25,7 +25,7 @@ class DarkModeTestViewController: UITableViewController {
             })
             self.navBarConfig = config
         } else {
-            // Fallback on earlier versions
+            
         }
         // Do any additional setup after loading the view.
     }

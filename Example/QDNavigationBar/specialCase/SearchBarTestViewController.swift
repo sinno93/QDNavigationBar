@@ -10,31 +10,31 @@ import UIKit
 import QDNavigationBar
 
 class SearchBarTestViewController: UIViewController {
-
-    lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect.zero, style: .plain)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.tableFooterView = UIView()
-        return tableView
-    }()
-
+    
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        self.title = "Search bar"
+        
+        // 设置自定义的导航栏样式
         let config = self.navigationController?.navBarConfig?.copy() as? QDNavigationBarConfig
         config?.backgroundColor = UIColor.systemOrange
         self.navBarConfig = config
-        self.title = "Search bar"
+        
         if #available(iOS 11.0, *) {
             self.navigationItem.searchController = UISearchController()
+            tipTitle = "↓↓↓ 下拉查看导航栏带search bar效果 ↓↓↓"
         } else {
-            // Fallback on earlier versions
+            tipTitle = "iOS11.0以下系统不支持设置searchController~ "
         }
+        
         configSubviews()
     }
+    
+    // MARK: - Private method
+    // 控制器的一些私有的辅助方法
     func configSubviews() {
+        self.view.backgroundColor = .lightGray
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -43,9 +43,23 @@ class SearchBarTestViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
-
+    
+    // MARK: - Getter & Setter
+    // 属性的Getter/Setter方法
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.tableFooterView = UIView()
+        return tableView
+    }()
+    
+    var tipTitle = ""
 }
 
+// MARK: - Delegates
+// 实现遵循的代理方法
 extension SearchBarTestViewController:  UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,13 +67,15 @@ extension SearchBarTestViewController:  UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cellId")
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "cellId")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId") ?? UITableViewCell(style: .default, reuseIdentifier: "cellId")
+        if indexPath.row == 0 {
+            cell.textLabel?.text = self.tipTitle
+        } else {
+            cell.textLabel?.text = "\(indexPath.row)"
         }
-        cell?.textLabel?.text = "\(indexPath.row)"
-        return cell!
+        return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView .deselectRow(at: indexPath, animated: true)
     }

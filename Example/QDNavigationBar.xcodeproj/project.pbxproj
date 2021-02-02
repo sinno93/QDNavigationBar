@@ -104,9 +104,9 @@
 		4122AF5725C70ABA00D50135 /* specialCase */ = {
 			isa = PBXGroup;
 			children = (
-				4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */,
 				4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */,
 				4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */,
+				4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */,
 				4122AF5A25C7103900D50135 /* ScrollChangeAlphaViewController.swift */,
 			);
 			path = specialCase;
