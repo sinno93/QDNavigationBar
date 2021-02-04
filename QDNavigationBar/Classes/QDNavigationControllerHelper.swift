@@ -9,9 +9,9 @@ import UIKit
 
 class QDNavigationControllerHelper: NSObject {
     weak var nav: UINavigationController?
-    weak var navRealDelegate: UINavigationControllerDelegate?
     var lastStatusBarHidden: Bool?
     var isTransitioning = false
+    lazy var puppet: QDNavigationDelegatePuppet = QDNavigationDelegatePuppet()
     lazy var customNavContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.clear
@@ -31,22 +31,11 @@ class QDNavigationControllerHelper: NSObject {
         self.nav = nav
         super.init()
     }
-    override func responds(to aSelector: Selector!) -> Bool {
-        if type(of: self).instancesRespond(to: aSelector) {
-            return true
-        }
-        let navResult = self.navRealDelegate?.responds(to: aSelector) ?? false
-        return navResult
-    }
-    override func forwardingTarget(for aSelector: Selector!) -> Any? {
-        return self.navRealDelegate
-    }
 }
 
 extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         // 传递事件给真实代理
-        self.navRealDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
         guard let _ = navigationController.navBarConfig else {
             return
         }
@@ -358,3 +347,8 @@ extension QDCustomNavFakeView {
     }
 }
 
+class QDNavigationDelegatePuppet: NSObject, UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+//        print("viewwillshow")
+//    }
+}

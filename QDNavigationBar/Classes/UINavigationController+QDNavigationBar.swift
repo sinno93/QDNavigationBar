@@ -27,10 +27,11 @@ extension UINavigationController {
             if qd_navhelper == nil {
                 qd_navhelper = QDNavigationControllerHelper.init(nav: self)
             }
-            if !(self.delegate is QDNavigationControllerHelper) {
-                qd_navhelper?.navRealDelegate = delegate;
+            if let delegate = self.delegate {
+                QDNavDelegateProxy.inject(with: delegate)
+            } else {
+                self.delegate = qd_navhelper?.puppet
             }
-            self.delegate = qd_navhelper
         }
     }
 }
@@ -55,17 +56,14 @@ extension UINavigationController {
         qdExchangeMethod(#selector(getter:childForStatusBarStyle), selector2: #selector(qd_childForStatusBarStyle))
     }
     @objc func qd_setDelegate(_ delegate: UINavigationControllerDelegate?) {
-        if delegate is QDNavigationControllerHelper {
+        guard let helper = self.qd_navhelper else {
             qd_setDelegate(delegate)
-        } else if qd_navhelper == nil {
-            qd_setDelegate(delegate)
-        } else {
-            qd_navhelper?.navRealDelegate = delegate
-            // 在设置delegate时，系统会调用respondToSelector来判断这个delegate支持哪些协议方法,并且进行缓存
-            // 这里先置nil再重新设置代理避免这个缓存
-            qd_setDelegate(nil)
-            qd_setDelegate(qd_navhelper)
+            return
         }
+        // 如果要设置的代理为nil,则改为我们的傀儡代理
+        let resolveDelegate = delegate == nil ? helper.puppet : delegate!
+        QDNavDelegateProxy.inject(with: resolveDelegate)
+        qd_setDelegate(resolveDelegate)
     }
     
     @objc func qdnav_preferredStatusBarStyle() -> UIStatusBarStyle {
