@@ -128,6 +128,9 @@ class QDNavDelegateProxy: QDNavDelegateProxySuper {
 
 
 extension NSObject {
+    /// 获取类的最后一个实现实例方法instanceSelector的类
+    ///
+    /// 将会顺着类继承链一直往上找，直到找到第一个实现该Selector的类或者superClass为nil为止
     static func lastClassImple(instanceSelector: Selector) -> AnyClass? {
         guard self.instancesRespond(to: instanceSelector), let lastImp = self.instanceMethod(for: instanceSelector) else {
             return nil

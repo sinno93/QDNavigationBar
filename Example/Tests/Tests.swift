@@ -1,5 +1,5 @@
 import XCTest
-import QDNavigationBar
+@testable import QDNavigationBar
 
 class Tests: XCTestCase {
     
@@ -13,6 +13,7 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
+    
     func testExample() {
         // This is an example of a functional test case.
         XCTAssert(true, "Pass")
@@ -24,5 +25,30 @@ class Tests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testLastClassImpleMethod() {
+        class Animal: NSObject {}
+        class Man: Animal {
+            @objc func speak() {}
+        }
+        class Goodman: Man{}
+        class Chairman: Man {
+            @objc override func speak() {}
+        }
+        let sel = Selector("speak")
+        let obj:    AnyClass? = NSObject.lastClassImple(instanceSelector: sel)
+        let animal: AnyClass? = Animal.lastClassImple(instanceSelector: sel)
+        let man:    AnyClass? = Man.lastClassImple(instanceSelector: sel)
+        let goodman:AnyClass? = Goodman.lastClassImple(instanceSelector: sel)
+        let chairman:AnyClass? = Chairman.lastClassImple(instanceSelector: sel)
+        
+        XCTAssert(obj == nil)
+        XCTAssert(animal == nil)
+        XCTAssert(man == Man.self)
+        XCTAssert(goodman == Man.self)
+        XCTAssert(chairman == Man.self)
+        
+    }
+    
     
 }
