@@ -26,7 +26,7 @@ class Tests: XCTestCase {
         }
     }
     
-    func testLastClassImpleMethod() {
+    func test_lastClassImpleMethod() {
         class Animal: NSObject {}
         class Man: Animal {
             @objc func speak() {}
@@ -46,7 +46,7 @@ class Tests: XCTestCase {
         XCTAssert(animal == nil)
         XCTAssert(man == Man.self)
         XCTAssert(goodman == Man.self)
-        XCTAssert(chairman == Man.self)
+        XCTAssert(chairman == Chairman.self)
         
     }
     
