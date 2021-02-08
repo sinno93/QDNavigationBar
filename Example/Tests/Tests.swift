@@ -50,5 +50,17 @@ class Tests: XCTestCase {
         
     }
     
+    func test_inject() {
+        class DelegateClass: NSObject {
+            
+        }
+        let selecter = #selector(UINavigationControllerDelegate.navigationController(_:willShow:animated:))
+        
+        let beforeRespond = DelegateClass.instancesRespond(to: selecter)
+        QDNavDelegateProxy.inject(with: DelegateClass.self)
+        let afterRespond = DelegateClass.instancesRespond(to: selecter)
+        XCTAssert(!beforeRespond && afterRespond)
+    }
+    
     
 }
