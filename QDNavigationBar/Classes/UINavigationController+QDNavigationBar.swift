@@ -87,6 +87,9 @@ extension UINavigationController {
         // 是否是刘海系屏幕手机，此处根据window的safeAreaInset.bottom来判断
         let isNotchScreenPhone:Bool = {
             guard let window = self.view.window else { return false}
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return false
+            }
             if #available(iOS 11.0, *) {
                 return window.safeAreaInsets.bottom > 1
             } else {
