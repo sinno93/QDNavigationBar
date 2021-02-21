@@ -55,7 +55,8 @@ class QDNavDelegateProxy: NSObject, UINavigationControllerDelegate {
         let replaceCloure: @convention(block) (UINavigationControllerDelegate, UINavigationController, UIViewController, Bool) -> Void = { receiver, nav, vc, animated in
             // 1. let delegate = nav.delegate, delegate.isEqual(receiver): 确保当前receiver是navigationController的delegate,解决有些实现(比如hero)可能会在设置delegate前持有原delegate，然后在代理方法里再调用原delegate相应方法，导致helper被执行两次的问题
             // 2.let _ = nav.navBarConfig, let helper = nav.qd_navhelper 确保不影响未使用QDNavigationBar的navigationController
-            // 3.classname == NSStringFromClass(type(of: receiver)) 确保在同时hook了父类和子类的情况下，一次代理方法调用，helper也只执行一次。
+            // 3.delegateClass == lastImpleClass 作用：1.确保在同时hook了父类和子类的情况下，一次代理方法调用，helper也只执行一次；
+            //                                        2.在子类未实现willShow,父类实现的情况下，helper的方法也可以正常被执行
             
             let lastImpleClass: AnyClass? = (type(of: receiver) as? NSObject.Type)?.lastClassImple(instanceSelector: originSel)
             
