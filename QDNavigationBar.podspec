@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'QDNavigationBar'
-  s.version          = '0.3.0'
+  s.version          = '0.4.0'
   s.summary          = 'Customize the navigation bar style for each of your controllers'
 
   s.homepage         = 'https://github.com/sinno93/QDNavigationBar'
