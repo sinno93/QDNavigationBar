@@ -27,6 +27,13 @@ class QDNavigationControllerHelper: NSObject {
         return view
     }()
     
+    static let isStatusBarBasedOnVC: Bool = {
+        guard let value = Bundle.main.object(forInfoDictionaryKey: "UIViewControllerBasedStatusBarAppearance") as? Bool else {
+            return true
+        }
+        return value
+    }()
+    
     init(nav: UINavigationController) {
         self.nav = nav
         super.init()
@@ -36,7 +43,6 @@ class QDNavigationControllerHelper: NSObject {
 
 extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        // 传递事件给真实代理
         guard let _ = navigationController.navBarConfig else {
             return
         }
@@ -45,7 +51,8 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             navigationController.setNavigationBarHidden(config.barHidden, animated: animated)
         }
         self.bgView.isHidden = false
-        self.nav?.setNeedsStatusBarAppearanceUpdate()
+        self.updateStatusBar(config)
+        
         if navigationController.transitionCoordinator == nil {
             // 配置
             self.navBarConfigView(config)
@@ -120,7 +127,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             }
             if let targetConfig = targetConfig {
                 self.navBarConfigView(targetConfig)
-                self.nav?.setNeedsStatusBarAppearanceUpdate()
+                self.updateStatusBar(targetConfig)
                 if navigationController.isNavigationBarHidden != targetConfig.barHidden {
                     navigationController.setNavigationBarHidden(targetConfig.barHidden, animated: false)
                 }
@@ -273,10 +280,23 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         let isEmptyNav = nav.topViewController == nil && self.nav == vc
         if (isTopVC || isEmptyNav) && !self.isTransitioning {
             self.navBarConfigView(config)
-            nav.setNeedsStatusBarAppearanceUpdate()
+            self.updateStatusBar(config)
             if nav.isNavigationBarHidden != config.barHidden {
                 nav.setNavigationBarHidden(config.barHidden, animated: UIView.areAnimationsEnabled)
             }
+        }
+    }
+    
+    // 更新状态栏样式
+    func updateStatusBar(_ config: QDNavigationBarConfig) {
+        if QDNavigationControllerHelper.isStatusBarBasedOnVC {
+            self.nav?.setNeedsStatusBarAppearanceUpdate()
+        } else {
+            // 此处兼容在info.plist里设置了UIViewControllerBasedStatusBarAppearance为NO的情况：
+            // 在这种情况下，状态栏的样式由UIApplication单例管理(而不是控制器)
+            // 由于iOS9.0已经废弃statusBarStyle&的setter方法，此处会有警告
+            UIApplication.shared.statusBarStyle = config.statusBarStyle
+            UIApplication.shared.isStatusBarHidden = config.statusBarHidden
         }
     }
 }
