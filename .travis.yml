@@ -11,4 +11,4 @@ language: objective-c
 # - pod install --project-directory=Example
 script:
 - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/QDNavigationBar.xcworkspace -scheme QDNavigationBar-Example -destination 'platform=iOS Simulator,name=iPhone 11 Pro' | xcpretty
-- pod lib lint
+- pod lib lint --allow-warnings
