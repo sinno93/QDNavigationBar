@@ -62,5 +62,10 @@ class Tests: XCTestCase {
         XCTAssert(!beforeRespond && afterRespond)
     }
     
+    // 测试直接对UINavigationController设置navBarConfig
+    func test_navsetconfig() {
+        let nav = UINavigationController(rootViewController: UIViewController())
+        nav.navBarConfig = QDNavigationBarConfig()
+    }
     
 }
