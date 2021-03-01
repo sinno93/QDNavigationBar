@@ -37,7 +37,6 @@ class QDNavigationControllerHelper: NSObject {
     init(nav: UINavigationController) {
         self.nav = nav
         super.init()
-        configBgViewIfNeed()
     }
 }
 
@@ -47,6 +46,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             return
         }
         let config = viewController.resolvedBarConfig ?? navigationController.navBarConfig!
+        configBgViewIfNeed()
         if navigationController.isNavigationBarHidden != config.barHidden {
             navigationController.setNavigationBarHidden(config.barHidden, animated: animated)
         }
