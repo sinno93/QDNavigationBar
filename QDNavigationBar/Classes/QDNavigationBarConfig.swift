@@ -90,6 +90,15 @@ final public class QDNavigationBarConfig: NSObject {
             refreshIfNeed()
         }
     }
+    
+    /// 是否需要管理状态栏
+    @objc public var needManagerStatusBar: Bool = true {
+        didSet {
+            guard needManagerStatusBar != oldValue else {return}
+            refreshIfNeed()
+        }
+    }
+    
     /// 状态栏样式
     /// 默认.default
     @objc public var statusBarStyle: UIStatusBarStyle = .default {
