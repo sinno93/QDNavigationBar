@@ -92,6 +92,11 @@ final public class QDNavigationBarConfig: NSObject {
     }
     
     /// 是否需要管理状态栏
+    /// 该属性仅对UINavigationController的config有效，默认true；
+    ///
+    /// 对于一个UINavigationController来说，其config的needManagerStatusBar值：
+    /// * 为true时，QDNavigationBar会根据topViewController的config的statusBarStyle、statusBarHidden的值来修改状态栏样式
+    /// * 为false时，此时QDNavigationBar不会对状态栏进行任何设置和更改，也即 statusBarStyle、statusBarHidden的值无效；
     @objc public var needManagerStatusBar: Bool = true {
         didSet {
             guard needManagerStatusBar != oldValue else {return}

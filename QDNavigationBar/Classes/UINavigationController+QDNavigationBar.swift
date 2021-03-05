@@ -67,7 +67,7 @@ extension UINavigationController {
     }
     
     @objc func qdnav_preferredStatusBarStyle() -> UIStatusBarStyle {
-        guard let config = self.navBarConfig else {
+        guard let config = self.navBarConfig, config.needManagerStatusBar == true else {
             return qdnav_preferredStatusBarStyle()
         }
         if let topVCConfig = self.topViewController?.resolvedBarConfig {
@@ -77,7 +77,7 @@ extension UINavigationController {
     }
     
      @objc  func qdnav_prefersStatusBarHidden() -> Bool {
-        guard let config = self.navBarConfig, let helper = self.qd_navhelper else {
+        guard let config = self.navBarConfig, config.needManagerStatusBar == true, let helper = self.qd_navhelper else {
             return qdnav_prefersStatusBarHidden()
         }
         
@@ -115,7 +115,7 @@ extension UINavigationController {
     }
     
     @objc func qd_childForStatusBarStyle() -> UIViewController? {
-        guard let _ = self.navBarConfig else {
+        guard let config = self.navBarConfig, config.needManagerStatusBar == true else {
             return qd_childForStatusBarStyle()
         }
         return nil
@@ -125,7 +125,7 @@ extension UINavigationController {
     // 猜测是iOS系统判断了真实的ViewController有没有实现prefersStatusBarHidden方法...
     //  所以，此处直接让UINavigationController的childForStatusBarHidden返回nil, 避免这个问题
     @objc func qd_childForStatusBarHidden() -> UIViewController? {
-        guard let _ = self.navBarConfig else {
+        guard let config = self.navBarConfig, config.needManagerStatusBar == true else {
             return qd_childForStatusBarHidden()
         }
         return nil

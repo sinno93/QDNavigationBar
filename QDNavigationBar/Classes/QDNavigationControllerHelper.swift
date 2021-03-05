@@ -289,6 +289,10 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     
     // 更新状态栏样式
     func updateStatusBar(_ config: QDNavigationBarConfig) {
+        // 只有开启了导航栏管理功能才更新导航栏样式
+        guard let config = self.nav?.navBarConfig, config.needManagerStatusBar == true else {
+            return
+        }
         if QDNavigationControllerHelper.isStatusBarBasedOnVC {
             self.nav?.setNeedsStatusBarAppearanceUpdate()
         } else {

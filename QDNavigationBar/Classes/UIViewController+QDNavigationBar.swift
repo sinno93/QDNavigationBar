@@ -86,14 +86,14 @@ extension UIViewController: QDSwizzlingProtocol {
     }
     
     @objc func qd_preferredStatusBarStyle() -> UIStatusBarStyle {
-        guard let config = self.navBarConfig else {
+        guard let config = self.resolvedBarConfig, let navConfig = self.navigationController?.navBarConfig, navConfig.needManagerStatusBar == true else {
             return qd_preferredStatusBarStyle()
         }
         return config.statusBarStyle
     }
     
     @objc func qd_prefersStatusBarHidden() -> Bool {
-        guard let config = self.navBarConfig else {
+        guard let config = self.resolvedBarConfig, let navConfig = self.navigationController?.navBarConfig, navConfig.needManagerStatusBar == true else {
             return qd_prefersStatusBarHidden()
         }
         return config.statusBarHidden
