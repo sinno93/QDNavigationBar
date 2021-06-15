@@ -14,6 +14,7 @@ class SampleListViewController: UIViewController{
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        // test
         self.title = "Special Case"
         
         // 为导航控制器开启QDNavigationBar样式管理功能
