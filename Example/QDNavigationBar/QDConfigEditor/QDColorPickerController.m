@@ -41,6 +41,7 @@
     [super viewDidLoad];
     [self configSubviews];
     [self setData];
+    self.containerView.hidden = YES;
     // Do any additional setup after loading the view.
 }
 
@@ -82,6 +83,7 @@
 - (void)show {
     self.view.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0];
     [self.view layoutIfNeeded];
+    self.containerView.hidden = NO;
     self.containerView.transform = CGAffineTransformMakeTranslation(0, self.containerView.frame.size.height);
     [UIView animateWithDuration:0.35 animations:^{
         self.containerView.transform = CGAffineTransformIdentity;
@@ -153,7 +155,7 @@ UIColor *colorWithRGBA(CGFloat r, CGFloat g, CGFloat b, CGFloat a) {
 }
 #pragma mark - Private methods
 - (void)configSubviews {
-    self.view.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.4];
+    self.view.backgroundColor = UIColor.clearColor;
     [self.view addSubview:self.containerView];
     
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
