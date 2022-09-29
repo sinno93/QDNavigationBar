@@ -9,6 +9,12 @@
 import UIKit
 import QDNavigationBar
 
+extension SampleListViewController: UINavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        print("will show")
+    }
+}
+
 class SampleListViewController: UIViewController{
     
     // MARK: - Life cycle
@@ -25,10 +31,50 @@ class SampleListViewController: UIViewController{
             self.navigationController?.navigationBar.prefersLargeTitles = true
             self.navigationItem.largeTitleDisplayMode = .never
         }
+        
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        
+        let a = NSClassFromString("NSKVONotifying_QDNavigationBar_Example.SampleListViewController");
+        printClass(info: "addObserver前")
+        self.addObserver(self, forKeyPath: "title", options: .new, context: nil);
+        self.addObserver(self, forKeyPath: "view", options: .new, context: nil)
+        printClass(info: "addObserver后")
+        
+        self.navigationController?.delegate = self
+        printMethods(info: "添加Observer后")
+        printClass(info: "设置delegate后")
+        self.removeObserver(self, forKeyPath: "title", context: nil)
+        self.removeObserver(self, forKeyPath: "view", context: nil)
+        printMethods(info: "remove-Observer title后")
+        printMethods(info: "remove-Observer title后", NSClassFromString("NSKVONotifying_QDNavigationBar_Example.SampleListViewController"))
+        printClass(info: "removeObserver后")
+        let b = NSClassFromString("NSKVONotifying_QDNavigationBar_Example.SampleListViewController");
+        self.addObserver(self, forKeyPath: "title", options: .new, context: nil);
+        printClass(info: "再次addObserver后")
+//        print(self.class)
         configSubviews()
     }
     
+    func printClass(info: String) {
+        let classname = String(cString: class_getName(object_getClass(self)))
+        let outClassName = NSStringFromClass(type(of: self))
+        print("\(info): \(classname) = \(outClassName)")
+    }
+    
+    func printMethods(info: String, _ toClass: AnyClass? = nil) {
+        return
+        let realClass: AnyClass? = toClass ?? object_getClass(self)
+        var count:UInt32 = 0
+        
+        let me = class_copyMethodList(realClass, &count)
+        print("\(info)----Start")
+        for i in 0..<count {
+            let str = String(cString:sel_getName(method_getName(me![Int(i)])))
+            print("\(str)")
+        }
+        print("\(info)----End")
+    }
     // MARK: - Private method
     // 控制器的一些私有的辅助方法
     func configSubviews() {

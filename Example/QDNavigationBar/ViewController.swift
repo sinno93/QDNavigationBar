@@ -9,7 +9,7 @@
 import UIKit
 import QDNavigationBar
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UINavigationControllerDelegate {
     // MARK: - Initialization
     
     // MARK: - Life cycle
@@ -34,6 +34,8 @@ class ViewController: UIViewController {
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         }
+        self.navigationController?.delegate = self
+        self.navigationController?.delegate = self;
     }
     
     override func viewWillAppear(_ animated: Bool) {

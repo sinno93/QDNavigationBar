@@ -8,6 +8,16 @@
 
 import UIKit
 import QDNavigationBar
+class Child: Person {
+    override func sayHi() {
+        print("child say hi")
+    }
+}
+class Person: NSObject {
+    @objc dynamic func sayHi() {
+        print("person sayHi");
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

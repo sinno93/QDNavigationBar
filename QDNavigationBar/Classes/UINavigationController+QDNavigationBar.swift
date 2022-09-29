@@ -28,7 +28,8 @@ extension UINavigationController {
                 qd_navhelper = QDNavigationControllerHelper.init(nav: self)
             }
             if let delegate = self.delegate {
-                QDNavDelegateProxy.inject(with: type(of: delegate))
+//                QDNavDelegateProxy.inject(with: type(of: delegate))
+                QDISAInjectTool.inject(with: delegate)
             } else {
                 self.delegate = qd_navhelper?.puppet
             }
@@ -62,7 +63,8 @@ extension UINavigationController {
         }
         // 如果要设置的代理为nil,则改为我们的傀儡代理
         let resolveDelegate = delegate == nil ? helper.puppet : delegate!
-        QDNavDelegateProxy.inject(with: type(of: resolveDelegate))
+//        QDNavDelegateProxy.inject(with: type(of: resolveDelegate))
+        QDISAInjectTool.inject(with: resolveDelegate)
         qd_setDelegate(resolveDelegate)
     }
     
