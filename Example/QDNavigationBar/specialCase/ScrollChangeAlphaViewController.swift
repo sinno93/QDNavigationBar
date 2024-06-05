@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QDNavigationBar
 
 class ScrollChangeAlphaViewController: UIViewController {
     // MARK: - Initialization

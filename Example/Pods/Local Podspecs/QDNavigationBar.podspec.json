@@ -1,6 +1,6 @@
 {
   "name": "QDNavigationBar",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "summary": "Customize the navigation bar style for each of your controllers",
   "homepage": "https://github.com/sinno93/QDNavigationBar",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/sinno93/QDNavigationBar.git",
-    "tag": "0.3.0"
+    "tag": "0.4.0"
   },
   "platforms": {
     "ios": "9.0"

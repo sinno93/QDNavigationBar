@@ -8,6 +8,7 @@
 
 import UIKit
 import QDNavigationBar
+import SnapKit
 
 class ViewController: UIViewController {
     // MARK: - Initialization
@@ -55,23 +56,25 @@ class ViewController: UIViewController {
     func configSubviews() {
         self.view.backgroundColor = UIColor.white
         self.view.addSubview(scrollView)
-        scrollView.mas_makeConstraints { (maker) in
-            maker?.top.equalTo()(self.view)
-            maker?.bottom.equalTo()(self.view)
+        scrollView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(self.view)
+            maker.bottom.equalTo(self.view)
             if #available(iOS 11.0, *) {
-                maker?.left.equalTo()(self.view.mas_safeAreaLayoutGuideLeft)
-                maker?.right.equalTo()(self.view.mas_safeAreaLayoutGuideRight)
+                maker.left.equalTo(self.view.safeAreaLayoutGuide.snp.left)
+                maker.right.equalTo(self.view.safeAreaLayoutGuide.snp.right)
             } else {
-                maker?.leading.equalTo()(self.view)
-                maker?.trailing.equalTo()(self.view)
+                maker.leading.equalTo(self.view)
+                maker.trailing.equalTo(self.view)
             }
         }
+        
         let containerView = UIView()
         scrollView.addSubview(containerView)
-        containerView.mas_makeConstraints { (maker) in
-            maker?.edges.equalTo()(scrollView)
-            maker?.width.equalTo()(scrollView)
+        containerView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(scrollView)
+            maker.width.equalTo(scrollView)
         }
+
         let viewList = [editorView,
                         currentTipLabel,
                         nextEditorView,
@@ -81,44 +84,45 @@ class ViewController: UIViewController {
         for view in viewList {
             containerView.addSubview(view)
         }
-        
-        editorView.mas_makeConstraints { (make) in
-            make?.top.equalTo()(containerView)?.offset()(25)
-            make?.leading.equalTo()(containerView)?.offset()(10)
-            make?.trailing.equalTo()(containerView)?.offset()(-10)
-            
+
+        editorView.snp.makeConstraints { (make) in
+            make.top.equalTo(containerView).offset(25)
+            make.leading.equalTo(containerView).offset(10)
+            make.trailing.equalTo(containerView).offset(-10)
         }
-        
-        currentTipLabel.mas_makeConstraints { (make) in
-            make?.centerX.equalTo()(containerView)
-            make?.centerY.equalTo()(editorView.mas_top)
+
+        currentTipLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(containerView)
+            make.centerY.equalTo(editorView.snp.top)
         }
-        
-        nextEditorView.mas_makeConstraints { (make) in
-            make?.top.equalTo()(editorView.mas_bottom)?.offset()(25)
-            make?.leading.equalTo()(containerView)?.offset()(10)
-            make?.trailing.equalTo()(containerView)?.offset()(-10)
+
+        nextEditorView.snp.makeConstraints { (make) in
+            make.top.equalTo(editorView.snp.bottom).offset(25)
+            make.leading.equalTo(containerView).offset(10)
+            make.trailing.equalTo(containerView).offset(-10)
         }
-        
-        nextTipLabel.mas_makeConstraints { (make) in
-            make?.centerX.equalTo()(containerView)
-            make?.centerY.equalTo()(nextEditorView.mas_top)
+
+        nextTipLabel.snp.makeConstraints { (make) in
+            make.centerX.equalTo(containerView)
+            make.centerY.equalTo(nextEditorView.snp.top)
         }
-        
-        pushButtonPlaceHolder.mas_makeConstraints { (make) in
-            make?.leading.equalTo()(containerView)?.offset()(40)
-            make?.trailing.equalTo()(containerView)?.offset()(-40)
-            make?.height.equalTo()(40)
-            make?.top.equalTo()(self.nextEditorView.mas_bottom)?.offset()(15)
-            make?.bottom.equalTo()(containerView)?.offset()(-400)
+
+        pushButtonPlaceHolder.snp.makeConstraints { (make) in
+            make.leading.equalTo(containerView).offset(40)
+            make.trailing.equalTo(containerView).offset(-40)
+            make.height.equalTo(40)
+            make.top.equalTo(nextEditorView.snp.bottom).offset(15)
+            make.bottom.equalTo(containerView).offset(-400)
         }
-        pushButton.mas_makeConstraints { (make) in
-            make?.leading.equalTo()(pushButtonPlaceHolder)
-            make?.trailing.equalTo()(pushButtonPlaceHolder)
-            make?.height.equalTo()(pushButtonPlaceHolder)
-            make?.bottom.lessThanOrEqualTo()(self.mas_bottomLayoutGuideTop)?.offset()(-15)
-            make?.top.equalTo()(pushButtonPlaceHolder.mas_top)?.priorityLow()()
+
+        pushButton.snp.makeConstraints { (make) in
+            make.leading.equalTo(pushButtonPlaceHolder)
+            make.trailing.equalTo(pushButtonPlaceHolder)
+            make.height.equalTo(pushButtonPlaceHolder)
+            make.bottom.lessThanOrEqualTo(self.view.snp.bottomMargin).offset(-15)
+            make.top.equalTo(pushButtonPlaceHolder.snp.top).priority(.low)
         }
+
     }
     // MARK: - Getter & Setter
     // 属性的Getter/Setter方法

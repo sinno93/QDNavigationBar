@@ -1,9 +1,11 @@
 use_frameworks!
+#platform :ios, '13.0'
 
 target 'QDNavigationBar_Example' do
+  
   pod 'QDNavigationBar', :path => '../'
 #  pod 'QDNavigationBar'
-  pod 'Masonry'
+  pod 'SnapKit'
   target 'QDNavigationBar_Tests' do
     inherit! :search_paths
 

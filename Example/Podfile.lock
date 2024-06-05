@@ -1,23 +1,23 @@
 PODS:
-  - Masonry (1.1.0)
-  - QDNavigationBar (0.3.0)
+  - QDNavigationBar (0.4.0)
+  - SnapKit (5.6.0)
 
 DEPENDENCIES:
-  - Masonry
   - QDNavigationBar (from `../`)
+  - SnapKit
 
 SPEC REPOS:
   trunk:
-    - Masonry
+    - SnapKit
 
 EXTERNAL SOURCES:
   QDNavigationBar:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  QDNavigationBar: 1cce8cc1d4c753055c801a4481b26f740f916c5b
+  QDNavigationBar: 3f69a2118447402bee8ff42f9bc6e61e243af591
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: 6d9529959a60951f9c8013af60bc1f755612ac2a
+PODFILE CHECKSUM: 636c7784f0cbb04724aa211f1fe89c8583089561
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.15.2

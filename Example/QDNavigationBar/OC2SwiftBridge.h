@@ -9,8 +9,7 @@
 #ifndef OC2SwiftBridge_h
 #define OC2SwiftBridge_h
 
-#import "QDConfigEditorView.h"
-#import "QDColorfulView.h"
-#import <Masonry/Masonry.h>
+//#import "QDConfigEditorView.h"
+//#import "QDColorfulView.h"
 
 #endif /* OC2SwiftBridge_h */
