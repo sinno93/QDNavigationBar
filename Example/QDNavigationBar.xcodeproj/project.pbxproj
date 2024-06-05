@@ -52,7 +52,6 @@
 		2BED695127CF4FF0B8009443 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4122AF5A25C7103900D50135 /* ScrollChangeAlphaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollChangeAlphaViewController.swift; sourceTree = "<group>"; };
 		4172B0232541F2AE00B3A260 /* DarkModeTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkModeTestViewController.swift; sourceTree = "<group>"; };
-		4172B0242541F2AE00B3A260 /* OC2SwiftBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OC2SwiftBridge.h; sourceTree = "<group>"; };
 		4172B0272541F2AE00B3A260 /* LargeTitleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeTitleViewController.swift; sourceTree = "<group>"; };
 		4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleListViewController.swift; sourceTree = "<group>"; };
 		4172B03B2541F2AE00B3A260 /* SearchBarTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarTestViewController.swift; sourceTree = "<group>"; };
@@ -144,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				4122AF5725C70ABA00D50135 /* specialCase */,
-				4172B0242541F2AE00B3A260 /* OC2SwiftBridge.h */,
 				4172B0282541F2AE00B3A260 /* QDConfigEditor */,
 				4172B03A2541F2AE00B3A260 /* SampleListViewController.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
@@ -555,7 +553,6 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = QDNavigationBar/OC2SwiftBridge.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -574,7 +571,6 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = QDNavigationBar/OC2SwiftBridge.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

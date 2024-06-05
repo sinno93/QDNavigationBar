@@ -8,8 +8,7 @@
 import UIKit
 
 extension UINavigationController {
-    static var qd_configKey = "qd_configkey"
-    static var qd_helperKey = "qd_helperKey"
+    private static var qd_helperKey: UInt8 = 0
     
     var qd_navhelper: QDNavigationControllerHelper? {
         set {
@@ -20,6 +19,7 @@ extension UINavigationController {
             return result
         }
     }
+    
     @objc public override var navBarConfig: QDNavigationBarConfig? {
         willSet {
             guard newValue != nil else {return}
@@ -37,14 +37,13 @@ extension UINavigationController {
 }
 
 extension UINavigationController {
-    func navBarConfigChanged(vc: UIViewController) {
-        self.qd_navhelper?.navConfigChanged(vc: vc)
-    }
+    
     override func qd_updateNavIfNeed() {
         guard let config = self.navBarConfig else {return}
         assert(config.contain(vc: self), "config不包含当前VC") // 理论上不会出现
-        self.navBarConfigChanged(vc: self.topViewController ?? self)
+        self.qd_navhelper?.navConfigChanged(vc: self.topViewController ?? self)
     }
+    
 }
 
 extension UINavigationController {

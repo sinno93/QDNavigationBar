@@ -13,7 +13,7 @@ class QDNavigationControllerHelper: NSObject {
     var isTransitioning = false
     lazy var puppet: QDNavigationDelegatePuppet = QDNavigationDelegatePuppet()
     lazy var customNavContainerView: UIView = {
-        let view = UIView()
+        let view = QDMonitorView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bgView)
@@ -272,6 +272,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         toRemoveViews.append(toBgView)
         toRemoveViews.append(fromBgView)
     }
+    
     func navConfigChanged(vc: UIViewController) {
         guard let config = vc.resolvedBarConfig, let nav = self.nav else {
             return
@@ -307,6 +308,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
 
 
 extension UIView {
+    
     func qd_fullWithView(view: UIView) {
         NSLayoutConstraint.activate([
             self.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -315,6 +317,7 @@ extension UIView {
             self.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+    
     // 获取最近公共父视图
     func closetCommonSuperView(view: UIView) -> UIView? {
         if self.isDescendant(of: view) {
@@ -373,4 +376,18 @@ class QDNavigationDelegatePuppet: NSObject, UINavigationControllerDelegate {
 //    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 //        print("viewwillshow")
 //    }
+}
+
+
+class QDMonitorView: UIView {
+    override func removeFromSuperview() {
+        NSLog("\(#function), \(self.superview)")
+        super.removeFromSuperview()
+        NSLog("\(#function), \(self.superview)")
+    }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        NSLog("\(#function)")
+    }
 }

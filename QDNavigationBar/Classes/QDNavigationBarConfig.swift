@@ -157,7 +157,7 @@ final public class QDNavigationBarConfig: NSObject {
         }
     }
     
-    class WeakContainer<T>:Equatable where T:AnyObject, T:Equatable {
+    private class WeakContainer<T>:Equatable where T:AnyObject, T:Equatable {
         static func == (lhs: QDNavigationBarConfig.WeakContainer<T>, rhs: QDNavigationBarConfig.WeakContainer<T>) -> Bool {
             return lhs.value == rhs.value
         }
@@ -167,9 +167,11 @@ final public class QDNavigationBarConfig: NSObject {
             self.value = value
         }
     }
+    
     // config可以被多个vc设置为navBarConfig
     // 此时当config被修改时，多个vc的样式都要同步进行修改
-    var vcList:[WeakContainer<UIViewController>] = []
+    private var vcList:[WeakContainer<UIViewController>] = []
+    
     func add(vc: UIViewController) {
         self.remove(vc: nil)
         let item = WeakContainer(value: vc)
@@ -177,11 +179,13 @@ final public class QDNavigationBarConfig: NSObject {
             vcList.append(item)
         }
     }
+    
     func remove(vc: UIViewController?) {
         vcList.removeAll { (item) -> Bool in
             item.value == vc
         }
     }
+    
     func contain(vc: UIViewController) -> Bool {
         vcList.contains(WeakContainer(value: vc))
     }

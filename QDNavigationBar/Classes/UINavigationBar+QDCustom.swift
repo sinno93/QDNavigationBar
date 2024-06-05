@@ -8,7 +8,7 @@
 import UIKit
 
 extension UINavigationBar {
-    static var qd_eventThroughKey = "qd_eventThrough_key"
+    static var qd_eventThroughKey: UInt8 = 0
     var qd_eventThrough: Bool {
         get {
            objc_getAssociatedObject(self, &UINavigationBar.qd_eventThroughKey) as? Bool ?? false
@@ -17,7 +17,6 @@ extension UINavigationBar {
         set {
             objc_setAssociatedObject(self, &UINavigationBar.qd_eventThroughKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
-        
     }
 }
 
