@@ -5,8 +5,7 @@
 //  Created by Sinno on 2020/09/21.
 //
 
-import Foundation
-
+import UIKit
 
 extension UIViewController {
     

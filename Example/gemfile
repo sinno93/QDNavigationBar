@@ -1,0 +1,5 @@
+source "https://rubygems.byted.org"
+source "https://mirrors.tuna.tsinghua.edu.cn/rubygems/"
+
+
+gem "cocoapods", "1.10.1"
