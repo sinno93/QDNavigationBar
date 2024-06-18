@@ -12,7 +12,7 @@ class QDNavigationControllerHelper: NSObject {
     var lastStatusBarHidden: Bool?
     var isTransitioning = false
     lazy var puppet: QDNavigationDelegatePuppet = QDNavigationDelegatePuppet()
-    lazy var customNavContainerView: UIView = {
+    lazy var customNavContainerView: QDMonitorView = {
         let view = QDMonitorView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -180,13 +180,20 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
             /// iOS11-12，large title时，barBackground的alpha会变化，所以将其加到navbar上与barBackgroundView同级，位于其下面
             navbar.insertSubview(containView, belowSubview: barBackgroundView)
         }
-        NSLayoutConstraint.activate([
-            containView.leadingAnchor.constraint(equalTo: navbar.leadingAnchor),
-            containView.trailingAnchor.constraint(equalTo: navbar.trailingAnchor),
-            containView.topAnchor.constraint(equalTo: barBackgroundView.topAnchor),
-            containView.bottomAnchor.constraint(equalTo: navbar.bottomAnchor),
-        ])
         
+        let leadingCons = containView.leadingAnchor.constraint(equalTo: navbar.leadingAnchor)
+        let trailingCons = containView.trailingAnchor.constraint(equalTo: navbar.trailingAnchor)
+        let topCons = containView.topAnchor.constraint(equalTo: barBackgroundView.topAnchor)
+        let bottomCons = containView.bottomAnchor.constraint(equalTo: navbar.bottomAnchor)
+        NSLayoutConstraint.activate([
+            leadingCons,
+            trailingCons,
+            topCons,
+            bottomCons,
+        ])
+        // 在navBar隐藏时，barBackgroundView会从父视图移除导致约束失效
+        // 这里保存约束，在添加到父视图时恢复约束
+        containView.cons = [leadingCons, trailingCons, bottomCons]
         self.nav?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.nav?.navigationBar.shadowImage = UIImage()
         self.nav?.navigationBar.isTranslucent = true
@@ -380,14 +387,12 @@ class QDNavigationDelegatePuppet: NSObject, UINavigationControllerDelegate {
 
 
 class QDMonitorView: UIView {
-    override func removeFromSuperview() {
-        NSLog("\(#function), \(self.superview)")
-        super.removeFromSuperview()
-        NSLog("\(#function), \(self.superview)")
-    }
+    var cons: [NSLayoutConstraint] = []
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        NSLog("\(#function)")
+        if self.window != nil {
+            cons.forEach { $0.isActive = true }
+        }
     }
 }
