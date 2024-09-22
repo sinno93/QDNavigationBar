@@ -9,28 +9,25 @@ import UIKit
 
 class QDCustomNavFakeView: UIView {
     
-    var blurEffectStyle: UIBlurEffect.Style = .light {
+    private var blurEffectStyle: UIBlurEffect.Style = .light {
         didSet {
             guard blurEffectStyle != oldValue else {return}
             self.effectView.effect = UIBlurEffect(style: blurEffectStyle)
         }
     }
     
-    lazy var bottomLineView: UIView = {
+    private lazy var bottomLineView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var effectView: UIVisualEffectView = {
+    private lazy var effectView: UIVisualEffectView = {
         let view = UIVisualEffectView.init(effect: UIBlurEffect.init(style: self.blurEffectStyle))
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         return view
@@ -46,19 +43,29 @@ class QDCustomNavFakeView: UIView {
         self.configSubviews()
     }
     
-    public func configSubviews() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.imageView.frame = self.bounds
+        self.effectView.frame = self.bounds
+        
+        let onePixel = 1.0 / UIScreen.main.scale
+        bottomLineView.frame = CGRect(x: 0, y: self.bounds.size.height, width: self.bounds.size.width, height: onePixel)
+    }
+    
+    private func configSubviews() {
         self.addSubview(self.bottomLineView)
         self.addSubview(self.imageView)
         self.addSubview(self.effectView)
-        let onePixel = 1.0/UIScreen.main.scale
-        
-        NSLayoutConstraint.activate([
-            self.bottomLineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.bottomLineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.bottomLineView.heightAnchor.constraint(equalToConstant: onePixel),
-            self.bottomLineView.topAnchor.constraint(equalTo: self.bottomAnchor),
-        ])
-        self.imageView.qd_fullWithView(view: self)
-        self.effectView.qd_fullWithView(view: self)
+    }
+}
+
+extension QDCustomNavFakeView {
+    func configView(_ config: QDNavigationBarConfig) {
+        self.backgroundColor = config.backgroundColor
+        self.bottomLineView.backgroundColor = config.bottomLineColor
+        self.blurEffectStyle = config.blurStyle
+        self.effectView.isHidden = !config.needBlurEffect;
+        self.imageView.image = config.backgroundImage
+        self.alpha = config.alpha
     }
 }

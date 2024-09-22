@@ -17,10 +17,8 @@ final public class QDNavigationBarConfig: NSObject {
     /// * .separate:随着页面分离
     /// * .fade: 渐变效果
     /// * .automatic: 会根据情况选择上面合适的切换样式:
-    ///    - 1.前后两个VC任意一个为largetitle模式，则取`.separate`
-    ///    - 2.前后两个VC任意一个导航栏上有搜索框(navigationItem.searchController != nil),则取`.separate`
-    ///    - 3.前后两个VC的barConfig相同，则取`.none`
-    ///    - 4.前后两个VC的barConfig不同，则取`.separate`
+    ///    - 前后两个VC的barConfig相同，则取`.none`
+    ///    - 前后两个VC的barConfig不同，则取`.separate`
     @objc public enum TransitionStyle: Int {
         case none
         case separate

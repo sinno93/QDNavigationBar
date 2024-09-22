@@ -8,11 +8,14 @@
 import UIKit
 
 class QDNavigationControllerHelper: NSObject {
-    weak var nav: UINavigationController?
+    
     var lastStatusBarHidden: Bool?
-    var isTransitioning = false
     lazy var puppet: QDNavigationDelegatePuppet = QDNavigationDelegatePuppet()
-    lazy var customNavContainerView: QDMonitorView = {
+    
+    private weak var nav: UINavigationController?
+    private var isTransitioning = false
+    
+    private lazy var customNavContainerView: QDMonitorView = {
         let view = QDMonitorView()
         view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -21,17 +24,10 @@ class QDNavigationControllerHelper: NSObject {
         return view
     }()
     
-    lazy var bgView: QDCustomNavFakeView = {
+    private lazy var bgView: QDCustomNavFakeView = {
         let view = QDCustomNavFakeView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
-    
-    static let isStatusBarBasedOnVC: Bool = {
-        guard let value = Bundle.main.object(forInfoDictionaryKey: "UIViewControllerBasedStatusBarAppearance") as? Bool else {
-            return true
-        }
-        return value
     }()
     
     init(nav: UINavigationController) {
@@ -136,24 +132,13 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     }
 
     
-    func trisationStyle(fromConfig: QDNavigationBarConfig, fromVC: UIViewController, toConfig: QDNavigationBarConfig, toVC: UIViewController, operation: UINavigationController.Operation) -> QDNavigationBarConfig.TransitionStyle {
+    private func trisationStyle(fromConfig: QDNavigationBarConfig, fromVC: UIViewController, toConfig: QDNavigationBarConfig, toVC: UIViewController, operation: UINavigationController.Operation) -> QDNavigationBarConfig.TransitionStyle {
         guard let nav = self.nav else {
             return .none
         }
         let targetConfig = operation == .push ? toConfig : fromConfig;
         if targetConfig.transitionStyle != .automatic {
             return targetConfig.transitionStyle;
-        }
-        // automatic
-        if #available(iOS 11.0, *) {
-            if nav.navigationBar.prefersLargeTitles {
-                if fromVC.navigationItem.largeTitleDisplayMode != .never || toVC.navigationItem.largeTitleDisplayMode !=  .never {
-                    return .separate
-                }
-            }
-            if fromVC.navigationItem.searchController != nil || toVC.navigationItem.searchController != nil {
-                return .separate
-            }
         }
         // 配置相似，则不需要动画
         if fromConfig.isSimilarStyle(config: toConfig) {
@@ -162,7 +147,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         return .separate
     }
     
-    func configBgViewIfNeed() {
+    private func configBgViewIfNeed() {
         guard self.customNavContainerView.superview == nil else {
             return
         }
@@ -172,14 +157,7 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         }
         
         let containView = self.customNavContainerView
-        
-        if #available(iOS 13.0, *) {
-            barBackgroundView.addSubview(containView)
-        } else {
-            /// 解决iOS11-12上 large title时 背景不显示的问题
-            /// iOS11-12，large title时，barBackground的alpha会变化，所以将其加到navbar上与barBackgroundView同级，位于其下面
-            navbar.insertSubview(containView, belowSubview: barBackgroundView)
-        }
+        barBackgroundView.addSubview(containView)
         
         let leadingCons = containView.leadingAnchor.constraint(equalTo: navbar.leadingAnchor)
         let trailingCons = containView.trailingAnchor.constraint(equalTo: navbar.trailingAnchor)
@@ -199,41 +177,33 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         self.nav?.navigationBar.isTranslucent = true
     }
     
-    func fadeAnimate(from fromView: UIView, fromConfig: QDNavigationBarConfig, to toView:UIView, toConfig: QDNavigationBarConfig, toRemoveViews: inout [UIView]) {
+   private func fadeAnimate(from fromView: UIView, fromConfig: QDNavigationBarConfig, to toView:UIView, toConfig: QDNavigationBarConfig, toRemoveViews: inout [UIView]) {
         // 隐藏bgView
         self.bgView.isHidden = true
-        let fromBgView = QDCustomNavFakeView()
-        let toBgView = QDCustomNavFakeView()
-        fromBgView.translatesAutoresizingMaskIntoConstraints = false
-        toBgView.translatesAutoresizingMaskIntoConstraints = false
-        if toView.isViewHigherThan(view: fromView) {
-            self.customNavContainerView.addSubview(fromBgView)
-            self.customNavContainerView.addSubview(toBgView)
-            
-        } else {
-            self.customNavContainerView.addSubview(toBgView)
-            self.customNavContainerView.addSubview(fromBgView)
-        }
-        UIView.performWithoutAnimation {
-            NSLayoutConstraint.activate([
-                fromBgView.leadingAnchor.constraint(equalTo: self.customNavContainerView.leadingAnchor),
-                fromBgView.trailingAnchor.constraint(equalTo: self.customNavContainerView.trailingAnchor),
-                fromBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor),
-                fromBgView.heightAnchor.constraint(equalToConstant: customNavContainerView.frame.size.height),
-                
-                toBgView.leadingAnchor.constraint(equalTo: customNavContainerView.leadingAnchor),
-                toBgView.trailingAnchor.constraint(equalTo: customNavContainerView.trailingAnchor),
-                toBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor),
-                toBgView.bottomAnchor.constraint(equalTo: customNavContainerView.bottomAnchor),
-            ])
-            fromBgView.configView(fromConfig)
-            toBgView.configView(toConfig)
-            customNavContainerView.layoutIfNeeded()
-        }
-        UIView.performWithoutAnimation {
-            toBgView.alpha = 0
-            fromBgView.alpha = 1
-        }
+       let fromBgView = QDCustomNavFakeView()
+       let toBgView = QDCustomNavFakeView()
+       
+       if toView.isViewHigherThan(view: fromView) {
+           self.customNavContainerView.addSubview(fromBgView)
+           self.customNavContainerView.addSubview(toBgView)
+       } else {
+           self.customNavContainerView.addSubview(toBgView)
+           self.customNavContainerView.addSubview(fromBgView)
+       }
+       
+       UIView.performWithoutAnimation {
+           
+           fromBgView.frame = self.customNavContainerView.bounds
+           toBgView.frame = self.customNavContainerView.bounds
+           fromBgView.configView(fromConfig)
+           toBgView.configView(toConfig)
+           
+           toBgView.alpha = 0
+           fromBgView.alpha = 1
+           toBgView.layoutIfNeeded()
+           fromBgView.layoutIfNeeded()
+       }
+        
         toBgView.alpha = 1
         fromBgView.alpha = 0
         fromBgView.backgroundColor = UIColor.white
@@ -242,37 +212,25 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
         toRemoveViews.append(fromBgView)
     }
     
-    func separateAnimate(from fromView: UIView, fromConfig: QDNavigationBarConfig, to toView:UIView, toConfig: QDNavigationBarConfig, toRemoveViews: inout [UIView]) {
+     private func separateAnimate(from fromView: UIView, fromConfig: QDNavigationBarConfig, to toView:UIView, toConfig: QDNavigationBarConfig, toRemoveViews: inout [UIView]) {
         // 隐藏bgView
         self.bgView.isHidden = true
         let fromBgView = QDCustomNavFakeView()
         let toBgView = QDCustomNavFakeView()
-        fromBgView.translatesAutoresizingMaskIntoConstraints = false
-        toBgView.translatesAutoresizingMaskIntoConstraints = false
         
         toView.addSubview(toBgView)
         fromView.addSubview(fromBgView)
-        var toConstrainsView = toView
-        var fromConstrainsView = fromView
-        // 解决控制器为UITableViewController的情况下 约束后宽度为0的问题
-        if toView is UITableView && toView.superview != nil {
-            toConstrainsView = toView.superview!
-        }
-        if fromView is UITableView && fromView.superview != nil {
-            fromConstrainsView = fromView.superview!
-        }
+         if toView is UIScrollView {
+             toView.superview?.addSubview(toBgView)
+         }
+         
+         if fromView is UIScrollView {
+             fromView.superview?.addSubview(fromBgView)
+         }
+
         UIView.performWithoutAnimation {
-            NSLayoutConstraint.activate([
-                fromBgView.leadingAnchor.constraint(equalTo: fromConstrainsView.leadingAnchor),
-                fromBgView.trailingAnchor.constraint(equalTo: fromConstrainsView.trailingAnchor),
-                fromBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor),
-                fromBgView.heightAnchor.constraint(equalToConstant: customNavContainerView.frame.size.height),
-                
-                toBgView.leadingAnchor.constraint(equalTo: toConstrainsView.leadingAnchor),
-                toBgView.trailingAnchor.constraint(equalTo: toConstrainsView.trailingAnchor),
-                toBgView.topAnchor.constraint(equalTo: customNavContainerView.topAnchor),
-                toBgView.bottomAnchor.constraint(equalTo: customNavContainerView.bottomAnchor),
-            ])
+            fromBgView.frame = CGRect(x: 0, y: 0, width: customNavContainerView.frame.size.width, height: customNavContainerView.frame.size.height)
+            toBgView.frame = CGRect(x: 0, y: 0, width: customNavContainerView.frame.size.width, height: customNavContainerView.frame.size.height)
             fromBgView.configView(fromConfig)
             toBgView.configView(toConfig)
         }
@@ -296,27 +254,19 @@ extension QDNavigationControllerHelper: UINavigationControllerDelegate {
     }
     
     // 更新状态栏样式
-    func updateStatusBar(_ config: QDNavigationBarConfig) {
+    private func updateStatusBar(_ config: QDNavigationBarConfig) {
         // 只有开启了导航栏管理功能才更新导航栏样式
         guard let config = self.nav?.navBarConfig, config.needManagerStatusBar == true else {
             return
         }
-        if QDNavigationControllerHelper.isStatusBarBasedOnVC {
-            self.nav?.setNeedsStatusBarAppearanceUpdate()
-        } else {
-            // 此处兼容在info.plist里设置了UIViewControllerBasedStatusBarAppearance为NO的情况：
-            // 在这种情况下，状态栏的样式由UIApplication单例管理(而不是控制器)
-            // 由于iOS9.0已经废弃statusBarStyle&的setter方法，此处会有警告
-            UIApplication.shared.statusBarStyle = config.statusBarStyle
-            UIApplication.shared.isStatusBarHidden = config.statusBarHidden
-        }
+        self.nav?.setNeedsStatusBarAppearanceUpdate()
     }
 }
 
 
 extension UIView {
     
-    func qd_fullWithView(view: UIView) {
+    fileprivate func qd_fullWithView(view: UIView) {
         NSLayoutConstraint.activate([
             self.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -326,7 +276,7 @@ extension UIView {
     }
     
     // 获取最近公共父视图
-    func closetCommonSuperView(view: UIView) -> UIView? {
+    private func closetCommonSuperView(view: UIView) -> UIView? {
         if self.isDescendant(of: view) {
             return view
         }
@@ -345,7 +295,7 @@ extension UIView {
         return nil
     }
     // self是否在view上层
-    func isViewHigherThan(view: UIView) -> Bool {
+    fileprivate func isViewHigherThan(view: UIView) -> Bool {
         guard let commonview = self.closetCommonSuperView(view: view) else {
             return false
         }
@@ -365,17 +315,6 @@ extension QDNavigationControllerHelper {
     func navBarConfigView(_ config: QDNavigationBarConfig) {
         self.bgView.configView(config)
         self.nav?.navigationBar.qd_eventThrough = config.eventThrough
-    }
-}
-
-extension QDCustomNavFakeView {
-    func configView(_ config: QDNavigationBarConfig) {
-        self.imageView.backgroundColor = config.backgroundColor
-        self.bottomLineView.backgroundColor = config.bottomLineColor
-        self.blurEffectStyle = config.blurStyle
-        self.effectView.isHidden = !config.needBlurEffect;
-        self.imageView.image = config.backgroundImage
-        self.alpha = config.alpha
     }
 }
 

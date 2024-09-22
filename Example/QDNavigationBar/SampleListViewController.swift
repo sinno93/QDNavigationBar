@@ -54,10 +54,10 @@ class SampleListViewController: UIViewController{
     
     
     lazy var dataList:[(String,UIViewController.Type)] = {
-            [("Large title", LargeTitleViewController.self),
-//            ("Search Bar",SearchBarTestViewController.self),
-            ("Dark Mode",DarkModeTestViewController.self),
-            ("Wechat效果", ScrollChangeAlphaViewController.self)]
+            [
+                ("Dark Mode",DarkModeTestViewController.self),
+                ("Wechat效果", ScrollChangeAlphaViewController.self)
+            ]
     }()
     
 }
